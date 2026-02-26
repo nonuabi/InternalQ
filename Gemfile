@@ -15,6 +15,12 @@ gem "solid_cable"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
+gem "devise"
+gem "sidekiq"
+gem "pgvector"
+gem "pdf-reader"
+gem "docx"
+gem "httparty"
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
