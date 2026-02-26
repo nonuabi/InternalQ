@@ -1,0 +1,17 @@
+<h1>Upload Document</h1>
+
+<%= form_with model: @document do |f| %>
+  <div>
+    <%= f.label :title %><br/>
+    <%= f.text_field :title %>
+  </div>
+
+  <div style="margin-top:10px;">
+    <%= f.label :file %><br/>
+    <%= f.file_field :file %>
+  </div>
+
+  <div style="margin-top:10px;">
+    <%= f.submit "Upload" %>
+  </div>
+<% end %>
