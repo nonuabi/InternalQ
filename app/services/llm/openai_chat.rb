@@ -1,6 +1,8 @@
-module LLM
-  class OpenAIChat
-    include httparty
+require "httparty"
+
+module Llm
+  class OpenaiChat
+    include HTTParty
     base_uri "https://api.openai.com/v1"
     MODEL = "gpt-4o-mini"
 
