@@ -1,0 +1,31 @@
+<h1>Company Q&A</h1>
+
+<p>
+  <%= link_to "Documents", documents_path %>
+</p>
+
+<%= form_with url: ask_path, method: :post, data: { turbo: false } do %>
+  <div>
+    <%= label_tag :question, "Ask a question" %><br/>
+    <%= text_area_tag :question, @question, rows: 4, style: "width: 100%;" %>
+  </div>
+  <div style="margin-top:10px;">
+    <%= submit_tag "Ask" %>
+  </div>
+<% end %>
+
+<% if @answer.present? %>
+  <hr/>
+  <h2>Answer</h2>
+  <pre style="white-space: pre-wrap;"><%= @answer %></pre>
+
+  <h3>Sources</h3>
+  <ul>
+    <% @sources.each do |s| %>
+      <li>
+        <%= s[:filename] %> (chunk <%= s[:chunk_index] %>)
+        — <%= link_to "view doc", document_path(s[:document_id]) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
