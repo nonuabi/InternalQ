@@ -14,17 +14,18 @@ class Documents::IndexJob < ApplicationJob
       document.document_chunks.destroy_all
 
       chunks.each_with_index do |chunk, index|
-        embedding = LLM::OpenAIEmbeddings.embed(chunk)
+        embedding = Llm::OpenaiEmbeddings.embed(chunk)
+        embedding_vector = "[#{embedding.join(",")}]"
 
         DocumentChunk.create!(
           organization: document.organization,
           document: document,
           chunk_index: index,
           content: chunk,
-          embedding: embedding,
+          embedding: embedding_vector,
           metadata: {
             title: document.title,
-            file_name: document.file.filename
+            file_name: document.file.filename.to_s
           }
         )
       end
@@ -32,7 +33,7 @@ class Documents::IndexJob < ApplicationJob
 
     document.update!(status: "indexed")
   rescue StandardError => e
-    document.update!(status: "failed", error_message: e.message)
+    document.update!(status: "failed", error_message: e.message) if document.present?
     raise e
   end
 end
