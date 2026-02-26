@@ -1,0 +1,9 @@
+<h1><%= @document.title %></h1>
+<p>Status: <%= @document.status %></p>
+<p><%= @document.extracted_text %></p>
+
+<% if current_user.admin? %>
+  <%= button_to "Delete", document_path(@document), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this document?" } %>
+<% end %>
+
+<%= link_to "Back", documents_path %>

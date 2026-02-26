@@ -10,6 +10,7 @@
     <th>File</th>
     <th>Status</th>
     <th>Updated</th>
+    <th>Actions</th>
   </tr>
   <% @documents.each do |d| %>
     <tr>
@@ -17,6 +18,11 @@
       <td><%= d.file.attached? ? d.file.filename.to_s : "-" %></td>
       <td><%= d.status %></td>
       <td><%= d.updated_at.strftime("%d %b %Y %H:%M") %></td>
+      <td>
+        <%if current_user.admin? %>
+          <%= link_to "Delete", document_path(d), method: :delete , data: { turbo_confirm: "Are you sure you want to delete this document?" } %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
