@@ -19,6 +19,7 @@ gem "pgvector"
 gem "pdf-reader"
 gem "docx"
 gem "httparty"
+gem "dotenv-rails"
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
