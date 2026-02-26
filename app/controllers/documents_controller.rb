@@ -1,7 +1,9 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :require_admin!, 
 
   def index
+    @documents = current_user.organization.documents.order(created_at: :desc)
   end
 
   def new
@@ -10,8 +12,11 @@ class DocumentsController < ApplicationController
 
   def create
     @document = current_user.organization.documents.new(document_params)
+    @document.status = "uploaded"
+    
     if @document.save
-      redirect_to documents_path, notice: "Document uploaded successfully"
+      Documents::IndexJob.perform_later(@document.id)
+      redirect_to documents_path, notice: "Uploaded! Indexing started in background..."
     else
       render :new, status: :unprocessable_entity
     end

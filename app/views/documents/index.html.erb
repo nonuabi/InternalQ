@@ -1,0 +1,22 @@
+<h1>Documents</h1>
+
+<h2>
+    <%= link_to "Upload Document", new_document_path if current_user.admin? %>
+</h2>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Title</th>
+    <th>File</th>
+    <th>Status</th>
+    <th>Updated</th>
+  </tr>
+  <% @documents.each do |d| %>
+    <tr>
+      <td><%= d.title.presence || "Untitled" %></td>
+      <td><%= d.file.attached? ? d.file.filename.to_s : "-" %></td>
+      <td><%= d.status %></td>
+      <td><%= d.updated_at.strftime("%d %b %Y %H:%M") %></td>
+    </tr>
+  <% end %>
+</table>
