@@ -13,7 +13,8 @@ gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
 gem "devise"
-gem "sidekiq"
+gem "sidekiq", ">= 7.3"
+gem "connection_pool", "~> 2.5", ">= 2.5.5"
 gem "pgvector"
 gem "pdf-reader"
 gem "docx"
