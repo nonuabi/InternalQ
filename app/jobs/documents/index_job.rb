@@ -9,19 +9,22 @@ class Documents::IndexJob < ApplicationJob
     document.update!(extracted_text: text)
 
     chunks = Documents::Chunker.call(text)
-    
+
     DocumentChunk.transaction do
       document.document_chunks.destroy_all
 
       chunks.each_with_index do |chunk, index|
+        embedding = LLM::OpenAIEmbeddings.embed(chunk)
+
         DocumentChunk.create!(
           organization: document.organization,
-          document_id: document.id,
+          document: document,
           chunk_index: index,
           content: chunk,
+          embedding: embedding,
           metadata: {
             title: document.title,
-            file_name: document.file.filename,
+            file_name: document.file.filename
           }
         )
       end
