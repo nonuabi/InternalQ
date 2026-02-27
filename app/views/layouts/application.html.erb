@@ -23,6 +23,42 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="kv-app-shell">
+      <header class="kv-app-header">
+        <div class="kv-app-header-inner">
+          <div class="kv-brand">
+            <div class="kv-logo">
+              <div class="kv-logo-dot"></div>
+            </div>
+            <div class="kv-brand-text">
+              <div class="kv-brand-title">Knowledge Vault</div>
+              <div class="kv-brand-subtitle">Internal AI search</div>
+            </div>
+          </div>
+
+          <nav class="kv-nav">
+            <%= link_to "Q&A", root_path, class: (current_page?(root_path) ? "kv-nav-active" : "") %>
+            <%= link_to "Documents", documents_path, class: (controller_name == "documents" ? "kv-nav-active" : "") %>
+          </nav>
+
+          <% if defined?(current_user) && current_user.present? %>
+            <div class="kv-user-pill">
+              <span><%= current_user.email %></span>
+              <div class="kv-user-dot"></div>
+            </div>
+          <% end %>
+        </div>
+      </header>
+
+      <main class="kv-main">
+        <div class="kv-main-inner">
+          <%= yield %>
+        </div>
+      </main>
+
+      <footer class="kv-footer">
+        <span>Knowledge Vault · private company search · <span class="kv-inline-muted">Powered by Rails & AI</span></span>
+      </footer>
+    </div>
   </body>
 </html>

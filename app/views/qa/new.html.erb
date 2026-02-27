@@ -1,31 +1,90 @@
-<h1>Company Q&A</h1>
+<div class="kv-page">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Company Q&A</h1>
+      <p>Ask questions in natural language and get answers grounded in your documents.</p>
+    </div>
 
-<p>
-  <%= link_to "Documents", documents_path %>
-</p>
-
-<%= form_with url: ask_path, method: :post, data: { turbo: false } do %>
-  <div>
-    <%= label_tag :question, "Ask a question" %><br/>
-    <%= text_area_tag :question, @question, rows: 4, style: "width: 100%;" %>
+    <div class="kv-badge-row">
+      <div class="kv-pill">
+        <span class="kv-pill-dot"></span>
+        Private, internal knowledge
+      </div>
+      <%= link_to "Manage documents", documents_path, class: "kv-ghost-button" %>
+    </div>
   </div>
-  <div style="margin-top:10px;">
-    <%= submit_tag "Ask" %>
-  </div>
-<% end %>
 
-<% if @answer.present? %>
-  <hr/>
-  <h2>Answer</h2>
-  <pre style="white-space: pre-wrap;"><%= @answer %></pre>
+  <%= form_with url: ask_path, method: :post, data: { turbo: false }, html: { class: "kv-form-grid" } do %>
+    <div>
+      <div class="kv-field-label">Ask a question</div>
+      <%= text_area_tag :question,
+                        @question,
+                        rows: 4,
+                        class: "kv-textarea",
+                        placeholder: "e.g. What is our parental leave policy?" %>
+      <div class="kv-field-hint">
+        Try asking about policies, benefits, procedures, or specific sections of uploaded documents.
+      </div>
+    </div>
 
-  <h3>Sources</h3>
-  <ul>
-    <% @sources.each do |s| %>
-      <li>
-        <%= s[:filename] %> (chunk <%= s[:chunk_index] %>)
-        — <%= link_to "view doc", document_path(s[:document_id]) %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+    <div class="kv-form-footer">
+      <%= submit_tag "Ask question", class: "kv-primary-button" %>
+      <span class="kv-meta-text kv-meta-muted">
+        Answers are AI-generated but always linked back to the original documents.
+      </span>
+    </div>
+  <% end %>
+
+  <% if @answer.present? %>
+    <div class="kv-answer-block">
+      <div class="kv-answer-header">
+        <div>
+          <div class="kv-answer-title">Answer</div>
+          <div class="kv-meta-text kv-meta-muted">
+            Generated from your internal documents.
+          </div>
+        </div>
+        <div class="kv-chip">
+          <span class="kv-chip-dot"></span>
+          AI generated
+        </div>
+      </div>
+
+      <div class="kv-answer-body">
+        <%= @answer %>
+      </div>
+
+      <% if @sources.present? %>
+        <div class="kv-answer-meta">
+          <div class="kv-meta-text kv-meta-muted kv-nowrap">
+            Sources used for this answer
+          </div>
+          <ul class="kv-source-list">
+            <% @sources.each do |s| %>
+              <li>
+                <div class="kv-source-label">
+                  <span class="kv-source-filename"><%= s[:filename] %></span>
+                  <span class="kv-source-meta">
+                    Chunk <%= s[:chunk_index] %> · Document ID <%= s[:document_id] %>
+                  </span>
+                </div>
+                <div>
+                  <%= link_to "View document", document_path(s[:document_id]), class: "kv-secondary-button" %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="kv-empty-state" style="margin-top: 1.1rem;">
+      <div class="kv-empty-main">
+        <div class="kv-empty-title">Ask your first question</div>
+        <div class="kv-empty-subtitle">
+          For example: “Summarize the onboarding process” or “What are our working-from-home guidelines?”
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

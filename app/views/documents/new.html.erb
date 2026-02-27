@@ -1,17 +1,35 @@
-<h1>Upload Document</h1>
+<div class="kv-page">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Upload document</h1>
+      <p>Add a policy, handbook, or PDF that your Q&A assistant can search across.</p>
+    </div>
 
-<%= form_with model: @document do |f| %>
-  <div>
-    <%= f.label :title %><br/>
-    <%= f.text_field :title %>
+    <%= link_to "Back to documents", documents_path, class: "kv-ghost-button" %>
   </div>
 
-  <div style="margin-top:10px;">
-    <%= f.label :file %><br/>
-    <%= f.file_field :file %>
-  </div>
+  <%= form_with model: @document, html: { class: "kv-form-grid" } do |f| %>
+    <div>
+      <div class="kv-field-label">Title</div>
+      <%= f.text_field :title, class: "kv-input", placeholder: "e.g. Employee handbook 2025" %>
+      <div class="kv-field-hint">
+        Shown in the UI and used as a label for answer sources.
+      </div>
+    </div>
 
-  <div style="margin-top:10px;">
-    <%= f.submit "Upload" %>
-  </div>
-<% end %>
+    <div>
+      <div class="kv-field-label">File</div>
+      <%= f.file_field :file, class: "kv-file-input" %>
+      <div class="kv-field-hint">
+        PDF or DOCX files work best. Large files will be chunked automatically.
+      </div>
+    </div>
+
+    <div class="kv-form-footer">
+      <%= f.submit "Upload document", class: "kv-primary-button" %>
+      <span class="kv-meta-text kv-meta-muted">
+        Uploading will kick off background processing so it’s searchable in Q&A.
+      </span>
+    </div>
+  <% end %>
+</div>
