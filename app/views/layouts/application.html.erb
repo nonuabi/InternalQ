@@ -36,16 +36,27 @@
             </div>
           </div>
 
-          <nav class="kv-nav">
-            <%= link_to "Q&A", root_path, class: (current_page?(root_path) ? "kv-nav-active" : "") %>
-            <%= link_to "Documents", documents_path, class: (controller_name == "documents" ? "kv-nav-active" : "") %>
-          </nav>
+          <% if defined?(user_signed_in?) && user_signed_in? %>
+            <nav class="kv-nav">
+              <%= link_to "Q&A", root_path, class: (current_page?(root_path) ? "kv-nav-active" : "") %>
+              <%= link_to "Documents", documents_path, class: (controller_name == "documents" ? "kv-nav-active" : "") %>
+            </nav>
 
-          <% if defined?(current_user) && current_user.present? %>
             <div class="kv-user-pill">
               <span><%= current_user.email %></span>
               <div class="kv-user-dot"></div>
+              <%= button_to "Logout",
+                            destroy_user_session_path,
+                            method: :delete,
+                            form: { style: "margin: 0;" },
+                            class: "kv-ghost-button",
+                            data: { turbo_confirm: "Are you sure you want to log out?" } %>
             </div>
+          <% else %>
+            <nav class="kv-nav">
+              <%= link_to "Log in", new_user_session_path, class: (current_page?(new_user_session_path) ? "kv-nav-active" : "") %>
+              <%= link_to "Sign up", new_user_registration_path, class: (current_page?(new_user_registration_path) ? "kv-nav-active" : "") %>
+            </nav>
           <% end %>
         </div>
       </header>

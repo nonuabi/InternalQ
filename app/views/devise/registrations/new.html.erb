@@ -1,0 +1,72 @@
+<div class="kv-page">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Create your account</h1>
+      <p>Set up Knowledge Vault for your company in a few seconds.</p>
+    </div>
+
+    <div class="kv-badge-row">
+      <div class="kv-pill">
+        <span class="kv-pill-dot"></span>
+        First user becomes admin
+      </div>
+    </div>
+  </div>
+
+  <%= form_with model: resource,
+                as: resource_name,
+                url: registration_path(resource_name),
+                html: { class: "kv-form-grid" } do |f| %>
+
+    <% if resource.errors.any? %>
+      <div class="kv-empty-state">
+        <div class="kv-empty-main">
+          <div class="kv-empty-title">We couldn’t create your account</div>
+          <div class="kv-empty-subtitle">
+            <%= resource.errors.full_messages.first %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div>
+      <div class="kv-field-label">Work email</div>
+      <%= f.email_field :email,
+                        autofocus: true,
+                        autocomplete: "email",
+                        class: "kv-input",
+                        placeholder: "you@company.com" %>
+      <div class="kv-field-hint">
+        We’ll automatically create an organization based on this email.
+      </div>
+    </div>
+
+    <div>
+      <div class="kv-field-label">Password</div>
+      <%= f.password_field :password,
+                           autocomplete: "new-password",
+                           class: "kv-input" %>
+      <% if @minimum_password_length %>
+        <div class="kv-field-hint">
+          Must be at least <%= @minimum_password_length %> characters.
+        </div>
+      <% end %>
+    </div>
+
+    <div>
+      <div class="kv-field-label">Confirm password</div>
+      <%= f.password_field :password_confirmation,
+                           autocomplete: "new-password",
+                           class: "kv-input" %>
+    </div>
+
+    <div class="kv-form-footer">
+      <%= f.submit "Create account", class: "kv-primary-button" %>
+      <span class="kv-meta-text kv-meta-muted">
+        Already have an account?
+        <%= link_to "Log in", new_session_path(resource_name) %>
+      </span>
+    </div>
+  <% end %>
+</div>
+

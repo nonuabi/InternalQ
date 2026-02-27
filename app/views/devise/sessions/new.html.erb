@@ -1,0 +1,66 @@
+<div class="kv-page">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Log in</h1>
+      <p>Access your organization’s Knowledge Vault Q&A and documents.</p>
+    </div>
+
+    <div class="kv-badge-row">
+      <div class="kv-pill">
+        <span class="kv-pill-dot"></span>
+        Secure, SSO-ready auth
+      </div>
+    </div>
+  </div>
+
+  <%= form_with model: resource,
+                as: resource_name,
+                url: session_path(resource_name),
+                html: { class: "kv-form-grid" } do |f| %>
+
+    <% if resource.errors.any? %>
+      <div class="kv-empty-state">
+        <div class="kv-empty-main">
+          <div class="kv-empty-title">There was a problem signing you in</div>
+          <div class="kv-empty-subtitle">
+            <%= resource.errors.full_messages.first %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div>
+      <div class="kv-field-label">Work email</div>
+      <%= f.email_field :email,
+                        autofocus: true,
+                        autocomplete: "email",
+                        class: "kv-input",
+                        placeholder: "you@company.com" %>
+    </div>
+
+    <div>
+      <div class="kv-field-label">Password</div>
+      <%= f.password_field :password,
+                           autocomplete: "current-password",
+                           class: "kv-input" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="kv-meta-text">
+        <label>
+          <%= f.check_box :remember_me %>
+          <span>Keep me signed in</span>
+        </label>
+      </div>
+    <% end %>
+
+    <div class="kv-form-footer">
+      <%= f.submit "Log in", class: "kv-primary-button" %>
+      <span class="kv-meta-text kv-meta-muted">
+        No account yet?
+        <%= link_to "Sign up", new_registration_path(resource_name) %>
+      </span>
+    </div>
+  <% end %>
+</div>
+
