@@ -45,10 +45,18 @@
                 </td>
                 <td>
                   <% normalized_status = d.status.to_s.downcase %>
-                  <span class="kv-status-pill" data-status="<%= normalized_status %>">
-                    <span class="kv-status-dot"></span>
-                    <span><%= d.status.presence || "unknown" %></span>
-                  </span>
+                  <div>
+                    <span class="kv-status-pill" data-status="<%= normalized_status %>">
+                      <span class="kv-status-dot"></span>
+                      <span><%= d.status.presence || "unknown" %></span>
+                    </span>
+                    <% if normalized_status == "failed" && d.respond_to?(:error_message) && d.error_message.present? %>
+                      <div class="kv-meta-text kv-inline-danger" style="margin-top: 0.2rem; max-width: 260px; white-space: normal;">
+                        <span class="kv-mono">Error:</span>
+                        <%= truncate(d.error_message, length: 120) %>
+                      </div>
+                    <% end %>
+                  </div>
                 </td>
                 <td>
                   <div class="kv-meta-text">
