@@ -4,6 +4,11 @@ module Qa
       q_embed = Llm::OpenaiEmbeddings.embed(question)
       chunks = Search::ChunkSearch.call(organization_id: user.organization_id, query_embedding: q_embed, limit: 8)
 
+      return {
+        answer: "I couldn't find that in the uploaded documents.",
+        sources: []
+      } if chunks.empty?
+
       sources_block = chunks.each_with_index.map do |chunk, index|
         "SOURCE #{index}: #{chunk.metadata["file_name"]} (chunk #{chunk.chunk_index})\n #{chunk.content}"
       end.join("\n\n")

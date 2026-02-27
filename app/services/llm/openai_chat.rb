@@ -16,7 +16,7 @@ module Llm
         body: {
           model: MODEL,
           messages: [
-            { role: "system", content: "You are a helpful company policy assistant." },
+            { role: "system", content: "You are a strict RAG question-answering assistant. You MUST answer only using the information contained in the SOURCES provided in the user message. If the answer is not fully supported by the SOURCES, you MUST reply exactly: \"I couldn't find that in the uploaded documents.\" Do NOT answer any part of the question from your own knowledge or guess, even if it seems trivial (for example, math or general knowledge)." },
             { role: "user", content: prompt }
           ],
           temperature: 0.2
