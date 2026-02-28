@@ -49,8 +49,8 @@ Rails.application.configure do
   # Replace the default in-process memory cache store with a durable alternative.
   config.cache_store = :memory_store
 
-  # Use Sidekiq for Active Job.
-  config.active_job.queue_adapter = :sidekiq
+  # Use Sidekiq for Active Job. Set RUN_JOBS_INLINE=true to run jobs in the web process (no workers).
+  config.active_job.queue_adapter = ENV["RUN_JOBS_INLINE"].present? ? :inline : :sidekiq
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

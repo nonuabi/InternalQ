@@ -16,9 +16,8 @@ module Slack
       end
 
       event = payload["event"]
-      # Only handle app_mention and message (skip bot messages to avoid loops)
       return head :ok if event["bot_id"].present?
-      return head :ok unless %w[app_mention message].include?(event["type"])
+      return head :ok unless event["type"] == "app_mention"
 
       integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
       unless integration
