@@ -35,6 +35,8 @@ module Slack
       )
 
       data = response.parsed_response
+      Rails.logger.debug "Slack OAuth callback response: #{data.inspect}"
+      puts "Slack OAuth callback response: #{data.inspect}"
       unless data["ok"]
         return redirect_to integrations_path, alert: "Failed to connect to Slack. Please try again."
       end
