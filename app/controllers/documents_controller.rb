@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin!, only: [ :new, :create, :destroy ]
+  before_action :require_admin!
   before_action :set_document, only: [ :show, :destroy ]
 
   def index
@@ -44,11 +44,5 @@ class DocumentsController < ApplicationController
 
   def document_params
     params.require(:document).permit(:title, :file)
-  end
-
-  def require_admin!
-    unless current_user.admin?
-      redirect_to documents_path, alert: "You are not authorized to access this page"
-    end
   end
 end
