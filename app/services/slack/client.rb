@@ -15,5 +15,17 @@ module Slack
         body: { channel: channel, text: text }.to_json
       )
     end
+
+    # Revoke the bot token on Slack's side so the app is removed from the workspace.
+    def self.revoke_token(token:)
+      post(
+        "/auth.revoke",
+        headers: {
+          "Authorization" => "Bearer #{token}",
+          "Content-Type" => "application/x-www-form-urlencoded"
+        },
+        body: {}
+      )
+    end
   end
 end

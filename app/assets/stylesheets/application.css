@@ -763,7 +763,16 @@ a:hover {
 }
 
 .kv-integration-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
   margin-top: 0.25rem;
+}
+
+.kv-integration-actions .kv-integration-disconnect-form {
+  display: inline-block;
+  margin: 0;
 }
 
 .kv-button-slack {

@@ -35,6 +35,12 @@
               <%= link_to slack_connect_path, class: "kv-secondary-button" do %>
                 Reconnect
               <% end %>
+              <%= button_to "Disconnect",
+                            disconnect_slack_integrations_path,
+                            method: :delete,
+                            form: { class: "kv-integration-disconnect-form" },
+                            class: "kv-ghost-button kv-inline-danger",
+                            data: { turbo_confirm: "Disconnect Slack? Your workspace will stop receiving answers from Knowledge Vault. You can reconnect anytime." } %>
             </div>
           </div>
         <% else %>

@@ -13,7 +13,10 @@ Rails.application.routes.draw do
 
   resources :documents, only: [ :index, :new, :create, :show, :destroy ]
 
-  get "integrations", to: "integrations#index", as: :integrations
+  resources :integrations, only: [ :index ] do
+    delete "slack", to: "integrations#destroy_slack", on: :collection, as: :disconnect_slack
+  end
+
 
   get "ask", to: "qa#new"
   post "ask", to: "qa#create"
