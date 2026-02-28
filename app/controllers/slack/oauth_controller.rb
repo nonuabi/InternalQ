@@ -15,7 +15,8 @@ module Slack
           scope: bot_scopes,
           redirect_uri: ENV["SLACK_REDIRECT_URI"],
           state: org_id
-        }.to_query
+        }.to_query,
+        allow_other_host: true
       )
     end
 
@@ -35,7 +36,7 @@ module Slack
 
       data = response.parsed_response
       unless data["ok"]
-        return redirect_to root_path, alert: "Failed to connect to Slack. Please try again."
+        return redirect_to integrations_path, alert: "Failed to connect to Slack. Please try again."
       end
 
       integration = Integration.find_or_initialize_by(organization_id: org_id, provider: "slack")
@@ -47,7 +48,7 @@ module Slack
         bot_token: data["access_token"]
       )
 
-      redirect_to root_path, notice: "Slack integration connected successfully."
+      redirect_to integrations_path, notice: "Slack integration connected successfully."
     end
 
     private

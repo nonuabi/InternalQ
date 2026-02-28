@@ -682,3 +682,96 @@ a:hover {
   margin: 1.3rem 0 0.7rem;
   border-top: 1px dashed rgba(148, 163, 184, 0.6);
 }
+
+/* Integrations page */
+.kv-integrations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.kv-integration-card {
+  padding: 1.25rem 1.35rem;
+}
+
+.kv-integration-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.kv-integration-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.kv-integration-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e5e7eb;
+}
+
+.kv-integration-icon-slack {
+  background: linear-gradient(145deg, #4A154B, #2c2d30);
+  box-shadow: 0 2px 8px rgba(74, 21, 75, 0.4);
+}
+
+.kv-integration-icon-placeholder {
+  background: rgba(75, 85, 99, 0.6);
+  border: 1px dashed rgba(148, 163, 184, 0.5);
+  color: #9ca3af;
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.kv-integration-title-group {
+  min-width: 0;
+}
+
+.kv-integration-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f9fafb;
+  margin: 0 0 0.2rem 0;
+}
+
+.kv-integration-desc {
+  font-size: 0.78rem;
+  color: #9ca3af;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.kv-integration-status,
+.kv-integration-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+}
+
+.kv-integration-meta {
+  width: 100%;
+  margin-top: 0.15rem;
+}
+
+.kv-integration-actions {
+  margin-top: 0.25rem;
+}
+
+.kv-button-slack {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.kv-integration-card-coming .kv-integration-cta {
+  margin-top: 0.25rem;
+}

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   resources :documents, only: [ :index, :new, :create, :show, :destroy ]
 
+  get "integrations", to: "integrations#index", as: :integrations
+
   get "ask", to: "qa#new"
   post "ask", to: "qa#create"
 
