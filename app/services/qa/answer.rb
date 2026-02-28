@@ -1,8 +1,8 @@
 module Qa
   class Answer
-    def self.call(user:, question:)
+    def self.call(organization_id:, question:)
       q_embed = Llm::OpenaiEmbeddings.embed(question)
-      chunks = Search::ChunkSearch.call(organization_id: user.organization_id, query_embedding: q_embed, limit: 8)
+      chunks = Search::ChunkSearch.call(organization_id: organization_id, query_embedding: q_embed, limit: 8)
 
       return {
         answer: "I couldn't find that in the uploaded documents.",

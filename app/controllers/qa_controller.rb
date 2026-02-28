@@ -12,7 +12,7 @@ class QaController < ApplicationController
       return
     end
 
-    result = Qa::Answer.call(user: current_user, question: question)
+    result = Qa::Answer.call(organization_id: current_user.organization_id, question: question)
     @question = question
     @answer = result[:answer]
     @sources = result[:sources]

@@ -5,7 +5,7 @@ module Slack
       channel = event["channel"]
       question = sanitize(text)
 
-      result = Qa::Answer.call(user: integration.user, question: question)
+      result = Qa::Answer.call(organization_id: integration.organization_id, question: question)
       answer_text = result[:answer]
       # answer_text += "\n_Sources: #{result[:sources].map { |s| s[:filename] }.join(', ')}_" if result[:sources].present?
 
