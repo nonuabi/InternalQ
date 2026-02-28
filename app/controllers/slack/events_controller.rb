@@ -11,7 +11,7 @@ module Slack
         return render json: { challenge: payload["challenge"] }, status: :ok
       end
 
-      if payload["type"] == "event"
+      if payload["type"] == "event_callback"
         return head :ok
       end
 

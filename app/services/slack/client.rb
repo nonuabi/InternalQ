@@ -3,6 +3,8 @@ module Slack
     include HTTParty
     base_uri "https://slack.com/api"
 
+    debug_output $stdout
+
     def self.post_message(token:, channel:, text:)
       post(
         "/chat.postMessage",
