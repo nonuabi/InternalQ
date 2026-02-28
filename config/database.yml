@@ -2,33 +2,19 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_HOST") { "localhost" } %>
-  port: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_PORT") { 5432 } %>
-
 
 development:
   <<: *default
-  database: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_NAME") { "knowledge_vault_development" } %>
+  database: knowledge_vault_development
 
 test:
   <<: *default
-  database: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_NAME") { "knowledge_vault_test" } %>
+  database: knowledge_vault_test
 
 production:
-  primary: &primary_production
-    <<: *default
-    database: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_NAME") { "knowledge_vault_production" } %>
-    username: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_USERNAME") { "knowledge_vault" } %>
-    password: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_PASSWORD") { "knowledge_vault" } %>
-  cache:
-    <<: *primary_production
-    database: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_NAME") { "knowledge_vault_production_cache" } %>
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_NAME") { "knowledge_vault_production_queue" } %>
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: <%= ENV.fetch("KNOWLEDGE_VAULT_DATABASE_NAME") { "knowledge_vault_production_cable" } %>
-    migrations_paths: db/cable_migrate
+  <<: *default
+  database: <%= ENV["KNOWLEDGE_VAULT_DATABASE_NAME"] %>
+  username: <%= ENV["KNOWLEDGE_VAULT_DATABASE_USERNAME"] %>
+  password: <%= ENV["KNOWLEDGE_VAULT_DATABASE_PASSWORD"] %>
+  host: <%= ENV["KNOWLEDGE_VAULT_DATABASE_HOST"]%>
+  port: 5432
