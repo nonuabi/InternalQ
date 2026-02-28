@@ -15,4 +15,10 @@ Rails.application.routes.draw do
 
   get "ask", to: "qa#new"
   post "ask", to: "qa#create"
+
+  # Slack integration
+  namespace :slack do
+    get  "/connect",        to: "oauth#connect"
+    get  "/oauth/callback", to: "oauth#callback"
+  end
 end
