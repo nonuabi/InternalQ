@@ -6,6 +6,8 @@ module Llm
     base_uri "https://api.openai.com/v1"
     MODEL = "gpt-4o-mini"
 
+    debug_output $stdout
+
     def self.complete(prompt)
       resp = post(
         "/chat/completions",

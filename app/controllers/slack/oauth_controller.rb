@@ -3,8 +3,6 @@ module Slack
     before_action :authenticate_user!
     before_action :require_admin!
 
-
-
     def connect
       org_id = current_user.organization.id
 
