@@ -1,5 +1,7 @@
 module Slack
   class EventsController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
     def receive
       payload = JSON.parse(request.body.read)
       Rails.logger.debug "Slack event payload: #{payload.inspect}"
