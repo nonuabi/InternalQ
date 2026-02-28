@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   namespace :slack do
     get  "/connect",        to: "oauth#connect"
     get  "/oauth/callback", to: "oauth#callback"
+    post "/events",         to: "events#receive"
   end
 end
