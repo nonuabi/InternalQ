@@ -90,13 +90,15 @@ module Slack
         bot_token: data["access_token"]
       )
 
-      # Use Slack workspace name for the organization when first connecting.
+      # Use Slack workspace name for the organization when first connecting or reconnecting.
       team_name = data.dig("team", "name")
       if team_name.present?
+        org = integration.organization
         begin
-          integration.organization.update!(name: team_name)
+          org.update!(name: team_name)
         rescue ActiveRecord::RecordInvalid
-          # Keep existing name if duplicate (e.g. another org already has this workspace name).
+          # Uniqueness conflict: keep a readable name by appending workspace id (e.g. "Acme (T01234)")
+          org.update!(name: "#{team_name} (#{workspace_id})")
         end
       end
 
