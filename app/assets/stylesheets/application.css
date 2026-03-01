@@ -584,6 +584,34 @@ a:hover {
   background: currentColor;
 }
 
+/* Team page */
+.kv-team-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  color: var(--kv-text);
+}
+
+.kv-pill-you {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--kv-surface-hover);
+  border-color: var(--kv-border);
+  color: var(--kv-text-muted);
+}
+
+.kv-inline-form {
+  display: inline-block;
+  margin: 0;
+}
+
+.kv-button-sm {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.75rem;
+}
+
 /* ========== Typography helpers ========== */
 .kv-meta-text {
   font-size: 0.75rem;
