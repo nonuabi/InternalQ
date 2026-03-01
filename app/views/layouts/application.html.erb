@@ -45,9 +45,6 @@
             </nav>
 
             <div class="kv-header-context">
-              <% if current_user.organization.present? %>
-                <span class="kv-org-pill" title="Your organization"><%= truncate(current_user.organization.name, length: 24) %></span>
-              <% end %>
               <span class="kv-role-pill kv-role-<%= current_user.role %>">
                 <%= current_user.admin? ? "Admin" : "Employee" %>
               </span>

@@ -172,19 +172,6 @@ a:hover {
   flex-wrap: wrap;
 }
 
-.kv-org-pill {
-  font-size: 0.7rem;
-  color: var(--kv-text-muted);
-  background: var(--kv-surface-hover);
-  border: 1px solid var(--kv-border);
-  padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  max-width: 140px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .kv-role-pill {
   font-size: 0.65rem;
   font-weight: 600;
