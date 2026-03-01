@@ -649,6 +649,12 @@ a:hover {
   color: var(--kv-text-muted);
 }
 
+.kv-field-error {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--kv-error-text);
+}
+
 .kv-input,
 .kv-textarea,
 .kv-file-input {
@@ -810,6 +816,19 @@ a:hover {
 .kv-empty-subtitle {
   font-size: 0.75rem;
   color: var(--kv-text-muted);
+}
+
+.kv-empty-state.kv-error-state {
+  border-color: var(--kv-error-border);
+  background: var(--kv-error-bg);
+}
+
+.kv-error-state .kv-empty-title {
+  color: var(--kv-error-text);
+}
+
+.kv-error-state .kv-empty-subtitle {
+  color: var(--kv-error-text);
 }
 
 /* ========== Footer ========== */

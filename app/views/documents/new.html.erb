@@ -9,6 +9,17 @@
   </div>
 
   <%= form_with model: @document, html: { class: "kv-form-grid" } do |f| %>
+    <% if @document.errors.any? %>
+      <div class="kv-empty-state kv-error-state">
+        <div class="kv-empty-main">
+          <div class="kv-empty-title">We couldn’t upload the document</div>
+          <div class="kv-empty-subtitle">
+            <%= @document.errors.full_messages.to_sentence %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <div>
       <div class="kv-field-label">Title</div>
       <%= f.text_field :title, class: "kv-input", placeholder: "e.g. Employee handbook 2025" %>
@@ -21,8 +32,13 @@
       <div class="kv-field-label">File</div>
       <%= f.file_field :file, class: "kv-file-input" %>
       <div class="kv-field-hint">
-        PDF or DOCX. Large files are chunked automatically for search.
+        PDF or DOCX. Max size 1 MB. Large files are chunked automatically for search.
       </div>
+      <% if @document.errors[:file].any? %>
+        <div class="kv-field-error">
+          <%= @document.errors[:file].to_sentence %>
+        </div>
+      <% end %>
     </div>
 
     <div class="kv-form-footer">
