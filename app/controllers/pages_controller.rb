@@ -4,8 +4,10 @@ class PagesController < ApplicationController
   layout "application"
 
   def installation
-    # Installation landing page: users who find the bot on Slack marketplace
-    # can learn more and sign up to integrate the bot from our backoffice.
+    # Send guests to sign up first; after sign up/log in they go to Integrations to connect Slack.
+    if !user_signed_in?
+      session["user_return_to"] = integrations_path
+    end
   end
 
   def privacy

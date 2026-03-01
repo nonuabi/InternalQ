@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # After sign up or log in, send user to the page they were heading to (e.g. Integrations from installation).
   def after_sign_in_path_for(resource)
     path = session["user_return_to"]
     session.delete("user_return_to")
