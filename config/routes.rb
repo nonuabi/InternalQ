@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   root "qa#new"
 
+  # Public pages for Slack marketplace (installation landing, privacy, support)
+  get "installation", to: "pages#installation"
+  get "privacy",       to: "pages#privacy"
+  get "support",       to: "pages#support"
+
   resources :documents, only: [ :index, :new, :create, :show, :destroy ]
 
   resources :integrations, only: [ :index ] do

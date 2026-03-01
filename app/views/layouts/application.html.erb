@@ -57,6 +57,7 @@
             </div>
           <% else %>
             <nav class="kv-nav">
+              <%= link_to "Install", installation_path, class: (current_page?(installation_path) ? "kv-nav-active" : "") %>
               <%= link_to "Log in", new_user_session_path, class: (current_page?(new_user_session_path) ? "kv-nav-active" : "") %>
               <%= link_to "Sign up", new_user_registration_path, class: (current_page?(new_user_registration_path) ? "kv-nav-active" : "") %>
             </nav>
@@ -80,7 +81,13 @@
       </main>
 
       <footer class="kv-footer">
-        <span>Knowledge Vault · private company search · <span class="kv-inline-muted">Powered by Rails & AI</span></span>
+        <span>Knowledge Vault · private company search</span>
+        <span class="kv-footer-links">
+          <%= link_to "Install", installation_path %>
+          <%= link_to "Privacy", privacy_path %>
+          <%= link_to "Support", support_path %>
+        </span>
+        <span class="kv-inline-muted">· Powered by Rails & AI</span>
       </footer>
     </div>
   </body>

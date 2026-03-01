@@ -1,0 +1,41 @@
+<% content_for :title, "Privacy Policy · Knowledge Vault" %>
+<div class="kv-page">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Privacy policy</h1>
+      <p>How Knowledge Vault collects, uses, and protects your information.</p>
+    </div>
+  </div>
+
+  <div class="kv-static-content">
+    <section class="kv-static-section">
+      <h2>Information we collect</h2>
+      <p>We collect information you provide when you sign up (e.g. email address), documents and content you upload to your organization’s knowledge base, and usage data necessary to operate the service (including Slack workspace identifiers when you connect the Slack integration).</p>
+    </section>
+
+    <section class="kv-static-section">
+      <h2>How we use it</h2>
+      <p>We use this information to provide and improve Knowledge Vault: to index your documents for search, to answer questions (including via the Slack bot), to manage your account and organization, and to communicate with you about the service.</p>
+    </section>
+
+    <section class="kv-static-section">
+      <h2>Data storage and security</h2>
+      <p>Your data is stored in secure, access-controlled environments. We do not sell your personal information or document content to third parties.</p>
+    </section>
+
+    <section class="kv-static-section">
+      <h2>Slack integration</h2>
+      <p>When you connect Slack, we receive and store tokens and workspace identifiers needed to deliver the bot (e.g. responding to mentions). We follow Slack’s API and data usage guidelines. You can disconnect the integration at any time from Integrations in the app.</p>
+    </section>
+
+    <section class="kv-static-section">
+      <h2>Contact</h2>
+      <p>For privacy-related questions, contact us via our <%= link_to "Support", support_path %> page.</p>
+    </section>
+  </div>
+
+  <div class="kv-soft-divider"></div>
+  <p class="kv-meta-text kv-meta-muted">
+    <%= link_to "Install app", installation_path %> · <%= link_to "Support", support_path %>
+  </p>
+</div>

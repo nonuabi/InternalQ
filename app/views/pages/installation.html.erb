@@ -1,0 +1,44 @@
+<% content_for :title, "Install Knowledge Vault · Slack" %>
+<div class="kv-page">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Install Knowledge Vault</h1>
+      <p>Internal AI search over your company docs — in Slack and in the app.</p>
+    </div>
+    <div class="kv-badge-row">
+      <div class="kv-pill">
+        <span class="kv-pill-dot"></span>
+        Slack app
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-install-hero">
+    <p class="kv-install-lead">
+      <strong>Found Knowledge Vault on the Slack Marketplace?</strong> Sign up here to connect the bot to your workspace. You’ll get a private backoffice where you upload documents and manage the integration.
+    </p>
+    <ol class="kv-install-steps">
+      <li>
+        <span class="kv-step-num">1</span>
+        <span><strong>Create an account</strong> — we’ll set up your organization and make you the admin.</span>
+      </li>
+      <li>
+        <span class="kv-step-num">2</span>
+        <span><strong>Connect Slack</strong> — from Integrations, connect your Slack workspace so the bot can answer questions from your knowledge base.</span>
+      </li>
+      <li>
+        <span class="kv-step-num">3</span>
+        <span><strong>Upload docs &amp; ask</strong> — add documents, then ask questions in the app or by mentioning the bot in Slack.</span>
+      </li>
+    </ol>
+    <div class="kv-install-cta">
+      <%= link_to "Create account", new_user_registration_path, class: "kv-primary-button" %>
+      <%= link_to "Log in", new_user_session_path, class: "kv-secondary-button" %>
+    </div>
+  </div>
+
+  <div class="kv-soft-divider"></div>
+  <p class="kv-meta-text kv-meta-muted">
+    Need help? See our <%= link_to "Support", support_path %> page or <%= link_to "Privacy policy", privacy_path %>.
+  </p>
+</div>

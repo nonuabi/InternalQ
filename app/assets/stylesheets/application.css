@@ -643,10 +643,22 @@ a:hover {
   font-size: 0.7rem;
   color: #6b7280;
   text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 0.5rem;
 }
 
 .kv-footer span {
   opacity: 0.9;
+}
+
+.kv-footer-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.35rem;
 }
 
 .kv-footer a {
