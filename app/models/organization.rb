@@ -3,5 +3,5 @@ class Organization < ApplicationRecord
   has_many :documents
   has_many :integrations
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
 end
