@@ -40,9 +40,7 @@
             <nav class="kv-nav">
               <%= link_to "Q&A", root_path, class: (current_page?(root_path) ? "kv-nav-active" : "") %>
               <%= link_to "Documents", documents_path, class: (controller_name == "documents" ? "kv-nav-active" : "") %>
-              <% if current_user.admin? %>
-                <%= link_to "Integrations", integrations_path, class: (controller_name == "integrations" ? "kv-nav-active" : "") %>
-              <% end %>
+              <%= link_to "Integrations", integrations_path, class: (controller_name == "integrations" ? "kv-nav-active" : "") %>
             </nav>
 
             <div class="kv-user-pill">

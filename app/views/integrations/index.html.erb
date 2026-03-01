@@ -31,26 +31,32 @@
               Workspace ID: <span class="kv-mono"><%= @slack_integration.workspace_id %></span>
               · Connected <%= time_ago_in_words(@slack_integration.updated_at) %> ago
             </span>
-            <div class="kv-integration-actions">
-              <%= link_to slack_connect_path, class: "kv-secondary-button" do %>
-                Reconnect
-              <% end %>
-              <%= button_to "Disconnect",
-                            disconnect_slack_integrations_path,
-                            method: :delete,
-                            form: { class: "kv-integration-disconnect-form" },
-                            class: "kv-ghost-button kv-inline-danger",
-                            data: { turbo_confirm: "Disconnect Slack? Your workspace will stop receiving answers from Knowledge Vault. You can reconnect anytime." } %>
-            </div>
+            <% if current_user.admin? %>
+              <div class="kv-integration-actions">
+                <%= link_to slack_connect_path, class: "kv-secondary-button" do %>
+                  Reconnect
+                <% end %>
+                <%= button_to "Disconnect",
+                              disconnect_slack_integrations_path,
+                              method: :delete,
+                              form: { class: "kv-integration-disconnect-form" },
+                              class: "kv-ghost-button kv-inline-danger",
+                              data: { turbo_confirm: "Disconnect Slack? Your workspace will stop receiving answers from Knowledge Vault. You can reconnect anytime." } %>
+              </div>
+            <% end %>
           </div>
         <% else %>
           <div class="kv-integration-cta">
             <p class="kv-meta-text">Connect your Slack workspace to allow the bot to read channels and respond to mentions.</p>
-            <%= link_to slack_connect_path, class: "kv-primary-button kv-button-slack" do %>
-              <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink: 0;" aria-hidden="true">
-                <path fill="currentColor" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.521-2.523 2.526 2.526 0 0 1 2.521-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
-              </svg>
-              <span>Connect with Slack</span>
+            <% if current_user.admin? %>
+              <%= link_to slack_connect_path, class: "kv-primary-button kv-button-slack" do %>
+                <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink: 0;" aria-hidden="true">
+                  <path fill="currentColor" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.521-2.523 2.526 2.526 0 0 1 2.521-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+                </svg>
+                <span>Connect with Slack</span>
+              <% end %>
+            <% else %>
+              <p class="kv-meta-text kv-meta-muted">Only an admin can connect Slack. Ask your workspace admin to connect from this page.</p>
             <% end %>
           </div>
         <% end %>

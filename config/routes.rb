@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   # Slack integration
   namespace :slack do
+    get  "/install",        to: "oauth#install"   # Direct install URL for Slack marketplace (starts OAuth or sends to sign up)
     get  "/connect",        to: "oauth#connect"
     get  "/oauth/callback", to: "oauth#callback"
     post "/events",         to: "events#receive"

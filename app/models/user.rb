@@ -10,7 +10,14 @@ class User < ApplicationRecord
 
   def create_organization_if_missing
     unless organization.present?
-      org = Organization.create!(name: "#{email.split('@').first}'s Org ")
+      base_name = "#{email.split('@').first}'s Org"
+      name = base_name
+      suffix = 0
+      while Organization.exists?(name: name)
+        suffix += 1
+        name = "#{base_name} #{suffix}"
+      end
+      org = Organization.create!(name: name)
       update!(organization_id: org.id, role: "admin")
     end
   end
