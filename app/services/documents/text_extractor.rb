@@ -7,20 +7,20 @@ module Documents
       blob = document.file.blob
       extension = blob.filename.extension_with_delimiter.downcase
 
-      tempfile = Tempfile.new(["doc", ".#{extension}"])
+      tempfile = Tempfile.new([ "doc", ".#{extension}" ])
       tempfile.binmode
       tempfile.write(blob.download)
       tempfile.rewind
 
       text = case extension
-        when ".pdf"
+      when ".pdf"
           extract_text_from_pdf(tempfile)
-        when ".docx"
+      when ".docx"
           extract_text_from_docx(tempfile)
-        else
+      else
           raise "Unsupported file type: #{extension}"
-        end
-        
+      end
+
       text.gsub(/\u0000/, "")
     ensure
       tempfile&.close!
