@@ -35,4 +35,7 @@ Rails.application.routes.draw do
   get "installation", to: "pages#installation"
   get "privacy",       to: "pages#privacy"
   get "support",       to: "pages#support"
+
+  get "team", to: "employees#index", as: :team
+  post "team/:id/make_admin", to: "employees#make_admin", as: :make_admin_team_member
 end
