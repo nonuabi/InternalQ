@@ -1,6 +1,6 @@
 class IntegrationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin!
+  before_action :require_admin!, only: [ :destroy_slack ]
 
   def index
     @integrations = current_user.organization.integrations

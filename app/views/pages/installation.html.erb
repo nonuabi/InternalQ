@@ -15,7 +15,7 @@
 
   <div class="kv-install-hero">
     <p class="kv-install-lead">
-      <strong>Found Knowledge Vault on the Slack Marketplace?</strong> Sign up here to connect the bot to your workspace. You’ll get a private backoffice where you upload documents and manage the integration.
+      <strong>Found Knowledge Vault on the Slack Marketplace?</strong> Sign up here to connect the bot to your workspace. You’ll get a private backoffice where you upload documents and manage the integration. <strong>If your workspace is already connected</strong>, sign up or log in and connect Slack — you’ll be added to your team’s organization automatically.
     </p>
     <ol class="kv-install-steps">
       <li>
@@ -32,7 +32,8 @@
       </li>
     </ol>
     <div class="kv-install-cta">
-      <%= link_to "Create account", new_user_registration_path, class: "kv-primary-button" %>
+      <%= link_to "Add to Slack", slack_install_path, class: "kv-primary-button" %>
+      <%= link_to "Create account", new_user_registration_path, class: "kv-secondary-button" %>
       <%= link_to "Log in", new_user_session_path, class: "kv-secondary-button" %>
     </div>
   </div>
