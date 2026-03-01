@@ -165,6 +165,48 @@ a:hover {
   color: var(--kv-text);
 }
 
+.kv-header-context {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.kv-org-pill {
+  font-size: 0.7rem;
+  color: var(--kv-text-muted);
+  background: var(--kv-surface-hover);
+  border: 1px solid var(--kv-border);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kv-role-pill {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.kv-role-pill.kv-role-admin {
+  color: var(--kv-success-text);
+  background: var(--kv-success-bg);
+  border-color: var(--kv-success-border);
+}
+
+.kv-role-pill.kv-role-employee {
+  color: var(--kv-text-muted);
+  background: var(--kv-surface-hover);
+  border-color: var(--kv-border);
+}
+
 .kv-user-pill {
   padding: 0.35rem 0.6rem;
   border-radius: 6px;
@@ -846,6 +888,11 @@ a:hover {
 
 .kv-footer span {
   opacity: 0.9;
+}
+
+.kv-footer-org {
+  font-weight: 500;
+  color: var(--kv-text-secondary);
 }
 
 .kv-footer-links {

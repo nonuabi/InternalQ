@@ -44,18 +44,26 @@
               <%= link_to "Team", team_path, class: (controller_name == "employees" ? "kv-nav-active" : "") %>
             </nav>
 
-            <div class="kv-user-pill">
-              <span><%= current_user.email %></span>
-              <div class="kv-user-dot"></div>
-              <%= button_to "Logout",
-                            destroy_user_session_path,
-                            method: :delete,
-                            form: { style: "margin: 0;" },
-                            class: "kv-ghost-button",
-                            data: { turbo_confirm: "Are you sure you want to log out?" } %>
+            <div class="kv-header-context">
+              <% if current_user.organization.present? %>
+                <span class="kv-org-pill" title="Your organization"><%= truncate(current_user.organization.name, length: 24) %></span>
+              <% end %>
+              <span class="kv-role-pill kv-role-<%= current_user.role %>">
+                <%= current_user.admin? ? "Admin" : "Employee" %>
+              </span>
+              <div class="kv-user-pill">
+                <span><%= current_user.email %></span>
+                <div class="kv-user-dot"></div>
+                <%= button_to "Logout",
+                              destroy_user_session_path,
+                              method: :delete,
+                              form: { style: "margin: 0;" },
+                              class: "kv-ghost-button",
+                              data: { turbo_confirm: "Are you sure you want to log out?" } %>
+              </div>
             </div>
           <% else %>
-            <nav class="kv-nav">
+            <nav class="kv-nav kv-nav-public">
               <%= link_to "Install", installation_path, class: (current_page?(installation_path) ? "kv-nav-active" : "") %>
               <%= link_to "Log in", new_user_session_path, class: (current_page?(new_user_session_path) ? "kv-nav-active" : "") %>
               <%= link_to "Sign up", new_user_registration_path, class: (current_page?(new_user_registration_path) ? "kv-nav-active" : "") %>
@@ -80,7 +88,14 @@
       </main>
 
       <footer class="kv-footer">
-        <span>Knowledge Vault · company knowledge search</span>
+        <% if defined?(user_signed_in?) && user_signed_in? %>
+          <span>Knowledge Vault · Dashboard</span>
+          <% if current_user.organization.present? %>
+            <span class="kv-footer-org"><%= current_user.organization.name %></span>
+          <% end %>
+        <% else %>
+          <span>Knowledge Vault · company knowledge search</span>
+        <% end %>
         <span class="kv-footer-links">
           <%= link_to "Install", installation_path %>
           <%= link_to "Privacy", privacy_path %>
