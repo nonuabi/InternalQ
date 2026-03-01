@@ -94,12 +94,7 @@ module Slack
       team_name = data.dig("team", "name")
       if team_name.present?
         org = integration.organization
-        begin
-          org.update!(name: team_name)
-        rescue ActiveRecord::RecordInvalid
-          # Uniqueness conflict: keep a readable name by appending workspace id (e.g. "Acme (T01234)")
-          org.update!(name: "#{team_name} (#{workspace_id})")
-        end
+        org.update!(name: team_name) unless org.name == team_name
       end
 
       redirect_to integrations_path, notice: "Slack integration connected successfully."
