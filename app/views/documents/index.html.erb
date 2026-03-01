@@ -2,7 +2,7 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Documents</h1>
-      <p>Manage the knowledge your Q&A assistant is allowed to use.</p>
+      <p class="kv-page-subtitle"><strong>What’s here:</strong> The files your Q&A uses to answer questions. Upload PDFs or DOCX (handbooks, policies). <strong>How:</strong> Admins can upload and delete; everyone can view. No docs yet? Upload one below to enable Q&A.</p>
     </div>
 
     <% if current_user.admin? %>
@@ -12,7 +12,7 @@
     <% else %>
       <div class="kv-tag">
         <span class="kv-tag-dot"></span>
-        Read-only access
+        View only
       </div>
     <% end %>
   </div>
@@ -85,12 +85,12 @@
     <div class="kv-empty-state">
       <div class="kv-empty-main">
         <div class="kv-empty-title">No documents yet</div>
-        <div class="kv-empty-subtitle">
-          Upload your first policy, handbook, or knowledge base file to unlock Q&A.
-        </div>
+        <div class="kv-empty-subtitle">Upload a PDF or DOCX (e.g. handbook, policy) to unlock Q&A. Only admins can upload.</div>
       </div>
       <% if current_user.admin? %>
         <%= link_to "Upload document", new_document_path, class: "kv-primary-button" %>
+      <% else %>
+        <p class="kv-meta-text kv-meta-muted">Ask an admin to upload documents.</p>
       <% end %>
     </div>
   <% end %>

@@ -2,11 +2,9 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1><%= @document.title.presence || "Untitled document" %></h1>
-      <p>
-        <span class="kv-meta-text kv-meta-muted">
-          <span class="kv-mono"><%= @document.file.attached? ? @document.file.filename.to_s : "No file attached" %></span>
-          · Last updated <%= @document.updated_at.strftime("%d %b %Y · %H:%M") %>
-        </span>
+      <p class="kv-page-subtitle">
+        <span class="kv-mono"><%= @document.file.attached? ? @document.file.filename.to_s : "No file attached" %></span>
+        · Last updated <%= @document.updated_at.strftime("%d %b %Y · %H:%M") %>
       </p>
     </div>
 
@@ -23,7 +21,7 @@
         <%= button_to "Delete",
                       document_path(@document),
                       method: :delete,
-                      data: { turbo_confirm: "Are you sure you want to delete this document?" },
+                      data: { turbo_confirm: "Delete this document? It will be removed from Q&A." },
                       class: "kv-ghost-button kv-inline-danger" %>
       <% end %>
     </div>
@@ -36,7 +34,7 @@
       <div class="kv-answer-title">Extracted text</div>
       <div class="kv-chip">
         <span class="kv-chip-dot"></span>
-        Chunked for search
+        Used for search
       </div>
     </div>
     <div class="kv-answer-body kv-mono">

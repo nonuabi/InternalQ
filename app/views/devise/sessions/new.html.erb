@@ -2,13 +2,12 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Log in</h1>
-      <p>Access your organization’s Knowledge Vault Q&A and documents.</p>
+      <p class="kv-page-subtitle">Access your organization’s Knowledge Vault. After logging in you can ask questions (Q&A), view documents, and — if you’re an admin — manage integrations and uploads.</p>
     </div>
-
     <div class="kv-badge-row">
       <div class="kv-pill">
         <span class="kv-pill-dot"></span>
-        Secure, SSO-ready auth
+        Secure sign-in
       </div>
     </div>
   </div>
@@ -57,8 +56,7 @@
     <div class="kv-form-footer">
       <%= f.submit "Log in", class: "kv-primary-button" %>
       <span class="kv-meta-text kv-meta-muted">
-        No account yet?
-        <%= link_to "Sign up", new_registration_path(resource_name) %>
+        No account? <%= link_to "Sign up", new_registration_path(resource_name) %> first, then connect Slack from Integrations.
       </span>
     </div>
   <% end %>
