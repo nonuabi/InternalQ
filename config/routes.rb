@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
 
-  get "ask", to: "qa#new"
+  get "ask", to: "qa#new", as: :ask
   post "ask", to: "qa#create"
 
   # Slack integration

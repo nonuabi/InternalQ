@@ -7,7 +7,7 @@ class QaController < ApplicationController
   def create
     question = params[:question].to_s.strip
     if question.blank?
-      redirect_to new_qa_path, alert: "Question cannot be blank"
+      redirect_to ask_path, alert: "Question cannot be blank!"
       return
     end
 

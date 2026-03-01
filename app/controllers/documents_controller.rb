@@ -15,12 +15,14 @@ class DocumentsController < ApplicationController
     @document = current_user.organization.documents.new(document_params)
     @document.status = "uploaded"
 
-    if @document.save
+    if @document.save!
       Documents::IndexJob.perform_later(@document.id)
       redirect_to documents_path, notice: "Uploaded! Indexing started in background..."
     else
       render :new, status: :unprocessable_entity
     end
+  rescue StandardError => e
+    redirect_to new_document_path, alert: "Failed to upload document: #{e.message}"
   end
 
   def show
