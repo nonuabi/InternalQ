@@ -2,7 +2,7 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Upload document</h1>
-      <p>Add a policy, handbook, or PDF that your Q&A assistant can search across.</p>
+      <p class="kv-page-subtitle"><strong>What:</strong> Add a PDF or DOCX (handbook, policy, runbook) so Q&A can answer from it. <strong>How:</strong> Give it a title, pick a file, and submit. We process it in the background; when status is complete, it's searchable.</p>
     </div>
 
     <%= link_to "Back to documents", documents_path, class: "kv-ghost-button" %>
@@ -13,7 +13,7 @@
       <div class="kv-field-label">Title</div>
       <%= f.text_field :title, class: "kv-input", placeholder: "e.g. Employee handbook 2025" %>
       <div class="kv-field-hint">
-        Shown in the UI and used as a label for answer sources.
+        Shown in the app and in answer sources.
       </div>
     </div>
 
@@ -21,12 +21,12 @@
       <div class="kv-field-label">File</div>
       <%= f.file_field :file, class: "kv-file-input" %>
       <div class="kv-field-hint">
-        PDF or DOCX files work best. Large files will be chunked automatically.
+        PDF or DOCX. Large files are chunked automatically for search.
       </div>
     </div>
 
     <div class="kv-form-footer">
-      <%= f.submit "Upload document", class: "kv-primary-button" %>
+      <%= f.submit "Upload", class: "kv-primary-button" %>
       <span class="kv-meta-text kv-meta-muted">
         Uploading will kick off background processing so it’s searchable in Q&A.
       </span>

@@ -61,6 +61,13 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
+  # Assets: compile on the fly and don't cache, so CSS/JS changes show immediately.
+  # Avoid running `rails assets:precompile` in development—it creates public/assets
+  # and Rails will serve those stale files instead of your latest changes.
+  config.assets.compile = true
+  config.assets.debug = true
+  config.assets.cache_store = :null_store
+
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true
 

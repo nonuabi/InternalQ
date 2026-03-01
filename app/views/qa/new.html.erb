@@ -1,40 +1,40 @@
 <div class="kv-page">
   <div class="kv-page-header">
     <div class="kv-heading-group">
-      <h1>Company Q&A</h1>
-      <p>Ask questions in natural language and get answers grounded in your documents.</p>
+      <h1>Q&A</h1>
+      <p class="kv-page-subtitle"><strong>What you can do:</strong> Ask questions in plain English and get answers from your uploaded documents. <strong>How:</strong> Type a question below and click Ask. Answers are generated from your knowledge base and link back to sources.</p>
     </div>
-
     <div class="kv-badge-row">
       <div class="kv-pill">
         <span class="kv-pill-dot"></span>
-        Private, internal knowledge
+        Private to your org
       </div>
-      <%= link_to "Manage documents", documents_path, class: "kv-ghost-button" %>
+      <%= link_to "Documents", documents_path, class: "kv-ghost-button" %>
     </div>
   </div>
 
-  <%= form_with url: ask_path, method: :post, data: { turbo: false }, html: { class: "kv-form-grid" } do %>
+  <%= form_with url: ask_path, method: :post, data: { turbo: false }, html: { class: "kv-form-grid", id: "kv-qa-form" } do %>
     <div>
       <div class="kv-field-label">Ask a question</div>
       <%= text_area_tag :question,
                         @question,
                         rows: 4,
                         class: "kv-textarea",
-                        placeholder: "e.g. What is our parental leave policy?" %>
+                        placeholder: "e.g. What is our parental leave policy? Or: Summarize the onboarding process." %>
       <div class="kv-field-hint">
-        Try asking about policies, benefits, procedures, or specific sections of uploaded documents.
+        Ask about policies, benefits, procedures, or anything in your uploaded docs.
       </div>
     </div>
 
     <div class="kv-form-footer">
-      <%= submit_tag "Ask question", class: "kv-primary-button" %>
+      <%= submit_tag "Ask", class: "kv-primary-button" %>
       <span class="kv-meta-text kv-meta-muted">
-        Answers are AI-generated but always linked back to the original documents.
+        Answers are AI-generated and cite source documents.
       </span>
     </div>
   <% end %>
 
+  <div id="kv-answer-container">
   <% if @answer.present? %>
     <div class="kv-answer-block">
       <div class="kv-answer-header">
@@ -87,4 +87,17 @@
       </div>
     </div>
   <% end %>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var form = document.getElementById("kv-qa-form");
+      var container = document.getElementById("kv-answer-container");
+      if (form && container) {
+        form.addEventListener("submit", function() {
+          container.style.display = "none";
+        });
+      }
+    });
+  </script>
 </div>

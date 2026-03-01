@@ -2,7 +2,7 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Integrations</h1>
-      <p>Connect Slack and other services so your team can use Knowledge Vault from where they work.</p>
+      <p class="kv-page-subtitle"><strong>What they do:</strong> Connect tools (e.g. Slack) so your team can use Knowledge Vault from there. <strong>How:</strong> Only admins can connect or disconnect. Once Slack is connected, anyone in the workspace can @mention the bot to ask questions. Team members who sign up and connect the same workspace are added to your org automatically.</p>
     </div>
   </div>
 
@@ -47,7 +47,7 @@
           </div>
         <% else %>
           <div class="kv-integration-cta">
-            <p class="kv-meta-text">Connect your Slack workspace to allow the bot to read channels and respond to mentions.</p>
+            <p class="kv-meta-text">Connect Slack so the bot can answer questions in channels and DMs. Only an admin can connect.</p>
             <% if current_user.admin? %>
               <%= link_to slack_connect_path, class: "kv-primary-button kv-button-slack" do %>
                 <svg viewBox="0 0 24 24" width="18" height="18" style="flex-shrink: 0;" aria-hidden="true">
@@ -56,7 +56,7 @@
                 <span>Connect with Slack</span>
               <% end %>
             <% else %>
-              <p class="kv-meta-text kv-meta-muted">Only an admin can connect Slack. Ask your workspace admin to connect from this page.</p>
+              <p class="kv-meta-text kv-meta-muted">Only an admin can connect Slack. Ask your workspace admin to open Integrations and connect.</p>
             <% end %>
           </div>
         <% end %>

@@ -3,43 +3,52 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Install Knowledge Vault</h1>
-      <p>Internal AI search over your company docs — in Slack and in the app.</p>
+      <p class="kv-page-subtitle">Search your company docs with AI — in this app and in Slack. Sign up here first, then connect your workspace.</p>
     </div>
     <div class="kv-badge-row">
       <div class="kv-pill">
         <span class="kv-pill-dot"></span>
-        Slack app
+        Slack app · Sign up first
       </div>
     </div>
   </div>
 
   <div class="kv-install-hero">
     <p class="kv-install-lead">
-      <strong>Found Knowledge Vault on the Slack Marketplace?</strong> Sign up here to connect the bot to your workspace. You’ll get a private backoffice where you upload documents and manage the integration. <strong>If your workspace is already connected</strong>, sign up or log in and connect Slack — you’ll be added to your team’s organization automatically.
+      <strong>What you can do:</strong> Upload PDFs and docs, then ask questions in plain English. Get answers backed by your own documents. Use it in this app or by mentioning the bot in Slack.
     </p>
-    <ol class="kv-install-steps">
-      <li>
-        <span class="kv-step-num">1</span>
-        <span><strong>Create an account</strong> — we’ll set up your organization and make you the admin.</span>
-      </li>
-      <li>
-        <span class="kv-step-num">2</span>
-        <span><strong>Connect Slack</strong> — from Integrations, connect your Slack workspace so the bot can answer questions from your knowledge base.</span>
-      </li>
-      <li>
-        <span class="kv-step-num">3</span>
-        <span><strong>Upload docs &amp; ask</strong> — add documents, then ask questions in the app or by mentioning the bot in Slack.</span>
-      </li>
-    </ol>
+
+    <div class="kv-install-steps-wrapper">
+      <p class="kv-steps-heading">How to get started</p>
+      <ol class="kv-install-steps">
+        <li>
+          <span class="kv-step-num">1</span>
+          <span><strong>Create an account</strong> — Sign up below. We’ll create your organization and make you the admin.</span>
+        </li>
+        <li>
+          <span class="kv-step-num">2</span>
+          <span><strong>Connect Slack</strong> — Go to Integrations (after login) and connect your Slack workspace so the bot can answer in channels and DMs.</span>
+        </li>
+        <li>
+          <span class="kv-step-num">3</span>
+          <span><strong>Upload docs &amp; ask</strong> — Add documents from the Documents page, then ask questions on the Q&A page or by @mentioning the bot in Slack.</span>
+        </li>
+      </ol>
+    </div>
+
     <div class="kv-install-cta">
-      <%= link_to "Add to Slack", slack_install_path, class: "kv-primary-button" %>
-      <%= link_to "Create account", new_user_registration_path, class: "kv-secondary-button" %>
+      <p class="kv-cta-lead">Create your account to continue</p>
+      <%= link_to "Create account", new_user_registration_path, class: "kv-primary-button" %>
       <%= link_to "Log in", new_user_session_path, class: "kv-secondary-button" %>
     </div>
+
+    <p class="kv-meta-text kv-meta-muted kv-install-note">
+      Already have a workspace connected? Log in and connect Slack — you’ll be added to your team’s organization automatically.
+    </p>
   </div>
 
   <div class="kv-soft-divider"></div>
   <p class="kv-meta-text kv-meta-muted">
-    Need help? See our <%= link_to "Support", support_path %> page or <%= link_to "Privacy policy", privacy_path %>.
+    Need help? <%= link_to "Support", support_path %> · <%= link_to "Privacy policy", privacy_path %>
   </p>
 </div>

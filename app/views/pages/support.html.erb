@@ -3,29 +3,34 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Support</h1>
-      <p>Get help with Knowledge Vault and the Slack bot.</p>
+      <p class="kv-page-subtitle">What you can do, how to do it, and where to get help.</p>
     </div>
   </div>
 
   <div class="kv-static-content">
     <section class="kv-static-section">
-      <h2>Getting started</h2>
-      <p>New to Knowledge Vault? Start at our <%= link_to "Installation", installation_path %> page to create an account and connect Slack. After that, upload documents from the Documents page and ask questions from the Q&A page or by mentioning the bot in Slack.</p>
+      <h2>What you can do</h2>
+      <p>Use Knowledge Vault to <strong>ask questions in plain English</strong> and get answers from your company docs. You can do this in this app (Q&A page) or in Slack by @mentioning the bot. Only documents uploaded by your org are used. Admins manage documents and Slack connection; everyone in the org can ask questions and view documents.</p>
+    </section>
+
+    <section class="kv-static-section">
+      <h2>How to get started</h2>
+      <p>1) <%= link_to "Create an account", new_user_registration_path %> (first user becomes admin). 2) Go to <strong>Integrations</strong> and connect your Slack workspace. 3) Go to <strong>Documents</strong> and upload PDFs or DOCX (handbooks, policies). 4) Use <strong>Q&A</strong> here or in Slack to ask questions.</p>
     </section>
 
     <section class="kv-static-section">
       <h2>Slack bot</h2>
-      <p>Mention the bot in a channel or DM to ask questions. The bot uses the documents in your organization’s knowledge base to answer. Only workspaces connected via Integrations in the app can use the bot. If the bot doesn’t respond, check that Slack is connected under Integrations and that you’ve uploaded documents.</p>
+      <p>In any channel or DM, @mention the Knowledge Vault bot and ask a question. It answers using your org’s uploaded documents. If the bot doesn’t respond, check that Slack is connected under Integrations and that at least one document is uploaded and processed.</p>
     </section>
 
     <section class="kv-static-section">
-      <h2>Contact us</h2>
-      <p>For technical issues, feature requests, or general questions, reach out via your preferred channel (e.g. the contact method you use for your organization). If you don’t have a contact yet, use the email or support channel associated with your Knowledge Vault deployment.</p>
+      <h2>Get help</h2>
+      <p>For issues, feature ideas, or questions: use your normal support channel or the contact for your Knowledge Vault deployment. <%= link_to "Privacy policy", privacy_path %> · <%= link_to "Install app", installation_path %></p>
     </section>
   </div>
 
   <div class="kv-soft-divider"></div>
   <p class="kv-meta-text kv-meta-muted">
-    <%= link_to "Install app", installation_path %> · <%= link_to "Privacy policy", privacy_path %>
+    <%= link_to "Install", installation_path %> · <%= link_to "Privacy", privacy_path %>
   </p>
 </div>
