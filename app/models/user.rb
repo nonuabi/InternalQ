@@ -22,7 +22,7 @@ class User < ApplicationRecord
     end
   end
 
-  def admin? 
+  def admin?
     role == "admin"
   end
 
