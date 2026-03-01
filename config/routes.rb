@@ -11,10 +11,7 @@ Rails.application.routes.draw do
 
   root "qa#new"
 
-  # Public pages for Slack marketplace (installation landing, privacy, support)
-  get "installation", to: "pages#installation"
-  get "privacy",       to: "pages#privacy"
-  get "support",       to: "pages#support"
+
 
   resources :documents, only: [ :index, :new, :create, :show, :destroy ]
 
@@ -28,9 +25,14 @@ Rails.application.routes.draw do
 
   # Slack integration
   namespace :slack do
-    get  "/install",        to: "oauth#install"   # Direct install URL for Slack marketplace (starts OAuth or sends to sign up)
+    get  "/install",        to: redirect("/installation")  # Direct Install URL = /installation (sign up first)
     get  "/connect",        to: "oauth#connect"
     get  "/oauth/callback", to: "oauth#callback"
     post "/events",         to: "events#receive"
   end
+
+  # Public pages for Slack marketplace (installation landing, privacy, support)
+  get "installation", to: "pages#installation"
+  get "privacy",       to: "pages#privacy"
+  get "support",       to: "pages#support"
 end
