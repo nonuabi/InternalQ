@@ -107,12 +107,6 @@ module Slack
       %w[
         app_mentions:read
         chat:write
-        chat:write.public
-        channels:history
-        groups:history
-        im:history
-        mpim:history
-        channels:read
       ].join(",")
     end
   end
