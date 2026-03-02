@@ -62,7 +62,6 @@
             <nav class="kv-nav kv-nav-public">
               <%= link_to "Install", installation_path, class: (current_page?(installation_path) ? "kv-nav-active" : "") %>
               <%= link_to "Log in", new_user_session_path, class: (current_page?(new_user_session_path) ? "kv-nav-active" : "") %>
-              <%= link_to "Sign up", new_user_registration_path, class: (current_page?(new_user_registration_path) ? "kv-nav-active" : "") %>
             </nav>
           <% end %>
         </div>
