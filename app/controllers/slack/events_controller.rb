@@ -1,9 +1,10 @@
 module Slack
   class EventsController < ApplicationController
     skip_before_action :verify_authenticity_token
+    before_action :verify_slack_request
 
     def receive
-      payload = JSON.parse(request.body.read)
+      payload = JSON.parse(request.raw_post)
       Rails.logger.debug "Slack event payload: #{payload.inspect}"
       puts "Slack event payload: #{payload.inspect}"
 
@@ -15,8 +16,22 @@ module Slack
         return head :ok
       end
 
-      event = payload["event"]
+      event = payload["event"] || {}
+
+      # Ignore events coming from bots (including ourselves).
       return head :ok if event["bot_id"].present?
+
+      # Handle app uninstallation or token revocation to keep integration state in sync.
+      case event["type"]
+      when "app_uninstalled", "tokens_revoked"
+        integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
+        if integration
+          integration.update(status: "disconnected", bot_token: nil)
+        end
+        return head :ok
+      end
+
+      # We only process app mentions for Q&A.
       return head :ok unless event["type"] == "app_mention"
 
       integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
@@ -46,6 +61,31 @@ module Slack
     private
 
     SLACK_EVENT_MUTEX = Mutex.new
+
+    def verify_slack_request
+      signing_secret = ENV["SLACK_SIGNING_SECRET"]
+      timestamp      = request.headers["X-Slack-Request-Timestamp"]
+      signature      = request.headers["X-Slack-Signature"]
+
+      if signing_secret.blank? || timestamp.blank? || signature.blank?
+        Rails.logger.warn "Slack request missing signing data; rejecting."
+        return head :unauthorized
+      end
+
+      # Prevent replay attacks (older than 5 minutes).
+      if (Time.now.to_i - timestamp.to_i).abs > 5.minutes.to_i
+        Rails.logger.warn "Slack request timestamp too old; rejecting."
+        return head :unauthorized
+      end
+
+      sig_basestring = "v0:#{timestamp}:#{request.raw_post}"
+      computed = "v0=" + OpenSSL::HMAC.hexdigest("SHA256", signing_secret, sig_basestring)
+
+      unless ActiveSupport::SecurityUtils.secure_compare(computed, signature)
+        Rails.logger.warn "Slack signature verification failed; rejecting."
+        head :unauthorized
+      end
+    end
 
     def already_processing?(event_id)
       key = "slack_event:#{event_id}"

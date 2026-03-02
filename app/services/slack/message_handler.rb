@@ -5,15 +5,23 @@ module Slack
       channel = event["channel"]
       question = sanitize(text)
 
-      result = Qa::Answer.call(organization_id: integration.organization_id, question: question)
-      answer_text = result[:answer]
-      # answer_text += "\n_Sources: #{result[:sources].map { |s| s[:filename] }.join(', ')}_" if result[:sources].present?
+      begin
+        result = Qa::Answer.call(organization_id: integration.organization_id, question: question)
+        answer_text = result[:answer]
+      rescue StandardError => e
+        Rails.logger.error "Qa::Answer failed for Slack message: #{e.message}"
+        answer_text = "Sorry, I couldn't answer that right now. Please try again in a moment."
+      end
 
-      Slack::Client.post_message(
-        token: integration.bot_token,
-        channel: channel,
-        text: answer_text
-      )
+      begin
+        Slack::Client.post_message(
+          token: integration.bot_token,
+          channel: channel,
+          text: answer_text
+        )
+      rescue StandardError => e
+        Rails.logger.error "Slack::Client.post_message failed: #{e.message}"
+      end
     end
 
     def self.sanitize(text)
