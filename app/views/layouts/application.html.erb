@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Knowledge Vault" %></title>
+    <title><%= content_for(:title) || "InternalQ" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -31,7 +31,7 @@
               <div class="kv-logo-dot"></div>
             </div>
             <div class="kv-brand-text">
-              <div class="kv-brand-title">Knowledge Vault</div>
+              <div class="kv-brand-title">InternalQ</div>
               <div class="kv-brand-subtitle">Internal AI search</div>
             </div>
           </div>
@@ -86,12 +86,12 @@
 
       <footer class="kv-footer">
         <% if defined?(user_signed_in?) && user_signed_in? %>
-          <span>Knowledge Vault · Dashboard</span>
+          <span>InternalQ · Dashboard</span>
           <% if current_user.organization.present? %>
             <span class="kv-footer-org"><%= current_user.organization.name %></span>
           <% end %>
         <% else %>
-          <span>Knowledge Vault · company knowledge search</span>
+          <span>InternalQ · company knowledge search</span>
         <% end %>
         <span class="kv-footer-links">
           <%= link_to "Install", installation_path %>
