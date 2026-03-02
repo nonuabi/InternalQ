@@ -497,6 +497,39 @@ a:hover {
   color: var(--kv-text);
 }
 
+.kv-google-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: #ffffff;
+  color: var(--kv-text);
+  border: 1px solid var(--kv-border-strong);
+  box-shadow: var(--kv-shadow-sm);
+}
+
+.kv-google-button:hover {
+  background: var(--kv-surface-hover);
+  border-color: var(--kv-text-muted);
+  text-decoration: none;
+}
+
+.kv-google-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #4285f4 0 25%,
+    #34a853 25% 50%,
+    #fbbc05 50% 75%,
+    #ea4335 75% 100%
+  );
+}
+
 .kv-secondary-button:hover {
   background: var(--kv-surface-hover);
   border-color: var(--kv-text-muted);
