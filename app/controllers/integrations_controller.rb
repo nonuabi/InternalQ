@@ -21,6 +21,6 @@ class IntegrationsController < ApplicationController
     end
 
     integration.destroy
-    redirect_to integrations_path, notice: "Slack has been disconnected. Your workspace will no longer receive responses from Knowledge Vault."
+    redirect_to integrations_path, notice: "Slack has been disconnected. Your workspace will no longer receive responses from InternalQ."
   end
 end

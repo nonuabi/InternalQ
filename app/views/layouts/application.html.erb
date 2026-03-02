@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Knowledge Vault" %></title>
+    <title><%= content_for(:title) || "InternalQ" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -13,9 +13,8 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="<%= asset_path('internalQ-icon.png') %>" type="image/png">
+    <link rel="apple-touch-icon" href="<%= asset_path('internalQ-icon.png') %>">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -28,10 +27,10 @@
         <div class="kv-app-header-inner">
           <div class="kv-brand">
             <div class="kv-logo">
-              <div class="kv-logo-dot"></div>
+              <%= image_tag "internalQ-icon.png", alt: "InternalQ logo", class: "kv-logo-image" %>
             </div>
             <div class="kv-brand-text">
-              <div class="kv-brand-title">Knowledge Vault</div>
+              <div class="kv-brand-title">InternalQ</div>
               <div class="kv-brand-subtitle">Internal AI search</div>
             </div>
           </div>
@@ -86,12 +85,12 @@
 
       <footer class="kv-footer">
         <% if defined?(user_signed_in?) && user_signed_in? %>
-          <span>Knowledge Vault · Dashboard</span>
+          <span>InternalQ · Dashboard</span>
           <% if current_user.organization.present? %>
             <span class="kv-footer-org"><%= current_user.organization.name %></span>
           <% end %>
         <% else %>
-          <span>Knowledge Vault · company knowledge search</span>
+          <span>InternalQ · company knowledge search</span>
         <% end %>
         <span class="kv-footer-links">
           <%= link_to "Install", installation_path %>
