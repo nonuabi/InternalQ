@@ -1,6 +1,10 @@
 module Qa
   class Answer
     def self.call(organization_id:, question:)
+      # Keep question length reasonable for embeddings / LLM prompt.
+      question = question.to_s.strip
+      question = question[0, 2_000] if question.length > 2_000
+
       q_embed = Llm::OpenaiEmbeddings.embed(question)
       chunks = Search::ChunkSearch.call(organization_id: organization_id, query_embedding: q_embed, limit: 8)
 
@@ -26,7 +30,6 @@ module Qa
       PROMPT
 
       answer_text = Llm::OpenaiChat.complete(prompt)
-
 
       { answer: answer_text }
     end

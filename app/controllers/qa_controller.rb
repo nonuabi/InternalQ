@@ -11,10 +11,19 @@ class QaController < ApplicationController
       return
     end
 
-    result = Qa::Answer.call(organization_id: current_user.organization_id, question: question)
-    @question = question
-    @answer = result[:answer]
-    @sources = result[:sources]
-    render :new
+    begin
+      result = Qa::Answer.call(organization_id: current_user.organization_id, question: question)
+      @question = question
+      @answer = result[:answer]
+      @sources = result[:sources]
+      render :new
+    rescue StandardError => e
+      Rails.logger.error "QaController#create failed: #{e.message}"
+      @question = question
+      @answer = nil
+      @sources = []
+      flash.now[:alert] = "Sorry, something went wrong answering that. Please try again."
+      render :new, status: :service_unavailable
+    end
   end
 end
