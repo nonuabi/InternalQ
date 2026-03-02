@@ -5,4 +5,3 @@ class AddOmniauthToUsers < ActiveRecord::Migration[8.0]
     add_index :users, [ :provider, :uid ]
   end
 end
-

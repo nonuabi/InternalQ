@@ -19,4 +19,3 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     redirect_to new_user_session_path, alert: "Google sign in was cancelled or failed. Please try again."
   end
 end
-
