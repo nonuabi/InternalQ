@@ -53,29 +53,6 @@
       <div class="kv-answer-body">
         <%= @answer %>
       </div>
-
-      <% if @sources.present? %>
-        <div class="kv-answer-meta">
-          <div class="kv-meta-text kv-meta-muted kv-nowrap">
-            Sources used for this answer
-          </div>
-          <ul class="kv-source-list">
-            <% @sources.each do |s| %>
-              <li>
-                <div class="kv-source-label">
-                  <span class="kv-source-filename"><%= s[:filename] %></span>
-                  <span class="kv-source-meta">
-                    Chunk <%= s[:chunk_index] %> · Document ID <%= s[:document_id] %>
-                  </span>
-                </div>
-                <div>
-                  <%= link_to "View document", document_path(s[:document_id]), class: "kv-secondary-button" %>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
     </div>
   <% else %>
     <div class="kv-empty-state" style="margin-top: 1.1rem;">

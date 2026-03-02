@@ -16,7 +16,7 @@ module Qa
       prompt = <<~PROMPT
         Answer ONLY using the sources below.
         If the answer is not present, say: "I couldn't find that in the uploaded documents."
-        Return a short answer, then list SOURCE numbers used.
+        Return a short answer. Do not mention or list source numbers in the answer.
 
         QUESTION:
         #{question}
@@ -26,16 +26,9 @@ module Qa
       PROMPT
 
       answer_text = Llm::OpenaiChat.complete(prompt)
-      sources = chunks.map.with_index do |chunk, index|
-        {
-          source: index,
-          filename: chunk.metadata["file_name"],
-          document_id: chunk.document_id,
-          chunk_index: chunk.chunk_index
-        }
-      end
 
-      { answer: answer_text, sources: sources }
+
+      { answer: answer_text }
     end
   end
 end
