@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :organization, optional: true
+  validates :email, presence: true, uniqueness: true
+  validate :email_format
 
   after_create :create_organization_if_missing
 
@@ -28,5 +30,11 @@ class User < ApplicationRecord
 
   def employee?
     role == "employee"
+  end
+
+  def email_format
+    unless email.match?(/\A[^@\s]+@[^@\s]+\.[^@\s]+\z/)
+      errors.add(:email, "is not a valid email address")
+    end
   end
 end
