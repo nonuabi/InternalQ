@@ -87,7 +87,8 @@ module Slack
         workspace_id: workspace_id,
         provider: "slack",
         bot_user_id: data["bot_user_id"],
-        bot_token: data["access_token"]
+        bot_token: data["access_token"],
+        status: "connected"
       )
 
       # Use Slack workspace name for the organization when first connecting or reconnecting.

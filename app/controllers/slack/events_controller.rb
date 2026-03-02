@@ -16,8 +16,22 @@ module Slack
         return head :ok
       end
 
-      event = payload["event"]
+      event = payload["event"] || {}
+
+      # Ignore events coming from bots (including ourselves).
       return head :ok if event["bot_id"].present?
+
+      # Handle app uninstallation or token revocation to keep integration state in sync.
+      case event["type"]
+      when "app_uninstalled", "tokens_revoked"
+        integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
+        if integration
+          integration.update(status: "disconnected", bot_token: nil)
+        end
+        return head :ok
+      end
+
+      # We only process app mentions for Q&A.
       return head :ok unless event["type"] == "app_mention"
 
       integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
