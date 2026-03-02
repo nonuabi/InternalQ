@@ -106,6 +106,7 @@ module Slack
     def bot_scopes
       %w[
         app_mentions:read
+        im:history
         chat:write
       ].join(",")
     end
