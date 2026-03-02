@@ -7,7 +7,7 @@
 
 set -e
 
-DEFAULT_URL="https://knowledge-vault-ip8k.onrender.com"
+DEFAULT_URL="https://internalq.onrender.com"
 BASE_URL="${1:-${CHECK_UP_URL:-$DEFAULT_URL}}"
 
 # Strip trailing slash so we can append /up
