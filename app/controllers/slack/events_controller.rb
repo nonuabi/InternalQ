@@ -31,8 +31,12 @@ module Slack
         return head :ok
       end
 
-      # We only process app mentions for Q&A.
-      return head :ok unless event["type"] == "app_mention"
+      # We process:
+      # - app_mention events in channels
+      # - direct messages to the bot (message events in IM channels)
+      is_app_mention = event["type"] == "app_mention"
+      is_direct_message = event["type"] == "message" && event["channel_type"] == "im" && event["subtype"].blank?
+      return head :ok unless is_app_mention || is_direct_message
 
       integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
       unless integration
