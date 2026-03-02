@@ -2,7 +2,7 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Create your account</h1>
-      <p class="kv-page-subtitle">Set up InternalQ for your team. You’ll be the admin. After signup, go to Integrations to connect Slack, then upload documents from the Documents page.</p>
+      <p class="kv-page-subtitle">Set up InternalQ for your team using your Google work email. You’ll be the admin. After sign in, go to Integrations to connect Slack, then upload documents from the Documents page.</p>
     </div>
     <div class="kv-badge-row">
       <div class="kv-pill">
@@ -18,74 +18,15 @@
                   class: "kv-google-button",
                   form: { data: { turbo: false }, style: "display: inline-block; margin: 0;" } do %>
       <span class="kv-google-icon"></span>
-      <span>Continue with Google (recommended)</span>
+      <span>Continue with Google</span>
     <% end %>
   </div>
 
-  <p class="kv-meta-text kv-meta-muted" style="margin: 0 0 0.5rem 0;">
-    Faster, no extra password. We only see your email from Google — never your password.
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0.5rem 0 0.25rem 0;">
+    We use your Google work email to create your InternalQ account. No extra password to manage.
   </p>
-
-  <div class="kv-soft-divider"></div>
-
-  <p class="kv-meta-text kv-meta-muted" style="margin: 0.5rem 0 0.75rem 0;">
-    Prefer email and password? Use the form below.
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0 0 0.75rem 0;">
+    Can’t use Google sign in? Contact <a href="mailto:abhishekverma.gju@gmail.com">support</a>.
   </p>
-
-  <%= form_with model: resource,
-                as: resource_name,
-                url: registration_path(resource_name),
-                html: { class: "kv-form-grid" } do |f| %>
-
-    <% if resource.errors.any? %>
-      <div class="kv-empty-state">
-        <div class="kv-empty-main">
-          <div class="kv-empty-title">We couldn’t create your account</div>
-          <div class="kv-empty-subtitle">
-            <%= resource.errors.full_messages.first %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <div>
-      <div class="kv-field-label">Work email</div>
-      <%= f.email_field :email,
-                        autofocus: true,
-                        autocomplete: "email",
-                        class: "kv-input",
-                        placeholder: "you@company.com" %>
-      <div class="kv-field-hint">
-        We create an organization for you. Connect Slack later from Integrations.
-      </div>
-    </div>
-
-    <div>
-      <div class="kv-field-label">Password</div>
-      <%= f.password_field :password,
-                           autocomplete: "new-password",
-                           class: "kv-input" %>
-      <% if @minimum_password_length %>
-        <div class="kv-field-hint">
-          Must be at least <%= @minimum_password_length %> characters.
-        </div>
-      <% end %>
-    </div>
-
-    <div>
-      <div class="kv-field-label">Confirm password</div>
-      <%= f.password_field :password_confirmation,
-                           autocomplete: "new-password",
-                           class: "kv-input" %>
-    </div>
-
-    <div class="kv-form-footer">
-      <%= f.submit "Create account", class: "kv-primary-button" %>
-      <span class="kv-meta-text kv-meta-muted">
-        Already have an account?
-        <%= link_to "Log in", new_session_path(resource_name) %>
-      </span>
-    </div>
-  <% end %>
 </div>
 

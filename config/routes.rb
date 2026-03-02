@@ -3,7 +3,12 @@ require "sidekiq/web"
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [ :registrations ]
+
+  # Redirect any legacy sign-up URL to the Google-first login
+  devise_scope :user do
+    get "users/sign_up", to: redirect("/users/sign_in")
+  end
 
   authenticate :user do
     mount Sidekiq::Web => "/sidekiq"

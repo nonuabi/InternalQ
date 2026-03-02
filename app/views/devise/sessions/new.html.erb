@@ -18,67 +18,15 @@
                   class: "kv-google-button",
                   form: { data: { turbo: false }, style: "display: inline-block; margin: 0;" } do %>
       <span class="kv-google-icon"></span>
-      <span>Continue with Google (recommended)</span>
+      <span>Continue with Google</span>
     <% end %>
   </div>
 
-  <p class="kv-meta-text kv-meta-muted" style="margin: 0 0 0.5rem 0;">
-    Fastest way to log in. Uses your Google work email — we never see your password.
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0.5rem 0 0.25rem 0;">
+    Log in or get started with your Google work email. We never see your Google password.
   </p>
-
-  <div class="kv-soft-divider"></div>
-
-  <p class="kv-meta-text kv-meta-muted" style="margin: 0.5rem 0 0.75rem 0;">
-    Or continue with your email and password below.
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0 0 0.75rem 0;">
+    Trouble with Google sign in? Reach out to <a href="mailto:abhishekverma.gju@gmail.com">support</a>.
   </p>
-
-  <%= form_with model: resource,
-                as: resource_name,
-                url: session_path(resource_name),
-                html: { class: "kv-form-grid" } do |f| %>
-
-    <% if resource.errors.any? %>
-      <div class="kv-empty-state">
-        <div class="kv-empty-main">
-          <div class="kv-empty-title">There was a problem signing you in</div>
-          <div class="kv-empty-subtitle">
-            <%= resource.errors.full_messages.first %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
-    <div>
-      <div class="kv-field-label">Work email</div>
-      <%= f.email_field :email,
-                        autofocus: true,
-                        autocomplete: "email",
-                        class: "kv-input",
-                        placeholder: "you@company.com" %>
-    </div>
-
-    <div>
-      <div class="kv-field-label">Password</div>
-      <%= f.password_field :password,
-                           autocomplete: "current-password",
-                           class: "kv-input" %>
-    </div>
-
-    <% if devise_mapping.rememberable? %>
-      <div class="kv-meta-text">
-        <label>
-          <%= f.check_box :remember_me %>
-          <span>Keep me signed in</span>
-        </label>
-      </div>
-    <% end %>
-
-    <div class="kv-form-footer">
-      <%= f.submit "Log in", class: "kv-primary-button" %>
-      <span class="kv-meta-text kv-meta-muted">
-        No account? <%= link_to "Sign up", new_registration_path(resource_name) %> first, then connect Slack from Integrations.
-      </span>
-    </div>
-  <% end %>
 </div>
 
