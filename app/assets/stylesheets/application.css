@@ -111,15 +111,13 @@ a:hover {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: var(--kv-accent);
-  color: white;
+  overflow: hidden;
 }
 
-.kv-logo-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+.kv-logo-image {
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 
 .kv-brand-text {
