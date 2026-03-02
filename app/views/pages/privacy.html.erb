@@ -25,7 +25,8 @@
 
     <section class="kv-static-section">
       <h2>Slack integration</h2>
-      <p>When you connect Slack, we receive and store tokens and workspace identifiers needed to deliver the bot (e.g. responding to mentions). We follow Slack’s API and data usage guidelines. You can disconnect the integration at any time from Integrations in the app.</p>
+      <p>When you connect Slack, we receive and store tokens and workspace identifiers needed to deliver the bot (for example, responding to mentions). The bot uses the minimum scopes required (<code>app_mentions:read</code> and <code>chat:write</code>) so it can see messages where it is mentioned and send replies.</p>
+      <p>We do not read or store arbitrary channel history, only the messages needed to answer specific questions. You can disconnect the integration at any time from Integrations in the app, which revokes our access and stops the bot from responding.</p>
     </section>
 
     <section class="kv-static-section">
