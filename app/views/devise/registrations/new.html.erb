@@ -12,6 +12,26 @@
     </div>
   </div>
 
+  <div class="kv-inline-form" style="margin-bottom: 1rem;">
+    <%= button_to user_google_oauth2_omniauth_authorize_path,
+                  method: :post,
+                  class: "kv-google-button",
+                  form: { data: { turbo: false }, style: "display: inline-block; margin: 0;" } do %>
+      <span class="kv-google-icon"></span>
+      <span>Continue with Google (recommended)</span>
+    <% end %>
+  </div>
+
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0 0 0.5rem 0;">
+    Faster, no extra password. We only see your email from Google — never your password.
+  </p>
+
+  <div class="kv-soft-divider"></div>
+
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0.5rem 0 0.75rem 0;">
+    Prefer email and password? Use the form below.
+  </p>
+
   <%= form_with model: resource,
                 as: resource_name,
                 url: registration_path(resource_name),
