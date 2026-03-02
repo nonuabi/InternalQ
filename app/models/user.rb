@@ -2,13 +2,33 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   belongs_to :organization, optional: true
   validates :email, presence: true, uniqueness: true
   validate :email_format
 
   after_create :create_organization_if_missing
+
+  def self.from_google(auth)
+    email = auth.info.email.to_s.downcase
+    user = find_by(email: email)
+
+    if user
+      if user.provider.blank? || user.uid.blank?
+        user.update(provider: auth.provider, uid: auth.uid)
+      end
+      return user
+    end
+
+    create!(
+      email: email,
+      password: Devise.friendly_token[0, 20],
+      provider: auth.provider,
+      uid: auth.uid
+    )
+  end
 
   def create_organization_if_missing
     unless organization.present?

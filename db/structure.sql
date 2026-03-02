@@ -299,7 +299,9 @@ CREATE TABLE public.users (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     organization_id bigint,
-    role character varying DEFAULT 'employee'::character varying NOT NULL
+    role character varying DEFAULT 'employee'::character varying NOT NULL,
+    provider character varying,
+    uid character varying
 );
 
 
@@ -550,6 +552,13 @@ CREATE INDEX index_users_on_organization_id ON public.users USING btree (organiz
 
 
 --
+-- Name: index_users_on_provider_and_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_provider_and_uid ON public.users USING btree (provider, uid);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -619,6 +628,7 @@ ALTER TABLE ONLY public.users
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260301120000'),
 ('20260228155828'),
 ('20260226101425'),
 ('20260226101407'),
