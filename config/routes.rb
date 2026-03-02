@@ -31,10 +31,11 @@ Rails.application.routes.draw do
     post "/events",         to: "events#receive"
   end
 
-  # Public pages for Slack marketplace (installation landing, privacy, support)
+  # Public pages for Slack marketplace (installation landing, privacy, support, terms)
   get "installation", to: "pages#installation"
   get "privacy",       to: "pages#privacy"
   get "support",       to: "pages#support"
+  get "terms",         to: "pages#terms"
 
   get "team", to: "employees#index", as: :team
   post "team/:id/make_admin", to: "employees#make_admin", as: :make_admin_team_member

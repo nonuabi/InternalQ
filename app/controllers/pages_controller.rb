@@ -17,4 +17,8 @@ class PagesController < ApplicationController
   def support
     # Support URL — help center or support portal.
   end
+
+  def terms
+    # Terms of service URL, referenced from Slack marketplace configuration.
+  end
 end
