@@ -14,8 +14,13 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => "/sidekiq"
   end
 
-  root "qa#new"
+  authenticated :user do
+    root "qa#new", as: :authenticated_root
+  end
 
+  unauthenticated do
+    root "pages#installation"
+  end
 
 
   resources :documents, only: [ :index, :new, :create, :show, :destroy ]
