@@ -6,7 +6,7 @@ class Document < ApplicationRecord
 
   validates :status, presence: true
   validates :file, presence: true
-  validates :title, presence: true
+  validates :title, presence: true, length: { maximum: 80 }
 
   validate :file_size_under_limit
   validate :file_content_type_allowed

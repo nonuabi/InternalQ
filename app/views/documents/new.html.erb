@@ -22,9 +22,9 @@
 
     <div>
       <div class="kv-field-label">Title</div>
-      <%= f.text_field :title, class: "kv-input", placeholder: "e.g. Employee handbook 2025" %>
+      <%= f.text_field :title, class: "kv-input", placeholder: "e.g. Employee handbook 2025", maxlength: 80 %>
       <div class="kv-field-hint">
-        Shown in the app and in answer sources.
+        Shown in the app and in answer sources (max 80 characters).
       </div>
     </div>
 
@@ -48,4 +48,24 @@
       </span>
     </div>
   <% end %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var titleInput = document.getElementById("document_title");
+      var fileInput  = document.getElementById("document_file");
+
+      if (!titleInput || !fileInput) return;
+
+      fileInput.addEventListener("change", function(event) {
+        if (!fileInput.files || fileInput.files.length === 0) return;
+        if (titleInput.value && titleInput.value.trim().length > 0) return;
+
+        var file = fileInput.files[0];
+        if (!file || !file.name) return;
+
+        var name = file.name.replace(/\.[^\.]+$/, "");
+        titleInput.value = name;
+      });
+    });
+  </script>
 </div>

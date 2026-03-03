@@ -34,8 +34,8 @@
             <% @documents.each do |d| %>
               <tr>
                 <td>
-                  <div class="kv-meta-text">
-                    <%= link_to (d.title.presence || "Untitled"), document_path(d), class: "kv-inline-muted" %>
+                  <div class="kv-meta-text" style="max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <%= link_to (d.title.presence || "Untitled"), document_path(d), class: "kv-inline-muted", title: d.title %>
                   </div>
                 </td>
                 <td>
