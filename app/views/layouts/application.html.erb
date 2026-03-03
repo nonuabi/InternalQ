@@ -59,7 +59,7 @@
             </div>
           <% else %>
             <nav class="kv-nav kv-nav-public">
-              <%= link_to "Install", installation_path, class: (current_page?(installation_path) ? "kv-nav-active" : "") %>
+              <%= link_to "Install", root_path, class: (current_page?(root_path) ? "kv-nav-active" : "") %>
               <%= link_to "Log in", new_user_session_path, class: (current_page?(new_user_session_path) ? "kv-nav-active" : "") %>
             </nav>
           <% end %>
@@ -94,7 +94,7 @@
           <% if defined?(user_signed_in?) && user_signed_in? %>
             <%= link_to "Team Members", team_path %>
           <% else %>
-            <%= link_to "Install", installation_path %>
+            <%= link_to "Install", root_path %>
           <% end %>
           <%= link_to "Privacy", privacy_path %>
           <%= link_to "Terms", terms_path %>
