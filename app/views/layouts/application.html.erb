@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "InternalQ" %></title>
+    <title><%= content_for(:title) || "InternalQ · Your company’s AI assistant" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -31,7 +31,7 @@
             </div>
             <div class="kv-brand-text">
               <div class="kv-brand-title">InternalQ</div>
-              <div class="kv-brand-subtitle">Internal AI search</div>
+              <div class="kv-brand-subtitle">Your company’s AI assistant</div>
             </div>
           </div>
 
@@ -89,7 +89,7 @@
             <span class="kv-footer-org"><%= current_user.organization.name %></span>
           <% end %>
         <% else %>
-          <span>InternalQ · company knowledge search</span>
+          <span>InternalQ · your company’s AI assistant</span>
         <% end %>
         <span class="kv-footer-links">
           <%= link_to "Install", installation_path %>

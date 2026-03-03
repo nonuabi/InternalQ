@@ -1,43 +1,25 @@
 <% content_for :title, "Install InternalQ · Slack" %>
-<div class="kv-page">
-  <div class="kv-page-header">
-    <div class="kv-heading-group">
-      <h1>Install InternalQ</h1>
-      <p class="kv-page-subtitle">Search your company docs with AI — in this app and in Slack. Start with Google sign in below, then connect your workspace.</p>
-    </div>
-    <div class="kv-badge-row">
-      <div class="kv-pill">
-        <span class="kv-pill-dot"></span>
-        Slack app · Google sign in
-      </div>
-    </div>
-  </div>
-
+<div class="kv-page kv-install-page">
   <div class="kv-install-hero">
-    <p class="kv-install-lead">
-      <strong>What you can do:</strong> Upload PDFs and docs, then ask questions in plain English. Get answers backed by your own documents. Use it in this app, in a direct message with the bot, or by mentioning the bot in Slack channels.
+    <h1 class="kv-install-title">Stop answering the same questions again.</h1>
+
+    <p class="kv-install-subtitle">
+      Turn your company documents into a private AI assistant.<br />
+      Your team asks questions. It answers instantly — in Slack or the web app.
     </p>
 
-    <div class="kv-install-steps-wrapper">
-      <p class="kv-steps-heading">How to get started</p>
-      <ol class="kv-install-steps">
-        <li>
-          <span class="kv-step-num">1</span>
-          <span><strong>Sign in with Google</strong> — Use the button below with your work Google account. We’ll create your organization and make you the admin.</span>
-        </li>
-        <li>
-          <span class="kv-step-num">2</span>
-          <span><strong>Connect Slack</strong> — Go to Integrations (after login) and connect your Slack workspace so the bot can answer in channels and DMs. This is usually done by someone who can install apps in your Slack workspace (admin or owner).</span>
-        </li>
-        <li>
-          <span class="kv-step-num">3</span>
-          <span><strong>Upload docs &amp; ask</strong> — Add documents from the Documents page, then ask questions on the Q&A page, in a DM with the InternalQ app, or by @mentioning the bot in Slack channels.</span>
-        </li>
-      </ol>
+    <p class="kv-install-subtitle kv-install-subtitle-compact">
+      In Slack, your team can ask:
+    </p>
+
+    <div class="kv-install-example">
+      <span class="kv-mono">@InternalQ</span>
+      <span class="kv-mono">What is our leave policy?</span>
     </div>
 
+    <p class="kv-install-trust">Answers are generated only from your company’s documents.</p>
+
     <div class="kv-install-cta">
-      <p class="kv-cta-lead">Get started with Google</p>
       <%= button_to user_google_oauth2_omniauth_authorize_path,
                     method: :post,
                     class: "kv-google-button",
@@ -45,18 +27,22 @@
         <span class="kv-google-icon"></span>
         <span>Continue with Google</span>
       <% end %>
-      <span class="kv-meta-text kv-meta-muted">
-        Already set up? You can also <%= link_to "log in here", new_user_session_path %>.
-      </span>
+
+      <div class="kv-install-meta">
+        <div class="kv-install-meta-row">
+          <span class="kv-meta-text kv-meta-muted">Takes 30 seconds · No passwords shared.</span>
+          <span class="kv-meta-text kv-meta-muted">Perfect for handbooks, policies, and SOPs.</span>
+        </div>
+        <div class="kv-install-login-link">
+          <%= link_to "Already using InternalQ? Log in", new_user_session_path %>
+        </div>
+      </div>
     </div>
 
-    <p class="kv-meta-text kv-meta-muted kv-install-note">
-      Already have a workspace connected? Log in and connect Slack — you’ll be added to your team’s organization automatically.
+    <div class="kv-soft-divider"></div>
+
+    <p class="kv-meta-text kv-meta-muted">
+      Need help? <%= link_to "Support", support_path %> · <%= link_to "Privacy policy", privacy_path %>
     </p>
   </div>
-
-  <div class="kv-soft-divider"></div>
-  <p class="kv-meta-text kv-meta-muted">
-    Need help? <%= link_to "Support", support_path %> · <%= link_to "Privacy policy", privacy_path %>
-  </p>
 </div>

@@ -1,9 +1,14 @@
+<% content_for :title, "Log in · InternalQ" %>
+
 <div class="kv-page">
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Log in</h1>
-      <p class="kv-page-subtitle">Access your organization’s InternalQ. After logging in you can ask questions (Q&A), view documents, and — if you’re an admin — manage integrations and uploads.</p>
+      <p class="kv-page-subtitle">
+        Log in to your company’s AI assistant. Ask questions about policies, SOPs, and handbooks — and get instant answers.
+      </p>
     </div>
+
     <div class="kv-badge-row">
       <div class="kv-pill">
         <span class="kv-pill-dot"></span>
@@ -12,7 +17,7 @@
     </div>
   </div>
 
-  <div class="kv-inline-form" style="margin-bottom: 1rem;">
+  <div class="kv-inline-form" style="margin-bottom: 0.75rem;">
     <%= button_to user_google_oauth2_omniauth_authorize_path,
                   method: :post,
                   class: "kv-google-button",
@@ -22,11 +27,10 @@
     <% end %>
   </div>
 
-  <p class="kv-meta-text kv-meta-muted" style="margin: 0.5rem 0 0.25rem 0;">
-    Log in or get started with your Google work email. We never see your Google password.
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0.25rem 0 0 0;">
+    We never see your Google password.
   </p>
-  <p class="kv-meta-text kv-meta-muted" style="margin: 0 0 0.75rem 0;">
-    Trouble with Google sign in? Reach out to <a href="mailto:abhishekverma.gju@gmail.com">support</a>.
+  <p class="kv-meta-text kv-meta-muted" style="margin: 0.15rem 0 0;">
+    Trouble signing in? Reach out to <%= link_to "support", support_path %>.
   </p>
 </div>
-
