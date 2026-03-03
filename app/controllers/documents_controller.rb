@@ -17,7 +17,15 @@ class DocumentsController < ApplicationController
 
     if @document.save
       Documents::IndexJob.perform_later(@document.id)
-      redirect_to documents_path, notice: "Uploaded! Indexing started in background..."
+      if params[:onboarding] == "1"
+        doc_title = @document.title.presence || "this document"
+        redirect_to ask_path(
+          question: "Summarize the key points from #{doc_title}",
+          onboarding: "1"
+        ), notice: "Uploaded! We’re indexing your document. Ask a question while we finish up."
+      else
+        redirect_to documents_path, notice: "Uploaded! Indexing started in background..."
+      end
     else
       render :new, status: :unprocessable_entity
     end

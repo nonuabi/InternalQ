@@ -1,14 +1,25 @@
 <div class="kv-page">
   <div class="kv-page-header">
     <div class="kv-heading-group">
-      <h1>Upload document</h1>
-      <p class="kv-page-subtitle"><strong>What:</strong> Add a PDF or DOCX (handbook, policy, runbook) so Q&A can answer from it. <strong>How:</strong> Give it a title, pick a file, and submit. We process it in the background; when status is complete, it's searchable.</p>
+      <% if params[:onboarding] == "1" %>
+        <h1>Upload your first document</h1>
+        <p class="kv-page-subtitle">
+          Add a handbook, policy, or SOP. InternalQ will use it to answer questions for your team.
+        </p>
+      <% else %>
+        <h1>Upload document</h1>
+        <p class="kv-page-subtitle"><strong>What:</strong> Add a PDF or DOCX (handbook, policy, runbook) so Q&A can answer from it. <strong>How:</strong> Give it a title, pick a file, and submit. We process it in the background; when status is complete, it's searchable.</p>
+      <% end %>
     </div>
 
-    <%= link_to "Back to documents", documents_path, class: "kv-ghost-button" %>
+    <% unless params[:onboarding] == "1" %>
+      <%= link_to "Back to documents", documents_path, class: "kv-ghost-button" %>
+    <% end %>
   </div>
 
-  <%= form_with model: @document, html: { class: "kv-form-grid" } do |f| %>
+  <%= form_with model: @document,
+                url: documents_path(onboarding: params[:onboarding]),
+                html: { class: "kv-form-grid" } do |f| %>
     <% if @document.errors.any? %>
       <div class="kv-empty-state kv-error-state">
         <div class="kv-empty-main">
@@ -44,7 +55,7 @@
     <div class="kv-form-footer">
       <%= f.submit "Upload", class: "kv-primary-button" %>
       <span class="kv-meta-text kv-meta-muted">
-        Uploading will kick off background processing so it’s searchable in Q&A.
+        Uploading kicks off background processing. Once indexed, you can ask questions in Q&A and in Slack.
       </span>
     </div>
   <% end %>
