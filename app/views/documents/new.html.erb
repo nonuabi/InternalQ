@@ -50,13 +50,14 @@
   <% end %>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    function attachDocumentTitleAutofill() {
       var titleInput = document.getElementById("document_title");
       var fileInput  = document.getElementById("document_file");
 
       if (!titleInput || !fileInput) return;
+      if (fileInput.dataset.autofillBound === "true") return;
 
-      fileInput.addEventListener("change", function(event) {
+      fileInput.addEventListener("change", function() {
         if (!fileInput.files || fileInput.files.length === 0) return;
         if (titleInput.value && titleInput.value.trim().length > 0) return;
 
@@ -66,6 +67,14 @@
         var name = file.name.replace(/\.[^\.]+$/, "");
         titleInput.value = name;
       });
-    });
+
+      fileInput.dataset.autofillBound = "true";
+    }
+
+    document.addEventListener("turbo:load", attachDocumentTitleAutofill);
+
+    if (document.readyState !== "loading") {
+      attachDocumentTitleAutofill();
+    }
   </script>
 </div>
