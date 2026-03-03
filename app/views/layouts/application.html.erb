@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "InternalQ" %></title>
+    <title><%= content_for(:title) || "InternalQ · Your company’s AI assistant" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -31,16 +31,15 @@
             </div>
             <div class="kv-brand-text">
               <div class="kv-brand-title">InternalQ</div>
-              <div class="kv-brand-subtitle">Internal AI search</div>
+              <div class="kv-brand-subtitle">Your company’s AI assistant</div>
             </div>
           </div>
 
           <% if defined?(user_signed_in?) && user_signed_in? %>
             <nav class="kv-nav">
-              <%= link_to "Q&A", root_path, class: (current_page?(root_path) ? "kv-nav-active" : "") %>
+              <%= link_to "Q&A", root_path, class: (controller_name == "qa" ? "kv-nav-active" : "") %>
               <%= link_to "Documents", documents_path, class: (controller_name == "documents" ? "kv-nav-active" : "") %>
               <%= link_to "Integrations", integrations_path, class: (controller_name == "integrations" ? "kv-nav-active" : "") %>
-              <%= link_to "Team", team_path, class: (controller_name == "employees" ? "kv-nav-active" : "") %>
             </nav>
 
             <div class="kv-header-context">
@@ -89,10 +88,14 @@
             <span class="kv-footer-org"><%= current_user.organization.name %></span>
           <% end %>
         <% else %>
-          <span>InternalQ · company knowledge search</span>
+          <span>InternalQ · your company’s AI assistant</span>
         <% end %>
         <span class="kv-footer-links">
-          <%= link_to "Install", installation_path %>
+          <% if defined?(user_signed_in?) && user_signed_in? %>
+            <%= link_to "Team Members", team_path %>
+          <% else %>
+            <%= link_to "Install", installation_path %>
+          <% end %>
           <%= link_to "Privacy", privacy_path %>
           <%= link_to "Terms", terms_path %>
           <%= link_to "Support", support_path %>

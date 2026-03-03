@@ -2,6 +2,7 @@ class QaController < ApplicationController
   before_action :authenticate_user!
 
   def new
+    @question = params[:question].to_s if params[:question].present?
   end
 
   def create
@@ -16,6 +17,7 @@ class QaController < ApplicationController
       @question = question
       @answer = result[:answer]
       @sources = result[:sources]
+      @show_slack_prompt = params[:onboarding] == "1"
       render :new
     rescue StandardError => e
       Rails.logger.error "QaController#create failed: #{e.message}"

@@ -2,7 +2,7 @@
   <div class="kv-page-header">
     <div class="kv-heading-group">
       <h1>Q&A</h1>
-      <p class="kv-page-subtitle"><strong>What you can do:</strong> Ask questions in plain English and get answers from your uploaded documents. <strong>How:</strong> Type a question below and click Ask. Answers are generated from your knowledge base and link back to sources.</p>
+      <p class="kv-page-subtitle">Ask your company anything. Answers are generated from your documents and cite sources.</p>
     </div>
     <div class="kv-badge-row">
       <div class="kv-pill">
@@ -13,7 +13,24 @@
     </div>
   </div>
 
-  <%= form_with url: ask_path, method: :post, data: { turbo: false }, html: { class: "kv-form-grid", id: "kv-qa-form" } do %>
+  <% has_docs = current_user.organization.present? && current_user.organization.documents.count > 0 %>
+
+  <% unless has_docs %>
+    <div class="kv-empty-state" style="margin-top: 1.1rem;">
+      <div class="kv-empty-main">
+        <div class="kv-empty-title">Upload a document to get started</div>
+        <div class="kv-empty-subtitle">
+          Add a handbook, policy, or SOP. Then come back here to ask questions.
+        </div>
+      </div>
+      <div style="margin-top: 0.9rem;">
+        <%= link_to "Upload your first document", new_document_path(onboarding: "1"), class: "kv-primary-button" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if has_docs %>
+  <%= form_with url: ask_path(onboarding: params[:onboarding]), method: :post, data: { turbo: false }, html: { class: "kv-form-grid", id: "kv-qa-form" } do %>
     <div>
       <div class="kv-field-label">Ask a question</div>
       <%= text_area_tag :question,
@@ -54,17 +71,23 @@
         <%= @answer %>
       </div>
     </div>
-  <% else %>
-    <div class="kv-empty-state" style="margin-top: 1.1rem;">
-      <div class="kv-empty-main">
-        <div class="kv-empty-title">Ask your first question</div>
-        <div class="kv-empty-subtitle">
-          For example: “Summarize the onboarding process” or “What are our working-from-home guidelines?”
+
+    <% if defined?(@show_slack_prompt) && @show_slack_prompt && current_user.admin? %>
+      <div class="kv-empty-state" style="margin-top: 1.1rem;">
+        <div class="kv-empty-main">
+          <div class="kv-empty-title">Bring Q&A into Slack</div>
+          <div class="kv-empty-subtitle">
+            Let your team ask questions right from Slack. 2-minute setup, admin only.
+          </div>
+        </div>
+        <div style="margin-top: 0.9rem;">
+          <%= link_to "Connect Slack", slack_connect_path, class: "kv-primary-button" %>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
   </div>
+  <% end %>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
