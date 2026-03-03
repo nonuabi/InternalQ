@@ -71,9 +71,9 @@ module Slack
         target_org = existing_integration.organization
         current_user.update!(organization_id: target_org.id, role: "employee")
 
-        # Remove empty placeholder org if this user was the only member and had no data.
+        # Remove empty placeholder org if this user was the only member
         old_org = Organization.find_by(id: org_id)
-        if old_org && old_org.users.count == 0 && old_org.documents.count == 0
+        if old_org && old_org.users.count == 0
           old_org.destroy
         end
 
