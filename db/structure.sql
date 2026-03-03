@@ -286,6 +286,38 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: unanswered_questions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.unanswered_questions (
+    id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    question text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: unanswered_questions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.unanswered_questions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unanswered_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.unanswered_questions_id_seq OWNED BY public.unanswered_questions.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -374,6 +406,13 @@ ALTER TABLE ONLY public.organizations ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: unanswered_questions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unanswered_questions ALTER COLUMN id SET DEFAULT nextval('public.unanswered_questions_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -450,6 +489,14 @@ ALTER TABLE ONLY public.organizations
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: unanswered_questions unanswered_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unanswered_questions
+    ADD CONSTRAINT unanswered_questions_pkey PRIMARY KEY (id);
 
 
 --
@@ -538,6 +585,13 @@ CREATE UNIQUE INDEX index_integrations_on_provider_and_workspace_id ON public.in
 
 
 --
+-- Name: index_unanswered_questions_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unanswered_questions_on_organization_id ON public.unanswered_questions USING btree (organization_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -590,6 +644,14 @@ ALTER TABLE ONLY public.integrations
 
 
 --
+-- Name: unanswered_questions fk_rails_7fa9d3deaa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unanswered_questions
+    ADD CONSTRAINT fk_rails_7fa9d3deaa FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -628,6 +690,7 @@ ALTER TABLE ONLY public.users
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260303120000'),
 ('20260301120000'),
 ('20260228155828'),
 ('20260226101425'),
