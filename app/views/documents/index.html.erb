@@ -34,7 +34,7 @@
             <% @documents.each do |d| %>
               <tr>
                 <td>
-                  <div class="kv-meta-text" style="max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  <div class="kv-meta-text" style="max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     <%= link_to (d.title.presence || "Untitled"), document_path(d), class: "kv-inline-muted", title: d.title %>
                   </div>
                 </td>
@@ -51,7 +51,7 @@
                       <span><%= d.status.presence || "unknown" %></span>
                     </span>
                     <% if normalized_status == "failed" && d.respond_to?(:error_message) && d.error_message.present? %>
-                      <div class="kv-meta-text kv-inline-danger" style="margin-top: 0.2rem; max-width: 260px; white-space: normal;">
+                      <div class="kv-meta-text kv-inline-danger" style="margin-top: 0.2rem; max-width: 180px; white-space: normal;">
                         <span class="kv-mono">Error:</span>
                         <%= truncate(d.error_message, length: 120) %>
                       </div>
