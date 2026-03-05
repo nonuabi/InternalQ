@@ -672,6 +672,52 @@ a:hover {
 }
 
 /* Team page */
+.kv-usage-this-month {
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--kv-border);
+  background: var(--kv-surface-hover);
+}
+
+.kv-usage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.kv-usage-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--kv-text);
+}
+
+.kv-usage-count {
+  font-size: 0.8125rem;
+  color: var(--kv-text-secondary);
+}
+
+.kv-usage-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--kv-border);
+  overflow: hidden;
+}
+
+.kv-usage-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--kv-accent);
+  transition: width 0.2s ease;
+}
+
+.kv-usage-fill-unlimited {
+  background: var(--kv-border-strong);
+}
+
+/* Team page table */
 .kv-team-email {
   display: inline-flex;
   align-items: center;
