@@ -253,8 +253,16 @@ CREATE TABLE public.organizations (
     id bigint NOT NULL,
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    monthly_question_limit integer
 );
+
+
+--
+-- Name: COLUMN organizations.monthly_question_limit; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON COLUMN public.organizations.monthly_question_limit IS 'Max questions per calendar month; null = use default or unlimited';
 
 
 --
@@ -274,6 +282,38 @@ CREATE SEQUENCE public.organizations_id_seq
 --
 
 ALTER SEQUENCE public.organizations_id_seq OWNED BY public.organizations.id;
+
+
+--
+-- Name: question_usages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.question_usages (
+    id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    source character varying DEFAULT 'web'::character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: question_usages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.question_usages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: question_usages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.question_usages_id_seq OWNED BY public.question_usages.id;
 
 
 --
@@ -406,6 +446,13 @@ ALTER TABLE ONLY public.organizations ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: question_usages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.question_usages ALTER COLUMN id SET DEFAULT nextval('public.question_usages_id_seq'::regclass);
+
+
+--
 -- Name: unanswered_questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -481,6 +528,14 @@ ALTER TABLE ONLY public.integrations
 
 ALTER TABLE ONLY public.organizations
     ADD CONSTRAINT organizations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: question_usages question_usages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.question_usages
+    ADD CONSTRAINT question_usages_pkey PRIMARY KEY (id);
 
 
 --
@@ -585,6 +640,20 @@ CREATE UNIQUE INDEX index_integrations_on_provider_and_workspace_id ON public.in
 
 
 --
+-- Name: index_question_usages_on_org_and_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_question_usages_on_org_and_created_at ON public.question_usages USING btree (organization_id, created_at);
+
+
+--
+-- Name: index_question_usages_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_question_usages_on_organization_id ON public.question_usages USING btree (organization_id);
+
+
+--
 -- Name: index_unanswered_questions_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -668,6 +737,14 @@ ALTER TABLE ONLY public.document_chunks
 
 
 --
+-- Name: question_usages fk_rails_a0e99cdd13; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.question_usages
+    ADD CONSTRAINT fk_rails_a0e99cdd13 FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
+
+
+--
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -690,6 +767,8 @@ ALTER TABLE ONLY public.users
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260305120001'),
+('20260305120000'),
 ('20260303120000'),
 ('20260301120000'),
 ('20260228155828'),

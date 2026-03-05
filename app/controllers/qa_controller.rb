@@ -12,8 +12,13 @@ class QaController < ApplicationController
       return
     end
 
+    unless Usage::LimitChecker.within_limit?(organization_id: current_user.organization_id)
+      redirect_to ask_path, alert: "You've reached your monthly question limit. Please try again next month."
+      return
+    end
+
     begin
-      result = Qa::Answer.call(organization_id: current_user.organization_id, question: question)
+      result = Qa::Answer.call(organization_id: current_user.organization_id, question: question, source: "web")
       @question = question
       @answer = result[:answer]
       @sources = result[:sources]

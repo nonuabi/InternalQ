@@ -2,7 +2,10 @@ module Qa
   class Answer
     FALLBACK_ANSWER = "I couldn't find that in the uploaded documents.".freeze
 
-    def self.call(organization_id:, question:)
+    def self.call(organization_id:, question:, source: "web")
+      # Record usage for this question (counts toward monthly limit; we call embeddings + possibly chat).
+      Usage::Recorder.record(organization_id: organization_id, source: source)
+
       # Keep question length reasonable for embeddings / LLM prompt.
       question = question.to_s.strip
       question = question[0, 2_000] if question.length > 2_000
