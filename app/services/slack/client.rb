@@ -5,14 +5,14 @@ module Slack
 
     debug_output $stdout
 
-    def self.post_message(token:, channel:, text:)
+    def self.post_message(token:, channel:, text:, thread_ts: nil)
       post(
         "/chat.postMessage",
         headers: {
           "Authorization" => "Bearer #{token}",
           "Content-Type" => "application/json; charset=utf-8"
         },
-        body: { channel: channel, text: text }.to_json
+        body: { channel: channel, text: text }.merge(thread_ts ? { thread_ts: thread_ts } : {}).to_json
       )
     end
 
