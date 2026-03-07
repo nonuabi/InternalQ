@@ -34,9 +34,11 @@ module Slack
       # We process:
       # - app_mention events in channels
       # - direct messages to the bot (message events in IM channels)
+      # - message events in threads
       is_app_mention = event["type"] == "app_mention"
       is_direct_message = event["type"] == "message" && event["channel_type"] == "im" && event["subtype"].blank?
-      return head :ok unless is_app_mention || is_direct_message
+      is_thread_message = event["type"] == "message" && event["channel_type"] == "channel" && event["thread_ts"].present?
+      return head :ok unless is_app_mention || is_direct_message || is_thread_message
 
       integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
       unless integration
@@ -45,6 +47,8 @@ module Slack
 
       # Respond to Slack immediately (< 3s) so it doesn't retry and send duplicate events.
       # Process the answer in a thread and post when ready.
+      # Always reply in thread: use thread_ts if already in a thread, else use message ts to start a new thread.
+      thread_ts = event["thread_ts"] || event["ts"]
       # TODO: in future, we should use a more robust solution when we have money to setup a separate worker. for now, this is a quick fix.
       event_id = payload["event_id"]
       if already_processing?(event_id)
@@ -53,7 +57,7 @@ module Slack
 
       Thread.new do
         begin
-          Slack::MessageHandler.call(integration: integration, event: event)
+          Slack::MessageHandler.call(integration: integration, event: event, thread_ts: thread_ts)
         rescue StandardError => e
           Rails.logger.error "Slack::MessageHandler failed: #{e.message}\n#{e.backtrace.first(5).join("\n")}"
         end
