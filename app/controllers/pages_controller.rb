@@ -4,9 +4,9 @@ class PagesController < ApplicationController
   layout "application"
 
   def installation
-    # Send guests to sign up first; after sign up/log in they go to Integrations to connect Slack.
+    # Send guests to sign up first; after sign up/log in they start the onboarding flow (Q&A page with upload CTA).
     if !user_signed_in?
-      session["user_return_to"] = integrations_path
+      session["user_return_to"] = ask_path(onboarding: "1")
     end
   end
 

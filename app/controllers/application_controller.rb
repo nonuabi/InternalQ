@@ -10,16 +10,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # After sign up or log in, send user to the page they were heading to (e.g. Integrations from installation).
+  # After sign up or log in, send user to the page they were heading to (e.g. onboarding from installation).
   def after_sign_in_path_for(resource)
-    path = session["user_return_to"]
-    session.delete("user_return_to")
-    return path if path.present?
-
     if resource.respond_to?(:organization) &&
         resource.organization.present? &&
         resource.organization.documents.count == 0
-      new_document_path(onboarding: "1")
+      ask_path(onboarding: "1")
     else
       root_path
     end
