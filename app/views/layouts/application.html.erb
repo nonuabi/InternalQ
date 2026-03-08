@@ -29,15 +29,17 @@
             <div class="kv-logo">
               <%= image_tag "internalQ-icon.png", alt: "InternalQ logo", class: "kv-logo-image" %>
             </div>
-            <div class="kv-brand-text">
-              <div class="kv-brand-title">InternalQ</div>
-              <div class="kv-brand-subtitle">Your company’s AI assistant</div>
-            </div>
+            <%== link_to dashboard_path, class: "kv-brand-text" do %>
+              <div class="kv-brand-text">
+                <div class="kv-brand-title">InternalQ</div>
+                <div class="kv-brand-subtitle">Your company’s AI assistant</div>
+              </div>
+            <% end %>
           </div>
 
           <% if defined?(user_signed_in?) && user_signed_in? %>
             <nav class="kv-nav">
-              <%= link_to "Q&A", root_path, class: (controller_name == "qa" ? "kv-nav-active" : "") %>
+              <%= link_to "Q&A", ask_path, class: (controller_name == "qa" ? "kv-nav-active" : "") %>
               <%= link_to "Documents", documents_path, class: (controller_name == "documents" ? "kv-nav-active" : "") %>
               <%= link_to "Integrations", integrations_path, class: (controller_name == "integrations" ? "kv-nav-active" : "") %>
             </nav>
@@ -82,16 +84,15 @@
       </main>
 
       <footer class="kv-footer">
-        <% if defined?(user_signed_in?) && user_signed_in? %>
-          <span>InternalQ · Dashboard</span>
-          <% if current_user.organization.present? %>
-            <span class="kv-footer-org"><%= current_user.organization.name %></span>
-          <% end %>
-        <% else %>
+        <% unless defined?(user_signed_in?) && user_signed_in? %>
           <span>InternalQ · your company’s AI assistant</span>
         <% end %>
         <span class="kv-footer-links">
           <% if defined?(user_signed_in?) && user_signed_in? %>
+            <span>InternalQ · </span>
+            <%= link_to dashboard_path, class: "kv-footer-link" do %>
+              Dashboard <% if current_user.organization.present? %> <%= current_user.organization.name %><% end %>
+            <% end %>
             <%= link_to "Team Members", team_path %>
           <% else %>
             <%= link_to "Install", root_path %>

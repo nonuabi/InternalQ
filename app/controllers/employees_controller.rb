@@ -4,7 +4,6 @@ class EmployeesController < ApplicationController
 
   def index
     @employees = User.where(organization_id: current_user.organization_id)
-    @usage = Usage::LimitChecker.usage_for_display(organization_id: current_user.organization_id)
   end
 
   # admin making other user an admin too

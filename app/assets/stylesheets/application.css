@@ -96,6 +96,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  min-height: 52px;
 }
 
 .kv-brand {
@@ -167,7 +168,8 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 .kv-role-pill {
@@ -178,6 +180,8 @@ a:hover {
   padding: 0.25rem 0.5rem;
   border-radius: 6px;
   border: 1px solid;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .kv-role-pill.kv-role-admin {
@@ -202,6 +206,7 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  min-width: 0;
 }
 
 .kv-user-pill span {
@@ -312,6 +317,165 @@ a:hover {
   line-height: 1.5;
   color: var(--kv-text-secondary);
   max-width: 40rem;
+}
+
+/* ========== Dashboard ========== */
+.kv-dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.kv-dashboard-stat {
+  padding: 1rem 1.25rem;
+  text-align: left;
+}
+
+.kv-dashboard-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--kv-text);
+  line-height: 1.2;
+}
+
+.kv-dashboard-stat-label {
+  font-size: 0.75rem;
+  color: var(--kv-text-muted);
+  margin-top: 0.2rem;
+}
+
+.kv-dashboard-stat-meta,
+.kv-dashboard-stat-link {
+  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  display: inline-block;
+}
+
+.kv-dashboard-stat-link {
+  color: var(--kv-accent);
+  text-decoration: none;
+}
+
+.kv-dashboard-stat-link:hover {
+  text-decoration: underline;
+  color: var(--kv-accent-hover);
+}
+
+.kv-dashboard-section {
+  margin-bottom: 1.5rem;
+}
+
+.kv-dashboard-section-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--kv-text);
+  margin: 0 0 0.75rem;
+}
+
+.kv-dashboard-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.kv-dashboard-action {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
+  border: 1px solid var(--kv-border);
+  background: var(--kv-surface);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.kv-dashboard-action:hover {
+  border-color: var(--kv-accent-border);
+  background: var(--kv-accent-subtle);
+}
+
+.kv-dashboard-action-icon {
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+  line-height: 1;
+}
+
+.kv-dashboard-action-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--kv-text);
+}
+
+.kv-dashboard-action-meta {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.kv-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.kv-dashboard-section.kv-table-card {
+  padding: 1rem 1.25rem;
+}
+
+.kv-dashboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kv-dashboard-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--kv-border);
+}
+
+.kv-dashboard-list li:last-of-type {
+  border-bottom: none;
+}
+
+.kv-dashboard-list-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.kv-dashboard-list-link:hover .kv-dashboard-list-title {
+  color: var(--kv-accent);
+}
+
+.kv-dashboard-list-title {
+  font-size: 0.8125rem;
+  color: var(--kv-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kv-dashboard-list-item-unanswered {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.kv-dashboard-list-more {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--kv-accent);
+  text-decoration: none;
+}
+
+.kv-dashboard-list-more:hover {
+  text-decoration: underline;
+  color: var(--kv-accent-hover);
 }
 
 /* ========== Installation ========== */

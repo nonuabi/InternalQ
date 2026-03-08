@@ -1,0 +1,156 @@
+<% content_for :title, "Dashboard · InternalQ" %>
+<div class="kv-page kv-dashboard">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Dashboard</h1>
+      <p class="kv-page-subtitle">
+        <% if @organization %>
+          Overview for <strong><%= @organization.name %></strong>. Ask questions, manage documents, and check usage.
+        <% else %>
+          You're not in an organization yet. Sign in with your work account or ask your admin to invite you.
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <% unless @organization %>
+    <div class="kv-empty-state">
+      <div class="kv-empty-main">
+        <div class="kv-empty-title">No organization</div>
+        <div class="kv-empty-subtitle">Contact your admin or sign in with a workspace that has InternalQ set up.</div>
+      </div>
+    </div>
+  <% else %>
+  <%# Stats row %>
+  <div class="kv-dashboard-stats">
+    <div class="kv-dashboard-stat kv-table-card">
+      <div class="kv-dashboard-stat-value"><%= @documents_count %></div>
+      <div class="kv-dashboard-stat-label">Documents</div>
+      <%= link_to "View all", documents_path, class: "kv-dashboard-stat-link" %>
+    </div>
+    <div class="kv-dashboard-stat kv-table-card">
+      <div class="kv-dashboard-stat-value">
+        <%= @usage[:used] %><% if @usage[:limit].present? %> / <%= @usage[:limit] %><% end %>
+      </div>
+      <div class="kv-dashboard-stat-label">Questions this month</div>
+      <% if @usage[:limit].present? %>
+        <div class="kv-meta-text kv-dashboard-stat-meta">
+          <%= Usage::LimitChecker.remaining(organization_id: @organization.id) %> remaining
+        </div>
+      <% else %>
+        <div class="kv-meta-text kv-dashboard-stat-meta">Unlimited</div>
+      <% end %>
+    </div>
+    <div class="kv-dashboard-stat kv-table-card">
+      <div class="kv-dashboard-stat-value"><%= @unanswered_count %></div>
+      <div class="kv-dashboard-stat-label">Unanswered (30 days)</div>
+      <div class="kv-meta-text kv-dashboard-stat-meta">Questions we couldn’t answer from docs</div>
+    </div>
+    <div class="kv-dashboard-stat kv-table-card">
+      <div class="kv-dashboard-stat-value">
+        <%= @slack_connected ? "Yes" : "No" %>
+      </div>
+      <div class="kv-dashboard-stat-label">Slack connected</div>
+      <% if current_user.admin? %>
+        <%= link_to @slack_connected ? "Manage" : "Connect", integrations_path, class: "kv-dashboard-stat-link" %>
+      <% else %>
+        <div class="kv-meta-text kv-dashboard-stat-meta"><%= @slack_connected ? "Active" : "Ask admin to connect" %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Quick actions %>
+  <div class="kv-dashboard-section">
+    <h2 class="kv-dashboard-section-title">Quick actions</h2>
+    <div class="kv-dashboard-actions">
+      <%= link_to ask_path, class: "kv-dashboard-action kv-table-card" do %>
+        <span class="kv-dashboard-action-icon">Q</span>
+        <span class="kv-dashboard-action-label">Ask a question</span>
+        <span class="kv-meta-text kv-dashboard-action-meta">Get answers from your documents</span>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= link_to new_document_path, class: "kv-dashboard-action kv-table-card" do %>
+          <span class="kv-dashboard-action-icon">↑</span>
+          <span class="kv-dashboard-action-label">Upload document</span>
+          <span class="kv-meta-text kv-dashboard-action-meta">Add PDF or DOCX to the knowledge base</span>
+        <% end %>
+      <% end %>
+      <%= link_to documents_path, class: "kv-dashboard-action kv-table-card" do %>
+        <span class="kv-dashboard-action-icon">📄</span>
+        <span class="kv-dashboard-action-label">Browse documents</span>
+        <span class="kv-meta-text kv-dashboard-action-meta">View and open uploaded files</span>
+      <% end %>
+      <%= link_to integrations_path, class: "kv-dashboard-action kv-table-card" do %>
+        <span class="kv-dashboard-action-icon">🔗</span>
+        <span class="kv-dashboard-action-label">Integrations</span>
+        <span class="kv-meta-text kv-dashboard-action-meta">Slack and more</span>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Usage bar (same as Team page) %>
+  <div class="kv-dashboard-section">
+    <div class="kv-usage-this-month">
+      <div class="kv-usage-header">
+        <span class="kv-usage-label">Usage this month</span>
+        <span class="kv-usage-count">
+          <% if @usage[:limit].present? %>
+            <%= @usage[:used] %> / <%= @usage[:limit] %> questions used
+          <% else %>
+            <%= @usage[:used] %> questions used
+          <% end %>
+        </span>
+      </div>
+      <div class="kv-usage-bar" role="progressbar" aria-valuenow="<%= @usage[:used] %>" aria-valuemin="0" aria-valuemax="<%= @usage[:limit] || [@usage[:used], 1].max %>" aria-label="Questions used this month">
+        <% fill_pct = @usage[:limit].present? && @usage[:limit].positive? ? [ (100.0 * @usage[:used] / @usage[:limit]).round(1), 100 ].min : 0 %>
+        <div class="kv-usage-fill <%= 'kv-usage-fill-unlimited' if @usage[:limit].blank? %>" style="width: <%= fill_pct %>%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-dashboard-grid">
+    <%# Recent documents %>
+    <div class="kv-dashboard-section kv-table-card">
+      <h2 class="kv-dashboard-section-title">Recent documents</h2>
+      <% if @recent_documents.any? %>
+        <ul class="kv-dashboard-list">
+          <% @recent_documents.each do |doc| %>
+            <li>
+              <%= link_to document_path(doc), class: "kv-dashboard-list-link" do %>
+                <span class="kv-dashboard-list-title"><%= doc.title.presence || doc.file.filename.to_s %></span>
+                <span class="kv-meta-text"><%= time_ago_in_words(doc.updated_at) %> ago</span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to "View all documents", documents_path, class: "kv-dashboard-list-more" %>
+      <% else %>
+        <p class="kv-meta-text kv-meta-muted">No documents yet.</p>
+        <% if current_user.admin? %>
+          <%= link_to "Upload document", new_document_path, class: "kv-secondary-button", style: "margin-top: 0.5rem;" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%# Recent unanswered (admin only) %>
+    <% if current_user.admin? %>
+      <div class="kv-dashboard-section kv-table-card">
+        <h2 class="kv-dashboard-section-title">Recent unanswered questions</h2>
+        <% if @recent_unanswered&.any? %>
+          <ul class="kv-dashboard-list">
+            <% @recent_unanswered.each do |uq| %>
+              <li class="kv-dashboard-list-item-unanswered">
+                <span class="kv-dashboard-list-title" title="<%= uq.question %>"><%= truncate(uq.question, length: 60) %></span>
+                <span class="kv-meta-text"><%= time_ago_in_words(uq.created_at) %> ago</span>
+              </li>
+            <% end %>
+          </ul>
+          <p class="kv-meta-text kv-meta-muted" style="margin-top: 0.5rem;">Consider adding documents that cover these topics.</p>
+        <% else %>
+          <p class="kv-meta-text kv-meta-muted">None in the last 30 days. Questions we couldn’t answer will appear here.</p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>
