@@ -13,22 +13,6 @@
     <% end %>
   </div>
 
-  <div class="kv-usage-this-month">
-    <div class="kv-usage-header">
-      <span class="kv-usage-label">Usage this month</span>
-      <span class="kv-usage-count">
-        <% if @usage[:limit].present? %>
-          <%= @usage[:used] %> / <%= @usage[:limit] %> questions used
-        <% else %>
-          <%= @usage[:used] %> questions used
-        <% end %>
-      </span>
-    </div>
-    <div class="kv-usage-bar" role="progressbar" aria-valuenow="<%= @usage[:used] %>" aria-valuemin="0" aria-valuemax="<%= @usage[:limit] || @usage[:used] %>" aria-label="Questions used this month">
-      <% fill_pct = @usage[:limit].present? ? [ (100.0 * @usage[:used] / @usage[:limit]).round(1), 100 ].min : 0 %>
-      <div class="kv-usage-fill <%= 'kv-usage-fill-unlimited' if @usage[:limit].blank? %>" style="width: <%= fill_pct %>%;"></div>
-    </div>
-  </div>
 
   <% if @employees.any? %>
     <div class="kv-table-card">

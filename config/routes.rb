@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :user do
-    root "qa#new", as: :authenticated_root
+    root "dashboards#show", as: :authenticated_root
   end
 
   unauthenticated do
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   get "ask", to: "qa#new", as: :ask
   post "ask", to: "qa#create"
+  get "dashboard", to: "dashboards#show", as: :dashboard
 
   # Slack integration
   namespace :slack do
