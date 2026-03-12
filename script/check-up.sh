@@ -2,7 +2,7 @@
 #
 # Ping the deployed app's /up health route every 2 minutes.
 # Usage: ./script/check-up.sh [BASE_URL]
-#   BASE_URL defaults to CHECK_UP_URL, then knowledge-vault on Render.
+#   BASE_URL defaults to CHECK_UP_URL, then internalq on Render.
 # Stop with Ctrl+C.
 
 set -e
