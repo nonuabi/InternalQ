@@ -5,16 +5,16 @@ default: &default
 
 development:
   <<: *default
-  database: knowledge_vault_development
+  database: internalq_development
 
 test:
   <<: *default
-  database: knowledge_vault_test
+  database: internalq_test
 
 production:
   <<: *default
-  database: <%= ENV["KNOWLEDGE_VAULT_DATABASE_NAME"] %>
-  username: <%= ENV["KNOWLEDGE_VAULT_DATABASE_USERNAME"] %>
-  password: <%= ENV["KNOWLEDGE_VAULT_DATABASE_PASSWORD"] %>
-  host: <%= ENV["KNOWLEDGE_VAULT_DATABASE_HOST"]%>
+  database: <%= ENV["INTERNALQ_DATABASE_NAME"] %>
+  username: <%= ENV["INTERNALQ_DATABASE_USERNAME"] %>
+  password: <%= ENV["INTERNALQ_DATABASE_PASSWORD"] %>
+  host: <%= ENV["INTERNALQ_DATABASE_HOST"]%>
   port: 5432
