@@ -50,7 +50,7 @@ Rails.application.configure do
   config.cache_store = :memory_store
 
   # Use Sidekiq for Active Job. Set RUN_JOBS_INLINE=true to run jobs in the web process (no workers).
-  config.active_job.queue_adapter = ENV["RUN_JOBS_INLINE"].present? ? :inline : :sidekiq
+  config.active_job.queue_adapter = ActiveModel::Type::Boolean.new.cast(ENV.fetch("RUN_JOBS_INLINE", "false")) ? :inline : :sidekiq
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

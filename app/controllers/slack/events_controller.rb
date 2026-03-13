@@ -55,11 +55,15 @@ module Slack
         return head :ok
       end
 
-      Thread.new do
-        begin
-          Slack::MessageHandler.new(integration: integration, event: event, thread_ts: thread_ts).call
-        rescue StandardError => e
-          Rails.logger.error "Slack::MessageHandler failed: #{e.message}\n#{e.backtrace.first(5).join("\n")}"
+      unless ActiveModel::Type::Boolean.new.cast(ENV.fetch("RUN_JOBS_INLINE", "false"))
+        Slack::MessageHandlerJob.perform_later(integration: integration, event: event, thread_ts: thread_ts)
+      else
+        Thread.new do
+          begin
+            Slack::MessageHandler.new(integration: integration, event: event, thread_ts: thread_ts).call
+          rescue StandardError => e
+            Rails.logger.error "Slack::MessageHandler failed: #{e.message}\n#{e.backtrace.first(5).join("\n")}"
+          end
         end
       end
 
