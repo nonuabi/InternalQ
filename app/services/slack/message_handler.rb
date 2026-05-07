@@ -7,7 +7,7 @@ module Slack
       @thread_ts = thread_ts
     end
 
-    attr_reader :integration, :text, :channel, :thread_ts, :answer
+    attr_reader :integration, :text, :channel, :thread_ts, :answer, :sources
 
     def call
       question = sanitize(text)
@@ -18,19 +18,22 @@ module Slack
       end
 
       unless Usage::LimitChecker.within_limit?(organization_id: integration.organization_id)
-        post_slack_message(text: "You've reached your monthly question limit. Please try again next month or contact your admin for more information.")
+        app_url = ENV.fetch("APP_HOST", "https://internalq.app")
+        post_slack_message(text: "Your team has reached its monthly question limit. Upgrade your plan to keep going → #{app_url}/billing")
         return
       end
 
       begin
         result = Qa::Answer.call(organization_id: integration.organization_id, question: question, source: "slack")
         @answer = result[:answer]
+        @sources = result[:sources] || []
       rescue StandardError => e
         Rails.logger.error "Qa::Answer failed for Slack message: #{e.message}"
         @answer = "Sorry, I couldn't answer that right now. Please try again in a moment."
+        @sources = []
       end
 
-      post_slack_message(text: @answer)
+      post_slack_message(text: format_reply(@answer, @sources))
     rescue StandardError => e
       Rails.logger.error "Slack::MessageHandler failed: #{e.message}\n#{e.backtrace.first(5).join("\n")}"
       post_slack_message(text: "Sorry, I couldn't answer that right now. Please try again in a moment.")
@@ -40,6 +43,13 @@ module Slack
 
     def sanitize(text)
       text.gsub(/<@[^>]+>/, "").strip
+    end
+
+    def format_reply(answer, sources)
+      return answer if sources.blank?
+
+      source_lines = sources.map { |s| "📄 #{s}" }.join("\n")
+      "#{answer}\n\n_Sources:_\n#{source_lines}"
     end
 
     def post_slack_message(text:)

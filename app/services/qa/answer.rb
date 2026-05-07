@@ -21,6 +21,9 @@ module Qa
         }
       end
 
+      # Deduplicate sources by file name so we don't cite the same doc multiple times
+      unique_sources = chunks.map { |c| c.metadata["file_name"] }.uniq.compact
+
       sources_block = chunks.each_with_index.map do |chunk, index|
         "SOURCE #{index}: #{chunk.metadata["file_name"]} (chunk #{chunk.chunk_index})\n #{chunk.content}"
       end.join("\n\n")
@@ -41,9 +44,10 @@ module Qa
 
       if answer_text.to_s.strip == FALLBACK_ANSWER
         log_unanswered(organization_id: organization_id, question: question)
+        return { answer: answer_text, sources: [] }
       end
 
-      { answer: answer_text }
+      { answer: answer_text, sources: unique_sources }
     end
 
     def self.log_unanswered(organization_id:, question:)
