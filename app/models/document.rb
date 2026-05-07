@@ -16,8 +16,8 @@ class Document < ApplicationRecord
   def file_size_under_limit
     return unless file.attached?
 
-    if file.blob.byte_size > 1.megabyte
-      errors.add(:file, "must be less than 1 MB")
+    if file.blob.byte_size > 10.megabytes
+      errors.add(:file, "must be less than 10 MB")
     end
   end
 

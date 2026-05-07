@@ -43,7 +43,7 @@
       <div class="kv-field-label">File</div>
       <%= f.file_field :file, class: "kv-file-input" %>
       <div class="kv-field-hint">
-        PDF or DOCX. Max size 1 MB. Large files are chunked automatically for search.
+        PDF or DOCX. Max size 10 MB. Large files are chunked automatically for search.
       </div>
       <% if @document.errors[:file].any? %>
         <div class="kv-field-error">
