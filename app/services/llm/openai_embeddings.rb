@@ -5,9 +5,7 @@ module Llm
     include HTTParty
     base_uri "https://api.openai.com/v1"
     MODEL = "text-embedding-3-small"
-
-
-    debug_output $stdout
+    default_timeout 15
 
     def self.embed(text)
       resp = post(

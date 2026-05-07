@@ -5,8 +5,7 @@ module Llm
     include HTTParty
     base_uri "https://api.openai.com/v1"
     MODEL = "gpt-4o-mini"
-
-    debug_output $stdout
+    default_timeout 15
 
     def self.complete(prompt)
       resp = post(

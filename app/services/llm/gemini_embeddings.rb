@@ -8,8 +8,7 @@ module Llm
 
     # Dedicated embedding model
     MODEL = "models/gemini-embedding-001"
-
-    debug_output $stdout
+    default_timeout 15
 
     def self.embed(text)
       api_key = ENV.fetch("GEMINI_API_KEY", nil)
