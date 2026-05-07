@@ -5,9 +5,6 @@ module Slack
 
     def receive
       payload = JSON.parse(request.raw_post)
-      Rails.logger.debug "Slack event payload: #{payload.inspect}"
-      puts "Slack event payload: #{payload.inspect}"
-
       if payload["type"] == "url_verification"
         return render json: { challenge: payload["challenge"] }, status: :ok
       end
