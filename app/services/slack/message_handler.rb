@@ -18,7 +18,7 @@ module Slack
       end
 
       unless Usage::LimitChecker.within_limit?(organization_id: integration.organization_id)
-        app_url = ENV.fetch("APP_HOST", "https://internalq.app")
+        app_url = ENV.fetch("APP_HOST", "https://internalq.zezlab.com")
         post_slack_message(text: "Your team has reached its monthly question limit. Upgrade your plan to keep going → #{app_url}/billing")
         return
       end
