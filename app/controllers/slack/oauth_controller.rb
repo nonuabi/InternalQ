@@ -96,12 +96,6 @@ module Slack
         org.update!(name: team_name) unless org.name == team_name
       end
 
-      # Send a welcome DM to the admin who installed the bot.
-      send_welcome_dm(
-        bot_token: data["access_token"],
-        installing_user_id: data.dig("authed_user", "id")
-      )
-
       redirect_to integrations_path, notice: "Slack integration connected successfully."
     end
 
@@ -116,31 +110,5 @@ module Slack
       ].join(",")
     end
 
-    def send_welcome_dm(bot_token:, installing_user_id:)
-      return if installing_user_id.blank?
-
-      app_url = ENV.fetch("APP_HOST", "https://internalq.zezlab.com")
-      welcome_text = <<~MSG.strip
-        👋 *InternalQ is connected and ready!*
-
-        Your team can now ask me questions directly from any Slack channel or DM.
-
-        *How to use me:*
-        • In a channel: `@InternalQ what is our leave policy?`
-        • In a DM: just type your question directly
-
-        I'll answer from the documents your admin has uploaded. If I can't find an answer, I'll let you know — and admins can see those gaps at #{app_url}/dashboard.
-
-        Need to upload more docs or manage your plan? Head to #{app_url} 🚀
-      MSG
-
-      dm_channel = Slack::Client.open_dm(token: bot_token, user_id: installing_user_id)
-      return unless dm_channel.present?
-
-      Slack::Client.post_message(token: bot_token, channel: dm_channel, text: welcome_text)
-    rescue StandardError => e
-      Rails.logger.warn "InternalQ: Failed to send Slack welcome DM: #{e.message}"
-      # Non-fatal — don't let this break the install flow
-    end
   end
 end
