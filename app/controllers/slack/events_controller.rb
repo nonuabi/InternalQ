@@ -32,14 +32,32 @@ module Slack
       # - app_mention events in channels
       # - direct messages to the bot (message events in IM channels)
       # - message events in threads
+      # - app_home_opened (Messages tab) to send a welcome DM on first visit
       is_app_mention = event["type"] == "app_mention"
       is_direct_message = event["type"] == "message" && event["channel_type"] == "im" && event["subtype"].blank?
       is_thread_message = event["type"] == "message" && event["channel_type"] == "channel" && event["thread_ts"].present?
-      return head :ok unless is_app_mention || is_direct_message || is_thread_message
+      is_app_home_opened = event["type"] == "app_home_opened"
+      return head :ok unless is_app_mention || is_direct_message || is_thread_message || is_app_home_opened
 
       integration = Integration.find_by(provider: "slack", workspace_id: payload["team_id"])
       unless integration
         return head :not_found
+      end
+
+      # Send a welcome DM the first time a user opens the App Home Messages tab.
+      if is_app_home_opened
+        if ActiveModel::Type::Boolean.new.cast(ENV.fetch("RUN_JOBS_INLINE", "false"))
+          Thread.new do
+            begin
+              Slack::AppHomeWelcomeJob.new.perform(integration: integration, user_id: event["user"])
+            rescue StandardError => e
+              Rails.logger.error "Slack::AppHomeWelcomeJob failed: #{e.message}"
+            end
+          end
+        else
+          Slack::AppHomeWelcomeJob.perform_later(integration: integration, user_id: event["user"])
+        end
+        return head :ok
       end
 
       # Respond to Slack immediately (< 3s) so it doesn't retry and send duplicate events.
