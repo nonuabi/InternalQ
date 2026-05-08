@@ -116,6 +116,7 @@ module Slack
         im:history
         im:write
         chat:write
+        chat:write.public
       ].join(",")
     end
 
