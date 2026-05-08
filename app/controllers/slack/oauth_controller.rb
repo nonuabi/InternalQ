@@ -119,7 +119,7 @@ module Slack
     def send_welcome_dm(bot_token:, installing_user_id:)
       return if installing_user_id.blank?
 
-      app_url = ENV.fetch("APP_HOST", "https://internalq.app")
+      app_url = ENV.fetch("APP_HOST", "https://internalq.zezlab.com")
       welcome_text = <<~MSG.strip
         👋 *InternalQ is connected and ready!*
 
