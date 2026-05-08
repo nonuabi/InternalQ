@@ -96,6 +96,15 @@ module Slack
         org.update!(name: team_name) unless org.name == team_name
       end
 
+      bot_token      = data["access_token"]
+      installer_id   = data.dig("authed_user", "id")
+
+      # DM the installer immediately so they don't have to discover the bot themselves.
+      send_installer_welcome(bot_token: bot_token, installer_id: installer_id, workspace_id: workspace_id)
+
+      # Announce to the whole workspace so everyone knows the bot is available.
+      post_workspace_announcement(bot_token: bot_token)
+
       redirect_to integrations_path, notice: "Slack integration connected successfully."
     end
 
@@ -110,5 +119,47 @@ module Slack
       ].join(",")
     end
 
+    def send_installer_welcome(bot_token:, installer_id:, workspace_id:)
+      return if installer_id.blank?
+
+      app_url = ENV.fetch("APP_HOST", "https://internalq.zezlab.com")
+      text = <<~MSG.strip
+        👋 *InternalQ is connected and ready!*
+
+        Your team can now ask me questions directly from any Slack channel or DM.
+
+        *How to use me:*
+        • In a channel: `@InternalQ what is our leave policy?`
+        • In a DM: just type your question directly
+
+        Upload docs and manage your plan at #{app_url} 🚀
+      MSG
+
+      dm_channel = Slack::Client.open_dm(token: bot_token, user_id: installer_id)
+      return unless dm_channel.present?
+
+      Slack::Client.post_message(token: bot_token, channel: dm_channel, text: text)
+
+      # Mark installer as already welcomed so AppHomeWelcomeJob skips them.
+      Rails.cache.write("slack_welcome_sent:#{workspace_id}:#{installer_id}", "1", expires_in: 1.year)
+    rescue StandardError => e
+      Rails.logger.warn "InternalQ: Failed to send installer welcome DM: #{e.message}"
+    end
+
+    def post_workspace_announcement(bot_token:)
+      text = <<~MSG.strip
+        👋 *InternalQ has joined your workspace!*
+
+        I'm your team's AI-powered knowledge assistant. Ask me anything about your internal docs — right here in Slack.
+
+        *How to use me:*
+        • In any channel: `@InternalQ what is our leave policy?`
+        • Or open my App Home and send me a DM directly
+      MSG
+
+      Slack::Client.post_message(token: bot_token, channel: "general", text: text)
+    rescue StandardError => e
+      Rails.logger.warn "InternalQ: Failed to post workspace announcement: #{e.message}"
+    end
   end
 end
