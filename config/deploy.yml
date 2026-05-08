@@ -8,14 +8,14 @@ image: prod/internalq
 servers:
   web:
     hosts:
-      - 13.201.6.4
+      - 13.206.218.103
     options:
       "add-host": host.docker.internal:host-gateway
 
   job:
     cmd: bundle exec sidekiq -q default
     hosts:
-      - 13.201.6.4
+      - 13.206.218.103
     options:
       "add-host": host.docker.internal:host-gateway 
 
@@ -23,11 +23,11 @@ servers:
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
 # Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
 #
-# Domain: deepak-kumar.com (A record in Hostinger DNS points to EC2 IPv4 public IP)
+# Domain: internalq.zezlab.com (A record in DNS points to EC2 IPv4 public IP)
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: deepak-kumar.com
+  host: internalq.zezlab.com
 
 # Credentials for your image host.
 registry:
@@ -56,6 +56,7 @@ env:
     - DISABLE_EMAIL_AUTH
     - DEFAULT_MONTHLY_QUESTION_LIMIT
     - REDIS_URL
+    - RUN_JOBS_INLINE
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
@@ -121,7 +122,7 @@ ssh:
 accessories:
   redis:
     image: redis:7.0
-    host: 13.201.6.4
+    host: 13.206.218.103
     port: 6379
     directories:
       - data:/data
