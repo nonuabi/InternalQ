@@ -52,4 +52,5 @@ Rails.application.routes.draw do
   get "terms",        to: "pages#terms"
   get "pricing",      to: "pages#pricing"
   get "billing",      to: redirect("/pricing")
+  get "/sitemap.xml", to: "pages#sitemap", defaults: { format: :xml }
 end

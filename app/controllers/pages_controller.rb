@@ -25,4 +25,8 @@ class PagesController < ApplicationController
   def pricing
     # Pricing page — also the destination for /billing redirects.
   end
+
+  def sitemap
+    render layout: false
+  end
 end
