@@ -3,6 +3,24 @@
   <head>
     <title><%= content_for(:title) || "InternalQ · Your company’s AI assistant" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%# SEO meta tags %>
+    <meta name="description" content="<%= content_for(:meta_description) || ‘InternalQ lets your team ask questions about internal documents directly in Slack. Upload handbooks, policies and SOPs — get instant AI-powered answers.’ %>">
+    <link rel="canonical" href="<%= content_for(:canonical_url) || ‘https://internalq.zezlab.com’ %>">
+
+    <%# Open Graph (controls how links appear when shared on Slack, LinkedIn, Twitter etc.) %>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="InternalQ">
+    <meta property="og:title" content="<%= content_for(:title) || ‘InternalQ · AI knowledge assistant for Slack teams’ %>">
+    <meta property="og:description" content="<%= content_for(:meta_description) || ‘InternalQ lets your team ask questions about internal documents directly in Slack. Upload handbooks, policies and SOPs — get instant AI-powered answers.’ %>">
+    <meta property="og:url" content="<%= content_for(:canonical_url) || ‘https://internalq.zezlab.com’ %>">
+    <meta property="og:image" content="https://internalq.zezlab.com<%= asset_path(‘internalQ-icon.png’) %>">
+
+    <%# Twitter/X card %>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<%= content_for(:title) || ‘InternalQ · AI knowledge assistant for Slack teams’ %>">
+    <meta name="twitter:description" content="<%= content_for(:meta_description) || ‘InternalQ lets your team ask questions about internal documents directly in Slack.’ %>">
+    <meta name="twitter:image" content="https://internalq.zezlab.com<%= asset_path(‘internalQ-icon.png’) %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -19,6 +37,31 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <%# Structured data — tells Google exactly what InternalQ is %>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "InternalQ",
+      "url": "https://internalq.zezlab.com",
+      "description": "InternalQ lets your team ask questions about internal documents directly in Slack. Upload handbooks, policies and SOPs — get instant AI-powered answers.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, Slack",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free plan available"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Zezlab",
+        "url": "https://internalq.zezlab.com",
+        "logo": "https://internalq.zezlab.com/assets/internalQ-icon.png"
+      }
+    }
+    </script>
   </head>
 
   <body>

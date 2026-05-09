@@ -1,1 +1,11 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+User-agent: *
+Allow: /
+Disallow: /sidekiq
+Disallow: /users/
+Disallow: /documents
+Disallow: /ask
+Disallow: /dashboard
+Disallow: /team
+Disallow: /integrations
+
+Sitemap: https://internalq.zezlab.com/sitemap.xml
