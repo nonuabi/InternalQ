@@ -48,7 +48,10 @@ module Slack
     def format_reply(answer, sources)
       return answer if sources.blank?
 
-      source_lines = sources.map { |s| "📄 #{s}" }.join("\n")
+      app_url = ENV.fetch("APP_HOST", "https://internalq.zezlab.com")
+      source_lines = sources.map { |s|
+        "<#{app_url}/documents/#{s[:document_id]}|📄 #{s[:name]}>"
+      }.join("\n")
       "#{answer}\n\n_Sources:_\n#{source_lines}"
     end
 

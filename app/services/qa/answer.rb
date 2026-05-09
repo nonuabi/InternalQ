@@ -21,17 +21,27 @@ module Qa
         }
       end
 
-      # Deduplicate sources by file name so we don't cite the same doc multiple times
-      unique_sources = chunks.map { |c| c.metadata["file_name"] }.uniq.compact
+      # Deduplicate sources by document so we don't cite the same doc multiple times
+      unique_sources = chunks
+        .map { |c| { name: c.metadata["file_name"].to_s, document_id: c.document_id } }
+        .uniq { |s| s[:document_id] }
+        .reject { |s| s[:name].blank? }
 
       sources_block = chunks.each_with_index.map do |chunk, index|
         "SOURCE #{index}: #{chunk.metadata["file_name"]} (chunk #{chunk.chunk_index})\n #{chunk.content}"
       end.join("\n\n")
 
+      format_instruction = if source == "slack"
+        "Format your answer using Slack mrkdwn. Use *bold* (single asterisk) for key terms. Use plain numbered lists."
+      else
+        "Use plain text only. No asterisks, no markdown symbols. Use numbered lists (1. 2. 3.)."
+      end
+
       prompt = <<~PROMPT
         Answer ONLY using the sources below.
         If the answer is not present, say: "I couldn't find that in the uploaded documents."
-        Return a short answer. Do not mention or list source numbers in the answer.
+        Return a concise answer. Do not mention or list source numbers in the answer.
+        #{format_instruction}
 
         QUESTION:
         #{question}

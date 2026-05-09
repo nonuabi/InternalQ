@@ -67,8 +67,21 @@
       </div>
 
       <div class="kv-answer-body">
-        <%= @answer %>
+        <%= simple_format(h(@answer)) %>
       </div>
+
+      <% if @sources.present? %>
+        <div class="kv-answer-meta">
+          <div class="kv-answer-title">Sources</div>
+          <ul class="kv-source-list">
+            <% @sources.each do |source| %>
+              <li class="kv-source-list-item">
+                📄 <%= link_to source[:name], document_path(source[:document_id]), class: "kv-source-link" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     </div>
 
     <% if defined?(@show_slack_prompt) && @show_slack_prompt && current_user.admin? %>

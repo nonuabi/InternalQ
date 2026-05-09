@@ -966,7 +966,28 @@ a:hover {
 .kv-source-list {
   list-style: none;
   padding: 0;
-  margin: 0.25rem 0 0;
+  margin: 0.4rem 0 0;
+}
+
+.kv-source-list-item {
+  padding: 0.3rem 0;
+  font-size: 0.8125rem;
+  color: var(--kv-text-secondary);
+  border-bottom: 1px solid var(--kv-border);
+}
+
+.kv-source-list-item:last-child {
+  border-bottom: none;
+}
+
+.kv-source-link {
+  color: var(--kv-accent);
+  font-weight: 500;
+}
+
+.kv-source-link:hover {
+  color: var(--kv-accent-hover);
+  text-decoration: underline;
 }
 
 .kv-source-list li {
