@@ -1,48 +1,133 @@
-<% content_for :title, "Install InternalQ · Slack" %>
+<% content_for :title, "InternalQ · AI knowledge assistant for Slack teams" %>
+<% content_for :head do %>
+  <meta name="description" content="InternalQ lets your team ask questions about your internal documents directly in Slack. Upload handbooks, policies, and SOPs — get instant answers cited from your own docs.">
+  <meta property="og:title" content="InternalQ · AI knowledge assistant for Slack teams">
+  <meta property="og:description" content="Upload your company docs. Your team asks questions in Slack. InternalQ answers instantly — and cites the source.">
+  <meta property="og:type" content="website">
+<% end %>
+
 <div class="kv-page kv-install-page">
-  <div class="kv-install-hero">
-    <h1 class="kv-install-title">Stop answering the same questions again.</h1>
 
-    <p class="kv-install-subtitle">
-      Turn your company documents into a private AI assistant.<br />
-      Your team asks questions. It answers instantly, in Slack or the web app.
+  <%# ── Hero ── %>
+  <div class="kv-lp-hero">
+    <h1 class="kv-lp-headline">Stop answering the same<br>questions again.</h1>
+
+    <p class="kv-lp-sub">
+      Upload your company's documents. Your team asks questions in Slack or the web app.
+      InternalQ finds the answer — and cites exactly which document it came from.
     </p>
 
-    <p class="kv-install-subtitle kv-install-subtitle-compact">
-      In Slack, your team can ask:
-    </p>
+    <p class="kv-lp-example-label">Try it — in any Slack channel:</p>
 
-    <div class="kv-install-example">
+    <div class="kv-install-example kv-lp-example">
       <span class="kv-mono">@InternalQ</span>
-      <span class="kv-mono">What is our leave policy?</span>
+      <span class="kv-lp-example-sep">·</span>
+      <span class="kv-mono">What is our parental leave policy?</span>
     </div>
 
-    <p class="kv-install-trust">Answers are generated only from your company’s documents.</p>
+    <p class="kv-lp-trust-line">Answers come only from your uploaded documents — never the open web.</p>
 
-    <div class="kv-install-cta">
+    <div class="kv-lp-cta-row">
       <%= button_to user_google_oauth2_omniauth_authorize_path,
                     method: :post,
-                    class: "kv-google-button",
+                    class: "kv-google-button kv-google-button-lg",
                     form: { data: { turbo: false }, style: "margin: 0;" } do %>
         <span class="kv-google-icon"></span>
-        <span>Continue with Google</span>
+        <span>Get started free with Google</span>
       <% end %>
 
-      <div class="kv-install-meta">
-        <div class="kv-install-meta-row">
-          <span class="kv-meta-text kv-meta-muted">Takes 30 seconds · No passwords shared.</span>
-          <span class="kv-meta-text kv-meta-muted">Perfect for handbooks, policies, and SOPs.</span>
-        </div>
-        <div class="kv-install-login-link">
-          <%= link_to "Already using InternalQ? Log in", new_user_session_path %>
-        </div>
+      <div class="kv-lp-cta-meta">
+        <span>Free to start · No credit card · 30-second setup</span>
+        <span><%= link_to "Already using InternalQ? Log in", new_user_session_path %></span>
       </div>
     </div>
-
-    <div class="kv-soft-divider"></div>
-
-    <p class="kv-meta-text kv-meta-muted">
-      Need help? <%= link_to "Support", support_path %> · <%= link_to "Privacy policy", privacy_path %>
-    </p>
   </div>
+
+  <div class="kv-lp-divider"></div>
+
+  <%# ── How it works ── %>
+  <div class="kv-lp-section">
+    <p class="kv-lp-section-label">How it works</p>
+    <div class="kv-lp-steps">
+      <div class="kv-lp-step">
+        <div class="kv-lp-step-header">
+          <span class="kv-lp-step-badge">1</span>
+          <span class="kv-lp-step-title">Upload your docs</span>
+        </div>
+        <p class="kv-lp-step-desc">Add PDFs or Word files — handbooks, onboarding guides, SOPs, policies. Up to 10 MB each. Processed automatically in the background.</p>
+      </div>
+      <div class="kv-lp-step">
+        <div class="kv-lp-step-header">
+          <span class="kv-lp-step-badge">2</span>
+          <span class="kv-lp-step-title">Connect Slack</span>
+        </div>
+        <p class="kv-lp-step-desc">One-click OAuth. The bot joins your workspace in under 2 minutes and announces itself so your team knows it's ready.</p>
+      </div>
+      <div class="kv-lp-step">
+        <div class="kv-lp-step-header">
+          <span class="kv-lp-step-badge">3</span>
+          <span class="kv-lp-step-title">Your team asks</span>
+        </div>
+        <p class="kv-lp-step-desc">Anyone can @mention the bot in any channel or DM it directly. It replies with the answer and the source document — instantly.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-lp-divider"></div>
+
+  <%# ── Why InternalQ ── %>
+  <div class="kv-lp-section">
+    <p class="kv-lp-section-label">Why teams use InternalQ</p>
+    <div class="kv-lp-features">
+      <div class="kv-lp-feature">
+        <span class="kv-lp-feature-icon">🔒</span>
+        <span class="kv-lp-feature-title">Private by design</span>
+        <p class="kv-lp-feature-desc">Answers only come from documents you upload. Your content is never mixed with other companies' data or the open web.</p>
+      </div>
+      <div class="kv-lp-feature">
+        <span class="kv-lp-feature-icon">📄</span>
+        <span class="kv-lp-feature-title">Sources always cited</span>
+        <p class="kv-lp-feature-desc">Every answer points back to the document it came from. Your team knows exactly where the answer came from — no black box.</p>
+      </div>
+      <div class="kv-lp-feature">
+        <span class="kv-lp-feature-icon">🎯</span>
+        <span class="kv-lp-feature-title">Honest about gaps</span>
+        <p class="kv-lp-feature-desc">If the answer isn't in your docs, InternalQ says so. Admins get a log of unanswered questions — a roadmap for what to document next.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-lp-divider"></div>
+
+  <%# ── Use cases ── %>
+  <div class="kv-lp-section">
+    <p class="kv-lp-section-label">Works great for</p>
+    <div class="kv-lp-usecases">
+      <span class="kv-lp-usecase-tag">HR &amp; leave policies</span>
+      <span class="kv-lp-usecase-tag">Employee handbooks</span>
+      <span class="kv-lp-usecase-tag">Onboarding docs</span>
+      <span class="kv-lp-usecase-tag">Engineering runbooks</span>
+      <span class="kv-lp-usecase-tag">Sales playbooks</span>
+      <span class="kv-lp-usecase-tag">SOPs &amp; processes</span>
+      <span class="kv-lp-usecase-tag">Benefits guides</span>
+      <span class="kv-lp-usecase-tag">IT &amp; security policies</span>
+    </div>
+  </div>
+
+  <div class="kv-lp-divider"></div>
+
+  <%# ── Trust bar ── %>
+  <div class="kv-lp-trust">
+    <div class="kv-lp-trust-item"><span class="kv-lp-trust-dot"></span>Free to get started</div>
+    <div class="kv-lp-trust-item"><span class="kv-lp-trust-dot"></span>No credit card required</div>
+    <div class="kv-lp-trust-item"><span class="kv-lp-trust-dot"></span>Your documents stay private</div>
+    <div class="kv-lp-trust-item"><span class="kv-lp-trust-dot"></span>Listed on the Slack App Directory</div>
+  </div>
+
+  <div class="kv-lp-divider"></div>
+
+  <p class="kv-meta-text kv-meta-muted">
+    Need help? <%= link_to "Support", support_path %> · <%= link_to "Privacy policy", privacy_path %>
+  </p>
+
 </div>

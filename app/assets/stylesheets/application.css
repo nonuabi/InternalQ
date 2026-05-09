@@ -478,36 +478,8 @@ a:hover {
   color: var(--kv-accent-hover);
 }
 
-/* ========== Installation ========== */
-.kv-install-page {
-  padding: 1.75rem 2rem 2rem;
-}
-
-.kv-install-hero {
-  margin-top: 0.25rem;
-}
-
-.kv-install-title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--kv-text);
-}
-
-.kv-install-subtitle {
-  margin: 0.6rem 0 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--kv-text-secondary);
-  max-width: 44rem;
-}
-
-.kv-install-subtitle-compact {
-  margin-top: 0.9rem;
-}
-
+/* ========== Installation (shared with landing page) ========== */
 .kv-install-example {
-  margin-top: 0.5rem;
   padding: 0.65rem 0.85rem;
   border-radius: 10px;
   border: 1px solid var(--kv-border);
@@ -516,51 +488,6 @@ a:hover {
   gap: 0.4rem;
   align-items: center;
   max-width: 100%;
-}
-
-.kv-install-example .kv-mono {
-  font-size: 0.9rem;
-}
-
-.kv-install-trust {
-  margin: 0.6rem 0 0;
-  font-size: 0.8125rem;
-  color: var(--kv-text-muted);
-}
-
-.kv-install-cta {
-  margin-top: 1.25rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1rem;
-}
-
-.kv-install-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.kv-install-meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 0.75rem;
-}
-
-.kv-install-login-link a {
-  font-size: 0.8125rem;
-  font-weight: 500;
-}
-
-@media (max-width: 640px) {
-  .kv-install-title {
-    font-size: 1.35rem;
-  }
-  .kv-install-example {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 /* ========== Static content (Support, Privacy) ========== */
@@ -1289,4 +1216,231 @@ a:hover {
 
 .kv-integration-card-coming .kv-integration-cta {
   margin-top: 0.25rem;
+}
+
+/* ========== Landing page ========== */
+.kv-install-page {
+  padding: 2.5rem 2rem 2.5rem;
+}
+
+.kv-lp-hero {
+  max-width: 42rem;
+}
+
+.kv-lp-headline {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--kv-text);
+  letter-spacing: -0.02em;
+}
+
+.kv-lp-sub {
+  margin: 1.1rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--kv-text-secondary);
+  max-width: 38rem;
+}
+
+.kv-lp-example-label {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--kv-text-muted);
+}
+
+.kv-lp-example {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.kv-lp-example-sep {
+  color: var(--kv-text-muted);
+}
+
+.kv-lp-trust-line {
+  margin: 0.85rem 0 0;
+  font-size: 0.875rem;
+  color: var(--kv-text-muted);
+}
+
+.kv-lp-cta-row {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+}
+
+.kv-google-button-lg {
+  padding: 0.7rem 1.4rem;
+  font-size: 0.9375rem;
+}
+
+.kv-lp-cta-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.8125rem;
+  color: var(--kv-text-muted);
+}
+
+.kv-lp-divider {
+  margin: 2.25rem 0;
+  border-top: 1px solid var(--kv-border);
+}
+
+.kv-lp-section {
+  margin-top: 0;
+}
+
+.kv-lp-section-label {
+  margin: 0 0 1.25rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--kv-text-muted);
+}
+
+/* Steps */
+.kv-lp-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+}
+
+.kv-lp-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.4rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--kv-border);
+  background: var(--kv-surface-hover);
+}
+
+.kv-lp-step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.kv-lp-step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--kv-accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kv-lp-step-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--kv-text);
+}
+
+.kv-lp-step-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--kv-text-secondary);
+}
+
+/* Features */
+.kv-lp-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.5rem 2rem;
+}
+
+.kv-lp-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.kv-lp-feature-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-bottom: 0.15rem;
+}
+
+.kv-lp-feature-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--kv-text);
+}
+
+.kv-lp-feature-desc {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--kv-text-secondary);
+}
+
+/* Use-case tags */
+.kv-lp-usecases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.kv-lp-usecase-tag {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  border: 1px solid var(--kv-border);
+  background: var(--kv-surface);
+  color: var(--kv-text-secondary);
+}
+
+/* Trust bar */
+.kv-lp-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.75rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  background: var(--kv-accent-subtle);
+  border: 1px solid var(--kv-accent-border);
+}
+
+.kv-lp-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.875rem;
+  color: var(--kv-accent-hover);
+  font-weight: 500;
+}
+
+.kv-lp-trust-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--kv-accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .kv-install-page {
+    padding: 1.75rem 1.25rem 2rem;
+  }
+  .kv-lp-headline {
+    font-size: 1.75rem;
+  }
+  .kv-lp-sub {
+    font-size: 0.9375rem;
+  }
 }
