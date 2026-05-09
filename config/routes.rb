@@ -50,4 +50,6 @@ Rails.application.routes.draw do
   get "privacy",      to: "pages#privacy"
   get "support",      to: "pages#support"
   get "terms",        to: "pages#terms"
+  get "pricing",      to: "pages#pricing"
+  get "billing",      to: redirect("/pricing")
 end

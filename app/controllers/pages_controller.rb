@@ -21,4 +21,8 @@ class PagesController < ApplicationController
   def terms
     # Terms of service URL, referenced from Slack marketplace configuration.
   end
+
+  def pricing
+    # Pricing page — also the destination for /billing redirects.
+  end
 end
