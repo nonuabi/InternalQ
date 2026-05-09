@@ -25,7 +25,7 @@ module Slack
 
       begin
         result = Qa::Answer.call(organization_id: integration.organization_id, question: question, source: "slack")
-        @answer = result[:answer]
+        @answer = to_slack_mrkdwn(result[:answer])
         @sources = result[:sources] || []
       rescue StandardError => e
         Rails.logger.error "Qa::Answer failed for Slack message: #{e.message}"
@@ -43,6 +43,10 @@ module Slack
 
     def sanitize(text)
       text.gsub(/<@[^>]+>/, "").strip
+    end
+
+    def to_slack_mrkdwn(text)
+      text.to_s.gsub(/\*\*(.*?)\*\*/, '*\1*')
     end
 
     def format_reply(answer, sources)
