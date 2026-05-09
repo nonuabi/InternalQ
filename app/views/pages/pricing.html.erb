@@ -1,0 +1,116 @@
+<% content_for :title, "Pricing · InternalQ" %>
+
+<div class="kv-page">
+  <div class="kv-page-header">
+    <div class="kv-heading-group">
+      <h1>Simple, honest pricing</h1>
+      <p class="kv-page-subtitle">Start free. Upgrade when your team needs more. No hidden fees, no per-seat charges.</p>
+    </div>
+    <span class="kv-pill">
+      <span class="kv-pill-dot"></span>
+      Beta pricing
+    </span>
+  </div>
+
+  <div class="kv-pricing-grid">
+
+    <%# ── Free plan ── %>
+    <div class="kv-plan-card kv-table-card">
+      <div class="kv-plan-header">
+        <span class="kv-plan-name">Free</span>
+        <div class="kv-plan-price">
+          <span class="kv-plan-amount">$0</span>
+          <span class="kv-plan-period">/ month</span>
+        </div>
+        <p class="kv-plan-desc">Everything you need to get started. No credit card, no commitment.</p>
+      </div>
+
+      <ul class="kv-plan-features">
+        <li class="kv-plan-feature">50 questions per month</li>
+        <li class="kv-plan-feature">Unlimited documents</li>
+        <li class="kv-plan-feature">PDF &amp; Word file support (up to 10 MB)</li>
+        <li class="kv-plan-feature">Slack bot — @mention or DM</li>
+        <li class="kv-plan-feature">Web Q&amp;A interface</li>
+        <li class="kv-plan-feature">Source citations on every answer</li>
+        <li class="kv-plan-feature">Unanswered questions log</li>
+        <li class="kv-plan-feature">Team member access</li>
+      </ul>
+
+      <div class="kv-plan-cta">
+        <% if user_signed_in? %>
+          <%= link_to "Go to dashboard", dashboard_path, class: "kv-secondary-button kv-plan-button" %>
+        <% else %>
+          <%= button_to user_google_oauth2_omniauth_authorize_path,
+                        method: :post,
+                        class: "kv-secondary-button kv-plan-button",
+                        form: { data: { turbo: false } } do %>
+            Get started free
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <%# ── Pro plan ── %>
+    <div class="kv-plan-card kv-plan-card-pro kv-table-card">
+      <div class="kv-plan-header">
+        <div class="kv-plan-name-row">
+          <span class="kv-plan-name">Pro</span>
+          <span class="kv-tag kv-plan-badge">Best for growing teams</span>
+        </div>
+        <div class="kv-plan-price">
+          <span class="kv-plan-amount">$29</span>
+          <span class="kv-plan-period">/ month</span>
+        </div>
+        <p class="kv-plan-desc">Unlimited questions for teams that use InternalQ every day.</p>
+      </div>
+
+      <ul class="kv-plan-features">
+        <li class="kv-plan-feature kv-plan-feature-highlight">Unlimited questions</li>
+        <li class="kv-plan-feature">Unlimited documents</li>
+        <li class="kv-plan-feature">PDF &amp; Word file support (up to 10 MB)</li>
+        <li class="kv-plan-feature">Slack bot — @mention or DM</li>
+        <li class="kv-plan-feature">Web Q&amp;A interface</li>
+        <li class="kv-plan-feature">Source citations on every answer</li>
+        <li class="kv-plan-feature">Unanswered questions log</li>
+        <li class="kv-plan-feature">Team member access</li>
+        <li class="kv-plan-feature">Priority email support</li>
+      </ul>
+
+      <div class="kv-plan-cta">
+        <a href="mailto:support@internalq.zezlab.com?subject=InternalQ%20Pro%20upgrade"
+           class="kv-primary-button kv-plan-button">
+          Contact us to upgrade
+        </a>
+        <p class="kv-plan-cta-note">We reply within 24 hours and get you set up same day.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <%# ── FAQ ── %>
+  <div class="kv-pricing-faq">
+    <div class="kv-pricing-faq-item">
+      <span class="kv-pricing-faq-q">What counts as a question?</span>
+      <span class="kv-pricing-faq-a">Each question asked — in Slack or the web app — uses one question from your monthly allowance. Uploading or deleting documents does not count.</span>
+    </div>
+    <div class="kv-pricing-faq-item">
+      <span class="kv-pricing-faq-q">What happens when I hit the limit?</span>
+      <span class="kv-pricing-faq-a">The Slack bot will notify you. Your documents and all your data stay intact — you just can't ask new questions until the month resets or you upgrade.</span>
+    </div>
+    <div class="kv-pricing-faq-item">
+      <span class="kv-pricing-faq-q">How does upgrading work?</span>
+      <span class="kv-pricing-faq-a">Email <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a>. We'll send you a payment link and enable unlimited questions for your organization — usually same day.</span>
+    </div>
+    <div class="kv-pricing-faq-item">
+      <span class="kv-pricing-faq-q">Is my data private?</span>
+      <span class="kv-pricing-faq-a">Yes. Your documents are only used to answer your own team's questions. They are never shared with other organizations or used to train AI models.</span>
+    </div>
+  </div>
+
+  <div class="kv-soft-divider"></div>
+  <p class="kv-meta-text kv-meta-muted">
+    Questions? <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a> ·
+    <%= link_to "Privacy policy", privacy_path %> ·
+    <%= link_to "Support", support_path %>
+  </p>
+</div>
