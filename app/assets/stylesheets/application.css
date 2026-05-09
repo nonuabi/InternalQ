@@ -1092,6 +1092,10 @@ a:hover {
   color: var(--kv-accent);
 }
 
+.kv-footer-copy {
+  opacity: 0.7;
+}
+
 .kv-inline-danger {
   color: var(--kv-error-text);
 }

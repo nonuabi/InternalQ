@@ -29,7 +29,7 @@
             <div class="kv-logo">
               <%= image_tag "internalQ-icon.png", alt: "InternalQ logo", class: "kv-logo-image" %>
             </div>
-            <%== link_to dashboard_path, class: "kv-brand-text" do %>
+            <%== link_to (user_signed_in? ? dashboard_path : root_path), class: "kv-brand-text" do %>
               <div class="kv-brand-text">
                 <div class="kv-brand-title">InternalQ</div>
                 <div class="kv-brand-subtitle">Your company’s AI assistant</div>
@@ -61,7 +61,6 @@
             </div>
           <% else %>
             <nav class="kv-nav kv-nav-public">
-              <%= link_to "Install", root_path, class: (current_page?(root_path) ? "kv-nav-active" : "") %>
               <%= link_to "Log in", new_user_session_path, class: (current_page?(new_user_session_path) ? "kv-nav-active" : "") %>
             </nav>
           <% end %>
@@ -84,23 +83,27 @@
       </main>
 
       <footer class="kv-footer">
-        <% unless defined?(user_signed_in?) && user_signed_in? %>
-          <span>InternalQ · your company’s AI assistant</span>
-        <% end %>
-        <span class="kv-footer-links">
-          <% if defined?(user_signed_in?) && user_signed_in? %>
+        <% if defined?(user_signed_in?) && user_signed_in? %>
+          <span class="kv-footer-links">
             <span>InternalQ · </span>
             <%= link_to dashboard_path, class: "kv-footer-link" do %>
-              Dashboard <% if current_user.organization.present? %> <%= current_user.organization.name %><% end %>
+              Dashboard<% if current_user.organization.present? %> · <%= current_user.organization.name %><% end %>
             <% end %>
             <%= link_to "Team Members", team_path %>
-          <% else %>
-            <%= link_to "Install", root_path %>
-          <% end %>
-          <%= link_to "Privacy", privacy_path %>
-          <%= link_to "Terms", terms_path %>
-          <%= link_to "Support", support_path %>
-        </span>
+            <%= link_to "Privacy", privacy_path %>
+            <%= link_to "Terms", terms_path %>
+            <%= link_to "Support", support_path %>
+          </span>
+        <% else %>
+          <span class="kv-footer-links">
+            <%= link_to "Get started free", root_path %>
+            <%= link_to "Privacy", privacy_path %>
+            <%= link_to "Terms", terms_path %>
+            <%= link_to "Support", support_path %>
+            <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a>
+          </span>
+          <span class="kv-footer-copy">&copy; <%= Time.current.year %> InternalQ</span>
+        <% end %>
       </footer>
     </div>
   </body>
