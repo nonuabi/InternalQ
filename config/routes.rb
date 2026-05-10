@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get "users/sign_up", to: redirect("/users/sign_in")
   end
 
-  authenticate :user do
+  authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => "/sidekiq"
   end
 
