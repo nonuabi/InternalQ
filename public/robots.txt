@@ -7,5 +7,7 @@ Disallow: /ask
 Disallow: /dashboard
 Disallow: /team
 Disallow: /integrations
+Disallow: /billing
+Disallow: /slack/install
 
 Sitemap: https://internalq.zezlab.com/sitemap.xml
