@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%= render "shared/google_analytics" %>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><%= content_for?(:title) ? yield(:title) : "InternalQ · AI knowledge assistant for Slack teams" %></title>
@@ -32,6 +33,31 @@
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <%# Structured data — helps Google understand what InternalQ is %>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "InternalQ",
+      "url": "https://internalq.zezlab.com",
+      "description": "InternalQ lets your team ask questions about internal documents directly in Slack. Upload handbooks, policies and SOPs — get instant AI-powered answers.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, Slack",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free plan available"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Zezlab",
+        "url": "https://internalq.zezlab.com",
+        "logo": "https://internalq.zezlab.com/icon.png"
+      }
+    }
+    </script>
   </head>
   <body class="lp-body">
     <%= yield %>
