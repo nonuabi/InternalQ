@@ -28,6 +28,7 @@
       <span style="color:#0b0f0e;font-weight:500">Support</span>
     </nav>
 
+    <% unless user_signed_in? %>
     <div class="lp-nav-cta">
       <%= button_to user_google_oauth2_omniauth_authorize_path,
                     method: :post,
@@ -37,6 +38,7 @@
         Get started free
       <% end %>
     </div>
+    <% end %>
   </div>
 </header>
 
