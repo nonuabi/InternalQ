@@ -2471,6 +2471,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   border-top: 1px solid #e9e7e1;
+  margin: 0 auto;
 }
 .lp-faq-item { border-bottom: 1px solid #e9e7e1; }
 .lp-faq-q {
@@ -2959,7 +2960,7 @@ a:hover {
 }
 
 /* ── Pricing FAQ ── */
-.lp-pricing-faq { max-width: 760px; margin: 0 auto; }
+.lp-pricing-faq { margin: 0 auto; }
 
 /* ── Privacy page ── */
 .lp-page-header.doc { text-align: left; }
