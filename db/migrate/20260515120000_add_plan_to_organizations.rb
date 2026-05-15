@@ -1,0 +1,5 @@
+class AddPlanToOrganizations < ActiveRecord::Migration[8.0]
+  def change
+    add_column :organizations, :plan, :string, null: false, default: "free"
+  end
+end

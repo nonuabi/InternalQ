@@ -17,6 +17,11 @@ module Slack
         return
       end
 
+      if question.length > 1_000
+        post_slack_message(text: "Your question is too long (max 1,000 characters). Please shorten it and try again.")
+        return
+      end
+
       unless Usage::LimitChecker.within_limit?(organization_id: integration.organization_id)
         app_url = ENV.fetch("APP_HOST", "https://internalq.zezlab.com")
         post_slack_message(text: "Your team has reached its monthly question limit. Upgrade your plan to keep going → #{app_url}/pricing")

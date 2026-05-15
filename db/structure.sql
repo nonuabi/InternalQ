@@ -246,6 +246,41 @@ ALTER SEQUENCE public.integrations_id_seq OWNED BY public.integrations.id;
 
 
 --
+-- Name: organization_join_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organization_join_requests (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
+    decided_by_id bigint,
+    decided_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: organization_join_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organization_join_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organization_join_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organization_join_requests_id_seq OWNED BY public.organization_join_requests.id;
+
+
+--
 -- Name: organizations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -254,7 +289,10 @@ CREATE TABLE public.organizations (
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    monthly_question_limit integer
+    monthly_question_limit integer,
+    domain character varying,
+    temp boolean DEFAULT false NOT NULL,
+    plan character varying DEFAULT 'free'::character varying NOT NULL
 );
 
 
@@ -439,6 +477,13 @@ ALTER TABLE ONLY public.integrations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: organization_join_requests id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_join_requests ALTER COLUMN id SET DEFAULT nextval('public.organization_join_requests_id_seq'::regclass);
+
+
+--
 -- Name: organizations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -520,6 +565,14 @@ ALTER TABLE ONLY public.documents
 
 ALTER TABLE ONLY public.integrations
     ADD CONSTRAINT integrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organization_join_requests organization_join_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_join_requests
+    ADD CONSTRAINT organization_join_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -640,6 +693,48 @@ CREATE UNIQUE INDEX index_integrations_on_provider_and_workspace_id ON public.in
 
 
 --
+-- Name: index_join_requests_on_org_and_status; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_join_requests_on_org_and_status ON public.organization_join_requests USING btree (organization_id, status);
+
+
+--
+-- Name: index_join_requests_on_user_and_org; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_join_requests_on_user_and_org ON public.organization_join_requests USING btree (user_id, organization_id);
+
+
+--
+-- Name: index_organization_join_requests_on_decided_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_join_requests_on_decided_by_id ON public.organization_join_requests USING btree (decided_by_id);
+
+
+--
+-- Name: index_organization_join_requests_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_join_requests_on_organization_id ON public.organization_join_requests USING btree (organization_id);
+
+
+--
+-- Name: index_organization_join_requests_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_join_requests_on_user_id ON public.organization_join_requests USING btree (user_id);
+
+
+--
+-- Name: index_organizations_on_domain; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organizations_on_domain ON public.organizations USING btree (domain) WHERE (domain IS NOT NULL);
+
+
+--
 -- Name: index_question_usages_on_org_and_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -689,6 +784,14 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: organization_join_requests fk_rails_05da2335c7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_join_requests
+    ADD CONSTRAINT fk_rails_05da2335c7 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: document_chunks fk_rails_2685223853; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -702,6 +805,14 @@ ALTER TABLE ONLY public.document_chunks
 
 ALTER TABLE ONLY public.documents
     ADD CONSTRAINT fk_rails_38b1cebf1f FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
+
+
+--
+-- Name: organization_join_requests fk_rails_6589e3bf9f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_join_requests
+    ADD CONSTRAINT fk_rails_6589e3bf9f FOREIGN KEY (decided_by_id) REFERENCES public.users(id);
 
 
 --
@@ -761,12 +872,23 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: organization_join_requests fk_rails_ec4a8f9ebb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_join_requests
+    ADD CONSTRAINT fk_rails_ec4a8f9ebb FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260515120000'),
+('20260313120001'),
+('20260313120000'),
 ('20260305120001'),
 ('20260305120000'),
 ('20260303120000'),
