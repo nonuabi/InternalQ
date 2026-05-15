@@ -1,47 +1,350 @@
-<% content_for :title, "Support · InternalQ" %>
-<div class="kv-page">
-  <div class="kv-page-header">
-    <div class="kv-heading-group">
-      <h1>Support</h1>
-      <p class="kv-page-subtitle">What you can do, how to do it, and where to get help.</p>
+<% content_for :title, "Help & Support · InternalQ" %>
+<% content_for :meta_description, "What you can do with InternalQ, how to set it up, and how to get help when something isn't working." %>
+<% content_for :canonical_url, "https://internalq.zezlab.com/support" %>
+
+<%# ── Icon SVGs ── %>
+<% arrow_svg  = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3.5 8h9m-3.5-3.5L12.5 8 9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'.html_safe %>
+<% mail_svg   = '<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m3.5 6 6.5 5 6.5-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>'.html_safe %>
+<% bolt_svg   = '<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M11 3 5 11h4l-1 6 6-8h-4l1-6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>'.html_safe %>
+<% book_svg   = '<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M3 4h6a2 2 0 0 1 2 2v10a2 2 0 0 0-2-2H3V4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M17 4h-6a2 2 0 0 0-2 2v10a2 2 0 0 1 2-2h6V4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>'.html_safe %>
+<% status_svg = '<svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10" r="2" fill="currentColor"/></svg>'.html_safe %>
+<% plus_svg   = '<svg class="lp-faq-chev" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'.html_safe %>
+<% mail_sm    = '<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m3.5 6 6.5 5 6.5-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>'.html_safe %>
+
+<%# ── Nav ── %>
+<header class="lp-nav" data-controller="lp-nav">
+  <div class="lp-shell lp-nav-inner">
+    <a href="<%= root_path %>" class="lp-nav-brand">
+      <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
+      InternalQ
+    </a>
+
+    <nav class="lp-nav-links" aria-label="Site navigation">
+      <%= link_to "How it works", root_path(anchor: "how") %>
+      <%= link_to "Examples",     root_path(anchor: "demo") %>
+      <%= link_to "Security",     root_path(anchor: "security") %>
+      <%= link_to "FAQ",          root_path(anchor: "faq") %>
+      <%= link_to "Pricing",      pricing_path %>
+      <span style="color:#0b0f0e;font-weight:500">Support</span>
+    </nav>
+
+    <% unless user_signed_in? %>
+    <div class="lp-nav-cta">
+      <%= button_to user_google_oauth2_omniauth_authorize_path,
+                    method: :post,
+                    class: "lp-btn lp-btn-brand lp-btn-brand-sm",
+                    data: { no_loading: true },
+                    form: { data: { turbo: false }, style: "margin:0" } do %>
+        Get started free
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</header>
+
+<%# ── Page header ── %>
+<section class="lp-page-header doc">
+  <div class="lp-shell">
+    <div class="lp-section-eyebrow">Support</div>
+    <h1>Help &amp; support.</h1>
+    <p>What you can do with InternalQ, how to set it up, and how to get help when something isn't working.</p>
+    <div class="lp-updated">
+      <span style="display:inline-flex;align-items:center;gap:6px">
+        <span style="width:6px;height:6px;border-radius:999px;background:#22c55e;display:inline-block"></span>
+        All systems operational
+      </span>
+      <span class="lp-dot"></span>
+      Avg. email response · under 6 hours
     </div>
   </div>
+</section>
 
-  <div class="kv-static-content">
-    <section class="kv-static-section">
-      <h2>What you can do</h2>
-      <p>Use InternalQ to <strong>ask questions in plain English</strong> and get answers from your company docs. You can do this in this app (Q&A page) or in Slack by @mentioning the bot. Only documents uploaded by your org are used. Admins manage documents and Slack connection; everyone in the org can ask questions and view documents.</p>
-    </section>
+<%# ── Quick actions ── %>
+<div class="lp-support-block">
+  <div class="lp-shell">
+    <div class="lp-support-actions">
 
-    <section class="kv-static-section">
-      <h2>How to get started</h2>
-      <p>1) <%= link_to "Sign in with Google", installation_path %> using your work email (first user becomes admin). 2) Go to <strong>Integrations</strong> and connect your Slack workspace. 3) Go to <strong>Documents</strong> and upload PDFs or DOCX (handbooks, policies). 4) Use <strong>Q&A</strong> here or in Slack to ask questions.</p>
-    </section>
+      <a class="lp-support-action" href="mailto:support@internalq.zezlab.com">
+        <span class="lp-glyph"><%= mail_svg %></span>
+        <h3>Email support</h3>
+        <p>Installation, billing, account help. Real humans, same-day response.</p>
+        <span class="lp-action-link">support@internalq.zezlab.com <%= arrow_svg %></span>
+      </a>
 
-    <section class="kv-static-section">
-      <h2>Slack bot</h2>
-      <p>You can talk to the InternalQ bot in two ways:</p>
-      <ul class="kv-meta-text">
-        <li><strong>Direct message</strong> – Open a DM with the InternalQ app and send a question as a normal message.</li>
-        <li><strong>Channels</strong> – In any channel, @mention the InternalQ bot in your message to ask a question.</li>
-      </ul>
-      <p>The bot answers using your org’s uploaded documents and only reads messages sent directly to it or where it is mentioned.</p>
-      <p>If the bot doesn’t respond:</p>
-      <ul class="kv-meta-text">
-        <li>Confirm Slack is connected under Integrations.</li>
-        <li>Check that at least one document is uploaded and processed.</li>
-        <li>In channels, make sure you mentioned the bot directly in the message.</li>
-      </ul>
-    </section>
+      <a class="lp-support-action" href="mailto:support@internalq.zezlab.com?subject=InternalQ%20plan%20upgrade">
+        <span class="lp-glyph"><%= bolt_svg %></span>
+        <h3>Upgrade plan</h3>
+        <p>Hit your monthly limit or need more seats? We'll set you up same day.</p>
+        <span class="lp-action-link">Request an upgrade <%= arrow_svg %></span>
+      </a>
 
-    <section class="kv-static-section">
-      <h2>Get help</h2>
-      <p>For issues, feature ideas, or questions: email us at <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a>. <%= link_to "Privacy policy", privacy_path %> · <%= link_to "Pricing", pricing_path %></p>
-    </section>
+      <a class="lp-support-action" href="#setup">
+        <span class="lp-glyph"><%= book_svg %></span>
+        <h3>Setup guide</h3>
+        <p>End-to-end walkthrough — install, upload, ask your first question.</p>
+        <span class="lp-action-link">Read the guide <%= arrow_svg %></span>
+      </a>
+
+      <a class="lp-support-action" href="#status">
+        <span class="lp-glyph"><%= status_svg %></span>
+        <h3>System status</h3>
+        <p>Web app, Slack bot, indexing — all systems operational.</p>
+        <span class="lp-action-link">View status <%= arrow_svg %></span>
+      </a>
+
+    </div>
   </div>
-
-  <div class="kv-soft-divider"></div>
-  <p class="kv-meta-text kv-meta-muted">
-    <%= link_to "Get started", installation_path %> · <%= link_to "Privacy", privacy_path %> · <%= link_to "Pricing", pricing_path %>
-  </p>
 </div>
+
+<%# ── Getting started (4 steps) ── %>
+<div class="lp-support-block" id="setup">
+  <div class="lp-shell">
+    <div class="lp-section-head">
+      <div class="lp-section-eyebrow">Getting started</div>
+      <h2 class="lp-section-title">Four steps from zero to first answer.</h2>
+      <p class="lp-section-sub">Most teams are up and running in under five minutes. No engineering required.</p>
+    </div>
+    <div class="lp-steps" style="grid-template-columns: repeat(4, 1fr)">
+
+      <div class="lp-step">
+        <div class="lp-step-num">
+          <span class="lp-step-badge">1</span> Step 1
+        </div>
+        <h3>Sign in</h3>
+        <p>Use your work email at internalq.zezlab.com. The first user becomes the admin for your organization.</p>
+        <div class="lp-step-illo">
+          <div><strong>admin@acme.com</strong><br><span style="color:#0f766e">✓ verified — admin role</span></div>
+        </div>
+      </div>
+
+      <div class="lp-step">
+        <div class="lp-step-num">
+          <span class="lp-step-badge">2</span> Step 2
+        </div>
+        <h3>Connect Slack</h3>
+        <p>Open Integrations and authorize the InternalQ bot. The bot uses the minimum scopes required to listen and reply.</p>
+        <div class="lp-step-illo">
+          <div>Acme HQ workspace<br><span style="color:#0f766e">✓ Slack connected · 14 channels</span></div>
+        </div>
+      </div>
+
+      <div class="lp-step">
+        <div class="lp-step-num">
+          <span class="lp-step-badge">3</span> Step 3
+        </div>
+        <h3>Upload documents</h3>
+        <p>Drop PDFs or DOCX files — handbooks, policies, runbooks. Indexed in the background, usually under a minute.</p>
+        <div class="lp-step-illo">
+          <div>Employee Handbook 2026.pdf<br><span style="color:#0f766e">✓ indexed (38 pages)</span></div>
+        </div>
+      </div>
+
+      <div class="lp-step">
+        <div class="lp-step-num">
+          <span class="lp-step-badge">4</span> Step 4
+        </div>
+        <h3>Start asking</h3>
+        <p>@mention the bot in any channel, DM it directly, or use the web Q&amp;A page. Cited answers in seconds.</p>
+        <div class="lp-step-illo">
+          <div><span style="background:#f0fdfa;color:#0f766e;padding:1px 5px;border-radius:3px;font-weight:500">@InternalQ</span> what's our PTO policy?<br><span style="color:#5b6660">→ replies with citation</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%# ── Slack bot examples ── %>
+<div class="lp-support-block">
+  <div class="lp-shell">
+    <div class="lp-section-head">
+      <div class="lp-section-eyebrow">Using the Slack bot</div>
+      <h2 class="lp-section-title">Two ways to ask InternalQ a question.</h2>
+    </div>
+    <div class="lp-slack-examples">
+
+      <div class="lp-slack-example">
+        <header>
+          <h3>Direct message <span class="lp-kind">DM</span></h3>
+          <p>Open a DM with the InternalQ app and send your question like any other message.</p>
+        </header>
+        <div class="lp-demo-msg">
+          <div class="lp-av">PS</div>
+          <div>
+            <div class="lp-who"><span class="lp-nm">Priya</span><span class="lp-ts">10:42 AM</span></div>
+            <div class="lp-msg-body">what's our PTO carryover policy?</div>
+          </div>
+        </div>
+        <div class="lp-demo-msg">
+          <div class="lp-av lp-bot">iQ</div>
+          <div>
+            <div class="lp-who"><span class="lp-nm">InternalQ</span><span class="lp-ts">10:42 AM</span></div>
+            <div class="lp-msg-body">Up to 5 unused PTO days carry over annually. Anything above 5 expires Dec 31. Source: Handbook 2026.pdf §3.4</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lp-slack-example">
+        <header>
+          <h3>Channel mention <span class="lp-kind">Channel</span></h3>
+          <p>In any channel, @mention the InternalQ bot in your message to ask a question.</p>
+        </header>
+        <div class="lp-demo-msg">
+          <div class="lp-av" style="background:#46237a">JL</div>
+          <div>
+            <div class="lp-who"><span class="lp-nm">Jordan</span><span class="lp-ts">11:08 AM</span></div>
+            <div class="lp-msg-body"><span class="lp-mention">@InternalQ</span> what's the on-call rotation for payments?</div>
+          </div>
+        </div>
+        <div class="lp-demo-msg">
+          <div class="lp-av lp-bot">iQ</div>
+          <div>
+            <div class="lp-who"><span class="lp-nm">InternalQ</span><span class="lp-ts">11:08 AM</span></div>
+            <div class="lp-msg-body">Primary: Sam Okafor. Secondary: Lin Wei. Rotates Mondays at 09:00 UTC. Source: Payments runbook.pdf</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%# ── Troubleshooting FAQ ── %>
+<div class="lp-support-block">
+  <div class="lp-shell">
+    <div class="lp-section-head">
+      <div class="lp-section-eyebrow">Troubleshooting</div>
+      <h2 class="lp-section-title">Common issues and how to fix them.</h2>
+    </div>
+    <div class="lp-faq lp-pricing-faq" data-controller="lp-faq">
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>The Slack bot isn't responding</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          <p>Three things to check: (1) Slack is still connected — open Integrations and confirm. (2) You have at least one document uploaded and indexed. (3) You actually @mentioned the bot in a channel (in DMs, just send the message normally). If all three look right, email <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a> with your workspace name.</p>
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>How do I delete a document?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          <p>Open the document in the dashboard and click Delete. It's removed from our database immediately and stops appearing in future answers. Past Q&amp;A history that cited it stays, but the citation link will be marked as deleted.</p>
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>How do I add or remove team members?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          <p>Admins go to Settings → Team. Add by email — they'll get an invite link. Remove anyone with one click. Free plan supports 1 person, Starter 10, Pro 50, Business 200.</p>
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>Why is the bot answering "I don't know"?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          <p>InternalQ only answers from documents you've uploaded. If the answer isn't in your docs, the bot says so honestly rather than making something up. The question gets logged so admins can see gaps in their documentation and fill them.</p>
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>How do I disconnect Slack?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          <p>Integrations → Disconnect Slack. The bot stops responding the moment you confirm. We revoke the token immediately. You can reconnect any time without losing your documents.</p>
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>Can I export my data?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          <p>Yes. Admins can export documents and Q&amp;A history as JSON or CSV from Settings → Export. If you need a complete data takeout (everything we have on your organization), email us and we'll send it within 7 days.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%# ── Final CTA ── %>
+<div class="lp-shell" style="padding-bottom: 80px">
+  <div class="lp-final-cta">
+    <div class="lp-final-cta-inner">
+      <h2>Still stuck? We're a quick email away.</h2>
+      <p>A real person reads every support email — usually replies the same day, always within a business day.</p>
+      <div class="lp-hero-actions">
+        <a class="lp-btn lp-btn-brand" href="mailto:support@internalq.zezlab.com">
+          <%= mail_sm %> Email support
+        </a>
+        <a class="lp-btn lp-btn-outline" href="<%= root_path(anchor: "faq") %>">
+          Read the FAQ
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# ── Footer ── %>
+<footer class="lp-footer">
+  <div class="lp-shell">
+    <div class="lp-footer-grid">
+      <div>
+        <a href="<%= root_path %>" class="lp-nav-brand">
+          <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
+          InternalQ
+        </a>
+        <p class="lp-footer-tagline">An AI knowledge assistant for Slack teams. Cited answers from your own documents — never the open web.</p>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><%= link_to "How it works", root_path(anchor: "how") %></li>
+          <li><%= link_to "Examples",     root_path(anchor: "demo") %></li>
+          <li><%= link_to "Pricing",      pricing_path %></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Trust</h5>
+        <ul>
+          <li><%= link_to "Security",       root_path(anchor: "security") %></li>
+          <li><%= link_to "Privacy policy", privacy_path %></li>
+          <li><%= link_to "Terms of use",   terms_path %></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><span style="color:#0b0f0e;font-weight:500">Support</span></li>
+          <li><a href="mailto:support@internalq.zezlab.com">Email us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lp-footer-bottom">
+      <span>&copy; 2026 InternalQ</span>
+      <span class="lp-footer-status">
+        <span class="lp-status-dot"></span>
+        All systems operational
+      </span>
+    </div>
+  </div>
+</footer>

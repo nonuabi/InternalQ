@@ -67,6 +67,12 @@ module Slack
       # Workspace already connected to another organization → add this user to that org (same-team member).
       if existing_integration.present? && existing_integration.organization_id != org_id.to_i
         target_org = existing_integration.organization
+
+        if target_org.at_member_limit?
+          return redirect_to integrations_path,
+            alert: "This workspace has reached its member limit. Ask your admin to upgrade the plan."
+        end
+
         current_user.update!(organization_id: target_org.id, role: "employee")
 
         # Remove empty placeholder org if this user was the only member

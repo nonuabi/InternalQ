@@ -8,6 +8,7 @@ function findSubmitButton(form) {
 
 function setButtonLoading(btn) {
   if (!btn || btn.dataset.loading === "true") return;
+  if (btn.dataset.noLoading === "true") return;
 
   btn.dataset.loading = "true";
 
@@ -101,4 +102,14 @@ if (document.readyState === "loading") {
 } else {
   attachFormSubmitHandling();
 }
+
+// When the browser restores a page from the back/forward cache (bfcache),
+// clear any loading state that was set before the user navigated away.
+// This covers full-page navigations (data-turbo="false") where
+// turbo:before-cache never fires.
+window.addEventListener("pageshow", function (event) {
+  if (event.persisted) {
+    restoreAllLoadingButtons();
+  }
+});
 

@@ -12,6 +12,11 @@ class QaController < ApplicationController
       return
     end
 
+    if question.length > 1_000
+      redirect_to ask_path, alert: "Question is too long (max 1,000 characters)."
+      return
+    end
+
     unless Usage::LimitChecker.within_limit?(organization_id: current_user.organization_id)
       redirect_to ask_path, alert: "You've reached your monthly question limit. Please try again next month."
       return

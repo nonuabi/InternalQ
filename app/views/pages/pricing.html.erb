@@ -1,116 +1,415 @@
 <% content_for :title, "Pricing · InternalQ" %>
+<% content_for :meta_description, "Simple, predictable pricing for InternalQ. Free plan available. Pay only for the questions you ask — documents, citations, and the unanswered-questions log are unlimited on every plan." %>
+<% content_for :canonical_url, "https://internalq.zezlab.com/pricing" %>
 
-<div class="kv-page">
-  <div class="kv-page-header">
-    <div class="kv-heading-group">
-      <h1>Simple, honest pricing</h1>
-      <p class="kv-page-subtitle">Start free. Upgrade when your team needs more. No hidden fees, no per-seat charges.</p>
+<%# ── Icon helpers ── %>
+<% check_svg = '<svg class="lp-icon-sm" viewBox="0 0 16 16" fill="none"><path d="M3 8.4 6.4 12 13 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'.html_safe %>
+<% dash_svg  = '<svg class="lp-icon-sm" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'.html_safe %>
+<% plus_svg  = '<svg class="lp-icon-sm lp-faq-chev" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'.html_safe %>
+<% val_check = '<span class="lp-val-yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.4 6.4 12 13 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'.html_safe %>
+<% val_dash  = '<span class="lp-val-no"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>'.html_safe %>
+
+<%# ── Nav ── %>
+<header class="lp-nav" data-controller="lp-nav">
+  <div class="lp-shell lp-nav-inner">
+    <a href="<%= root_path %>" class="lp-nav-brand">
+      <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
+      InternalQ
+    </a>
+
+    <nav class="lp-nav-links" aria-label="Site navigation">
+      <%= link_to "How it works", root_path(anchor: "how") %>
+      <%= link_to "Examples",     root_path(anchor: "demo") %>
+      <%= link_to "Security",     root_path(anchor: "security") %>
+      <%= link_to "FAQ",          root_path(anchor: "faq") %>
+      <span style="color:#0b0f0e;font-weight:500">Pricing</span>
+    </nav>
+
+    <div class="lp-nav-cta">
+      <%= button_to user_google_oauth2_omniauth_authorize_path,
+                    method: :post,
+                    class: "lp-btn lp-btn-brand lp-btn-brand-sm",
+                    data: { no_loading: true },
+                    form: { data: { turbo: false }, style: "margin:0" } do %>
+        Get started free
+      <% end %>
     </div>
-    <span class="kv-pill">
-      <span class="kv-pill-dot"></span>
-      Beta pricing
-    </span>
   </div>
+</header>
 
-  <div class="kv-pricing-grid">
+<%# ── Page header ── %>
+<section class="lp-page-header">
+  <div class="lp-shell">
+    <div class="lp-section-eyebrow">Pricing</div>
+    <h1>Simple, predictable pricing.</h1>
+    <p>Pay for the questions you ask. Documents, citations, and the unanswered-questions log stay unlimited on every plan.</p>
+  </div>
+</section>
 
-    <%# ── Free plan ── %>
-    <div class="kv-plan-card kv-table-card">
-      <div class="kv-plan-header">
-        <span class="kv-plan-name">Free</span>
-        <div class="kv-plan-price">
-          <span class="kv-plan-amount">$0</span>
-          <span class="kv-plan-period">/ month</span>
+<%# ── Plan cards ── %>
+<section class="lp-plans-wrap">
+  <div class="lp-shell">
+
+    <div class="lp-beta-band">
+      <span class="lp-beta-pill">Beta</span>
+      <span>Pricing during public beta — we'll give 30 days notice before any plan changes.</span>
+    </div>
+
+    <div class="lp-plans-grid">
+
+      <%# Free %>
+      <div class="lp-plan">
+        <div class="lp-plan-name">Free</div>
+        <div class="lp-plan-price">
+          $0<span class="lp-price-per">forever</span>
         </div>
-        <p class="kv-plan-desc">Everything you need to get started. No credit card, no commitment.</p>
+        <div class="lp-plan-questions">
+          <span class="lp-qlimit">50</span>
+          <span class="lp-qlabel">questions / month</span>
+        </div>
+        <p class="lp-plan-desc">Try InternalQ on a small handbook before sharing with the team.</p>
+        <ul class="lp-plan-features">
+          <li><%= check_svg %><span>Unlimited documents</span></li>
+          <li><%= check_svg %><span>Web Q&amp;A interface</span></li>
+          <li><%= check_svg %><span>Source citations</span></li>
+          <li><%= check_svg %><span>Unanswered questions log</span></li>
+          <li><%= check_svg %><span>Slack bot — @mention or DM</span></li>
+          <li class="lp-feat-muted"><%= dash_svg %><span>Priority support</span></li>
+        </ul>
+        <div class="lp-plan-cta">
+          <% if user_signed_in? %>
+            <%= link_to "Go to dashboard", dashboard_path, class: "lp-btn lp-btn-outline" %>
+          <% else %>
+            <%= button_to user_google_oauth2_omniauth_authorize_path,
+                          method: :post,
+                          class: "lp-btn lp-btn-outline",
+                          data: { no_loading: true },
+                          form: { data: { turbo: false }, style: "margin:0" } do %>
+              Start free
+            <% end %>
+          <% end %>
+        </div>
       </div>
 
-      <ul class="kv-plan-features">
-        <li class="kv-plan-feature">30 questions per month</li>
-        <li class="kv-plan-feature">Unlimited documents</li>
-        <li class="kv-plan-feature">PDF &amp; Word file support (up to 10 MB)</li>
-        <li class="kv-plan-feature">Slack bot — @mention or DM</li>
-        <li class="kv-plan-feature">Web Q&amp;A interface</li>
-        <li class="kv-plan-feature">Source citations on every answer</li>
-        <li class="kv-plan-feature">Unanswered questions log</li>
-        <li class="kv-plan-feature">Team member access</li>
-      </ul>
+      <%# Starter %>
+      <div class="lp-plan">
+        <div class="lp-plan-name">Starter</div>
+        <div class="lp-plan-price">
+          $29<span class="lp-price-per">/ month</span>
+        </div>
+        <div class="lp-plan-questions">
+          <span class="lp-qlimit">500</span>
+          <span class="lp-qlabel">questions / month</span>
+        </div>
+        <p class="lp-plan-desc">For small teams piloting InternalQ as their Slack knowledge bot.</p>
+        <ul class="lp-plan-features">
+          <li><%= check_svg %><span>Slack bot — @mention or DM</span></li>
+          <li><%= check_svg %><span>Up to 10 team members</span></li>
+          <li><%= check_svg %><span>Unanswered questions log</span></li>
+          <li><%= check_svg %><span>Source citations</span></li>
+          <li class="lp-feat-muted"><%= dash_svg %><span>Priority support</span></li>
+        </ul>
+        <div class="lp-plan-cta">
+          <%= link_to "Choose Starter",
+                      "mailto:support@internalq.zezlab.com?subject=InternalQ%20Starter%20plan",
+                      class: "lp-btn lp-btn-outline" %>
+        </div>
+      </div>
 
-      <div class="kv-plan-cta">
-        <% if user_signed_in? %>
-          <%= link_to "Go to dashboard", dashboard_path, class: "kv-secondary-button kv-plan-button" %>
-        <% else %>
+      <%# Pro — featured %>
+      <div class="lp-plan lp-plan-featured">
+        <span class="lp-plan-ribbon">Most popular</span>
+        <div class="lp-plan-name">Pro</div>
+        <div class="lp-plan-price">
+          $59<span class="lp-price-per">/ month</span>
+        </div>
+        <div class="lp-plan-questions">
+          <span class="lp-qlimit">3,000</span>
+          <span class="lp-qlabel">questions / month</span>
+        </div>
+        <p class="lp-plan-desc">The sweet spot for most growing teams that use InternalQ daily.</p>
+        <ul class="lp-plan-features">
+          <li><%= check_svg %><span>Everything in Starter</span></li>
+          <li><%= check_svg %><span>Up to 50 team members</span></li>
+          <li><%= check_svg %><span>Priority email support</span></li>
+          <li><%= check_svg %><span>Same-day onboarding</span></li>
+        </ul>
+        <div class="lp-plan-cta">
+          <%= link_to "Choose Pro",
+                      "mailto:support@internalq.zezlab.com?subject=InternalQ%20Pro%20plan",
+                      class: "lp-btn lp-btn-plan-primary" %>
+        </div>
+      </div>
+
+      <%# Business %>
+      <div class="lp-plan">
+        <div class="lp-plan-name">Business</div>
+        <div class="lp-plan-price">
+          $129<span class="lp-price-per">/ month</span>
+        </div>
+        <div class="lp-plan-questions">
+          <span class="lp-qlimit">15,000</span>
+          <span class="lp-qlabel">questions / month</span>
+        </div>
+        <p class="lp-plan-desc">For larger orgs and high-volume teams across multiple channels.</p>
+        <ul class="lp-plan-features">
+          <li><%= check_svg %><span>Everything in Pro</span></li>
+          <li><%= check_svg %><span>Up to 200 team members</span></li>
+          <li><%= check_svg %><span>Priority support</span></li>
+          <li><%= check_svg %><span>Dedicated Slack channel</span></li>
+        </ul>
+        <div class="lp-plan-cta">
+          <%= link_to "Choose Business",
+                      "mailto:support@internalq.zezlab.com?subject=InternalQ%20Business%20plan",
+                      class: "lp-btn lp-btn-outline" %>
+        </div>
+      </div>
+
+    </div><%# /plans-grid %>
+  </div><%# /shell %>
+</section>
+
+<%# ── Comparison table ── %>
+<section class="lp-compare-wrap">
+  <div class="lp-shell">
+    <div class="lp-section-head lp-centered" style="margin-bottom:40px;max-width:680px">
+      <div class="lp-section-eyebrow">Compare</div>
+      <h2 class="lp-section-title">Every feature, every plan.</h2>
+      <p class="lp-section-sub">No asterisks. No "contact us" walls for basic features.</p>
+    </div>
+
+    <div class="lp-compare-card">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>
+              <span class="lp-col-name">Free</span>
+              <span class="lp-col-price">$0 forever</span>
+            </th>
+            <th>
+              <span class="lp-col-name">Starter</span>
+              <span class="lp-col-price">$29 / month</span>
+            </th>
+            <th>
+              <span class="lp-col-name">Pro<span class="lp-featured-pill">Popular</span></span>
+              <span class="lp-col-price">$59 / month</span>
+            </th>
+            <th>
+              <span class="lp-col-name">Business</span>
+              <span class="lp-col-price">$129 / month</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="lp-group-row"><td colspan="5">Usage</td></tr>
+          <tr>
+            <td>Questions / month</td>
+            <td>50</td><td>500</td><td>3,000</td><td>15,000</td>
+          </tr>
+          <tr>
+            <td>Documents</td>
+            <td>Unlimited</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td>
+          </tr>
+          <tr>
+            <td>Team members</td>
+            <td>1–2</td><td>10</td><td>50</td><td>200</td>
+          </tr>
+
+          <tr class="lp-group-row"><td colspan="5">Capabilities</td></tr>
+          <tr>
+            <td>Slack bot</td>
+            <td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td>
+          </tr>
+          <tr>
+            <td>Web Q&amp;A interface</td>
+            <td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td>
+          </tr>
+          <tr>
+            <td>Source citations</td>
+            <td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td>
+          </tr>
+          <tr>
+            <td>Unanswered questions log</td>
+            <td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td>
+          </tr>
+          <tr class="lp-group-row"><td colspan="5">Support</td></tr>
+          <tr>
+            <td>Email support</td>
+            <td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td><td><%= val_check %></td>
+          </tr>
+          <tr>
+            <td>Priority support</td>
+            <td><%= val_dash %></td><td><%= val_dash %></td><td><%= val_check %></td><td><%= val_check %></td>
+          </tr>
+          <tr>
+            <td>Onboarding</td>
+            <td>—</td><td>Self-serve</td><td>Same-day</td><td>Dedicated</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<%# ── Pricing FAQ ── %>
+<section class="lp-block" style="padding-top:0">
+  <div class="lp-shell">
+    <div class="lp-section-head lp-centered" style="max-width:760px;margin-bottom:32px">
+      <div class="lp-section-eyebrow">FAQ</div>
+      <h2 class="lp-section-title">Pricing questions, answered.</h2>
+    </div>
+
+    <div class="lp-faq lp-pricing-faq" data-controller="lp-faq">
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>What counts as a question?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          Each question asked — in Slack or the web app — uses one question from your monthly allowance. Uploading documents, editing them, or re-running the bot's own clarifying replies don't count.
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>What happens when I hit my monthly limit?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          The Slack bot posts a message in the channel letting your team know the limit has been reached. Your documents and history stay intact — you just can't ask new questions until the month resets or you upgrade. We never auto-charge overages.
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>Can I change plans later?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          Yes. Upgrade or downgrade any time. Upgrades take effect immediately, downgrades at the next billing cycle. We'll prorate the difference on your next invoice.
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>Do you offer annual pricing?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          Yes — pay annually and get two months free. Email <a href="mailto:support@internalq.zezlab.com" style="color:#0f766e">support@internalq.zezlab.com</a> to switch over.
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>Is my data private?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          Yes. Your documents are only used to answer your own team's questions. They're encrypted at rest and never used to train AI models. See our <%= link_to "security section", root_path(anchor: "security"), style: "color:#0f766e" %> for details.
+        </div>
+      </div>
+
+      <div class="lp-faq-item" data-lp-faq-target="item">
+        <button class="lp-faq-q" data-action="click->lp-faq#toggle">
+          <span>Need more than 15,000 questions?</span>
+          <%= plus_svg %>
+        </button>
+        <div class="lp-faq-a">
+          Email us at <a href="mailto:support@internalq.zezlab.com" style="color:#0f766e">support@internalq.zezlab.com</a>. We have custom plans for high-volume teams with dedicated support, custom integrations, and volume-based pricing.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%# ── Final CTA ── %>
+<section class="lp-block" style="padding-top:0;padding-bottom:80px">
+  <div class="lp-shell">
+    <div class="lp-final-cta">
+      <div class="lp-final-cta-inner">
+        <h2>Start free. Upgrade when your team is hooked.</h2>
+        <p>No credit card to install. No surprise charges. We'll tell you before you hit your limit.</p>
+        <div class="lp-hero-actions">
           <%= button_to user_google_oauth2_omniauth_authorize_path,
                         method: :post,
-                        class: "kv-secondary-button kv-plan-button",
-                        form: { data: { turbo: false } } do %>
+                        class: "lp-btn lp-btn-brand",
+                        data: { no_loading: true },
+                        form: { data: { turbo: false }, style: "margin:0" } do %>
             Get started free
           <% end %>
-        <% end %>
+          <%= link_to "Talk to a human",
+                      "mailto:support@internalq.zezlab.com",
+                      class: "lp-btn lp-btn-outline" %>
+        </div>
+        <div class="lp-final-meta">
+          <span class="lp-meta-item">
+            <svg class="lp-icon-sm" viewBox="0 0 16 16" fill="none"><path d="M3 8.4 6.4 12 13 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            50 free questions / month
+          </span>
+          <span class="lp-meta-item">
+            <svg class="lp-icon-sm" viewBox="0 0 16 16" fill="none"><path d="M3 8.4 6.4 12 13 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            No credit card
+          </span>
+          <span class="lp-meta-item">
+            <svg class="lp-icon-sm" viewBox="0 0 16 16" fill="none"><path d="M3 8.4 6.4 12 13 4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            2-minute setup
+          </span>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <%# ── Pro plan ── %>
-    <div class="kv-plan-card kv-plan-card-pro kv-table-card">
-      <div class="kv-plan-header">
-        <div class="kv-plan-name-row">
-          <span class="kv-plan-name">Pro</span>
-          <span class="kv-tag kv-plan-badge">Best for growing teams</span>
-        </div>
-        <div class="kv-plan-price">
-          <span class="kv-plan-amount">$29</span>
-          <span class="kv-plan-period">/ month</span>
-        </div>
-        <p class="kv-plan-desc">Unlimited questions for teams that use InternalQ every day.</p>
-      </div>
-
-      <ul class="kv-plan-features">
-        <li class="kv-plan-feature kv-plan-feature-highlight">Unlimited questions</li>
-        <li class="kv-plan-feature">Unlimited documents</li>
-        <li class="kv-plan-feature">PDF &amp; Word file support (up to 10 MB)</li>
-        <li class="kv-plan-feature">Slack bot — @mention or DM</li>
-        <li class="kv-plan-feature">Web Q&amp;A interface</li>
-        <li class="kv-plan-feature">Source citations on every answer</li>
-        <li class="kv-plan-feature">Unanswered questions log</li>
-        <li class="kv-plan-feature">Team member access</li>
-        <li class="kv-plan-feature">Priority email support</li>
-      </ul>
-
-      <div class="kv-plan-cta">
-        <a href="mailto:support@internalq.zezlab.com?subject=InternalQ%20Pro%20upgrade"
-           class="kv-primary-button kv-plan-button">
-          Contact us to upgrade
+<%# ── Footer ── %>
+<footer class="lp-footer">
+  <div class="lp-shell">
+    <div class="lp-footer-grid">
+      <div>
+        <a href="<%= root_path %>" class="lp-nav-brand">
+          <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
+          InternalQ
         </a>
-        <p class="kv-plan-cta-note">We reply within 24 hours and get you set up same day.</p>
+        <p class="lp-footer-tagline">An AI knowledge assistant for Slack teams. Cited answers from your own documents — never the open web.</p>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><%= link_to "How it works", root_path(anchor: "how") %></li>
+          <li><%= link_to "Examples",     root_path(anchor: "demo") %></li>
+          <li><%= link_to "Pricing",      pricing_path %></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Trust</h5>
+        <ul>
+          <li><%= link_to "Security",       root_path(anchor: "security") %></li>
+          <li><%= link_to "Privacy policy", privacy_path %></li>
+          <li><%= link_to "Terms of use",   terms_path %></li>
+        </ul>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><%= link_to "Support",  support_path %></li>
+          <li><a href="mailto:support@internalq.zezlab.com">Email us</a></li>
+        </ul>
       </div>
     </div>
 
-  </div>
-
-  <%# ── FAQ ── %>
-  <div class="kv-pricing-faq">
-    <div class="kv-pricing-faq-item">
-      <span class="kv-pricing-faq-q">What counts as a question?</span>
-      <span class="kv-pricing-faq-a">Each question asked — in Slack or the web app — uses one question from your monthly allowance. Uploading or deleting documents does not count.</span>
-    </div>
-    <div class="kv-pricing-faq-item">
-      <span class="kv-pricing-faq-q">What happens when I hit the limit?</span>
-      <span class="kv-pricing-faq-a">The Slack bot will notify you. Your documents and all your data stay intact — you just can't ask new questions until the month resets or you upgrade.</span>
-    </div>
-    <div class="kv-pricing-faq-item">
-      <span class="kv-pricing-faq-q">How does upgrading work?</span>
-      <span class="kv-pricing-faq-a">Email <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a>. We'll send you a payment link and enable unlimited questions for your organization — usually same day.</span>
-    </div>
-    <div class="kv-pricing-faq-item">
-      <span class="kv-pricing-faq-q">Is my data private?</span>
-      <span class="kv-pricing-faq-a">Yes. Your documents are only used to answer your own team's questions. They are never shared with other organizations or used to train AI models.</span>
+    <div class="lp-footer-bottom">
+      <span>&copy; 2026 InternalQ</span>
+      <span class="lp-footer-status">
+        <span class="lp-status-dot"></span>
+        All systems operational
+      </span>
     </div>
   </div>
-
-  <div class="kv-soft-divider"></div>
-  <p class="kv-meta-text kv-meta-muted">
-    Questions? <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a> ·
-    <%= link_to "Privacy policy", privacy_path %> ·
-    <%= link_to "Support", support_path %>
-  </p>
-</div>
+</footer>

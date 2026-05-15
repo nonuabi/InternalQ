@@ -1,7 +1,7 @@
 # Public pages for Slack App Directory / marketplace requirements.
 # No authentication required — used as Installation landing, Privacy policy, and Support URLs.
 class PagesController < ApplicationController
-  layout "application"
+  layout :page_layout
 
   def installation
     # Send guests to sign up first; after sign up/log in they start the onboarding flow (Q&A page with upload CTA).
@@ -28,5 +28,11 @@ class PagesController < ApplicationController
 
   def sitemap
     render layout: false
+  end
+
+  private
+
+  def page_layout
+    %w[installation pricing privacy terms support].include?(action_name) ? "landing" : "application"
   end
 end
