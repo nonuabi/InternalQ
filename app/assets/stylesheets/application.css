@@ -3208,3 +3208,201 @@ a:hover {
 }
 .lp-doc-cta .lp-actions { display: inline-flex; gap: 10px; flex-wrap: wrap; }
 
+/* ── Terms page — plain-English summary strip ── */
+.lp-tldr-strip {
+  padding: 48px 0;
+  border-bottom: 1px solid #e9e7e1;
+  background: #ffffff;
+}
+.lp-tldr-card {
+  background: #fafaf7;
+  border: 1px solid #e9e7e1;
+  border-radius: 18px;
+  padding: 32px;
+}
+.lp-tldr-card .lp-tldr-label {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0f766e;
+  margin-bottom: 18px;
+}
+.lp-tldr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 32px;
+}
+@media (max-width: 720px) {
+  .lp-tldr-list { grid-template-columns: 1fr; }
+}
+.lp-tldr-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 14.5px;
+  color: #1f2a28;
+  line-height: 1.5;
+}
+.lp-tldr-list li .lp-n {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  color: #0f766e;
+  background: #f0fdfa;
+  border: 1px solid rgba(13,148,136,0.18);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-align: center;
+  display: inline-block;
+  letter-spacing: 0;
+}
+.lp-tldr-list li strong { color: #0b0f0e; font-weight: 500; }
+
+/* ── Support page ── */
+.lp-support-block {
+  padding: 64px 0;
+}
+.lp-support-block + .lp-support-block { padding-top: 0; }
+
+.lp-support-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 40px;
+}
+@media (max-width: 1000px) { .lp-support-actions { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 540px)  { .lp-support-actions { grid-template-columns: 1fr; } }
+
+.lp-support-action {
+  background: #ffffff;
+  border: 1px solid #e9e7e1;
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  text-decoration: none;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.lp-support-action:hover { border-color: #d8d6cf; transform: translateY(-1px); }
+.lp-support-action .lp-glyph {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: #f0fdfa;
+  border: 1px solid rgba(13,148,136,0.18);
+  color: #0f766e;
+  display: grid;
+  place-items: center;
+  margin-bottom: 4px;
+}
+.lp-support-action h3 {
+  margin: 0;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: #0b0f0e;
+}
+.lp-support-action p {
+  margin: 0;
+  color: #5b6660;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.lp-support-action .lp-action-link {
+  margin-top: auto;
+  padding-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0f766e;
+  font-weight: 500;
+  font-size: 13.5px;
+}
+
+.lp-slack-examples {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 880px) { .lp-slack-examples { grid-template-columns: 1fr; } }
+
+.lp-slack-example {
+  background: #ffffff;
+  border: 1px solid #e9e7e1;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.lp-slack-example header {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid #e9e7e1;
+}
+.lp-slack-example header h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #0b0f0e;
+}
+.lp-slack-example header h3 .lp-kind {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0f766e;
+  background: #f0fdfa;
+  border: 1px solid rgba(13,148,136,0.18);
+  padding: 3px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.lp-slack-example header p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #5b6660;
+  line-height: 1.5;
+}
+.lp-slack-example .lp-demo-msg {
+  padding: 20px 22px;
+  background: #fafaf7;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+}
+.lp-slack-example .lp-demo-msg + .lp-demo-msg { border-top: 1px solid #e9e7e1; }
+.lp-slack-example .lp-demo-msg .lp-av {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  background: #b45f06;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+.lp-slack-example .lp-demo-msg .lp-av.lp-bot {
+  background: #0d9488;
+  font-family: "Geist Mono", ui-monospace, monospace;
+}
+.lp-slack-example .lp-demo-msg .lp-who {
+  display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px;
+}
+.lp-slack-example .lp-demo-msg .lp-nm { font-weight: 600; font-size: 13.5px; color: #0b0f0e; }
+.lp-slack-example .lp-demo-msg .lp-ts { font-size: 11.5px; color: #8a938d; }
+.lp-slack-example .lp-demo-msg .lp-msg-body { font-size: 14px; color: #1f2a28; line-height: 1.5; }
+.lp-slack-example .lp-demo-msg .lp-mention {
+  color: #0f766e;
+  background: #f0fdfa;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
