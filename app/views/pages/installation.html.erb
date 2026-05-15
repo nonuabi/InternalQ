@@ -33,6 +33,7 @@
       <%= button_to user_google_oauth2_omniauth_authorize_path,
                     method: :post,
                     class: "lp-btn lp-btn-brand lp-btn-brand-sm",
+                    data: { no_loading: true },
                     form: { data: { turbo: false }, style: "margin:0" } do %>
         Get started free
       <% end %>
@@ -64,6 +65,7 @@
           <%= button_to user_google_oauth2_omniauth_authorize_path,
                         method: :post,
                         class: "lp-btn lp-btn-brand",
+                        data: { no_loading: true },
                         form: { data: { turbo: false }, style: "margin:0" } do %>
             Get started free
           <% end %>
@@ -653,6 +655,7 @@
           <%= button_to user_google_oauth2_omniauth_authorize_path,
                         method: :post,
                         class: "lp-btn lp-btn-brand",
+                        data: { no_loading: true },
                         form: { data: { turbo: false }, style: "margin:0" } do %>
             Get started free
           <% end %>
