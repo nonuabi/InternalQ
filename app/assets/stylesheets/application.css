@@ -2961,3 +2961,250 @@ a:hover {
 /* ── Pricing FAQ ── */
 .lp-pricing-faq { max-width: 760px; margin: 0 auto; }
 
+/* ── Privacy page ── */
+.lp-page-header.doc { text-align: left; }
+.lp-page-header.doc .lp-shell { max-width: 1180px; }
+.lp-page-header.doc .lp-section-eyebrow { display: block; }
+.lp-page-header.doc p { margin-left: 0; }
+.lp-page-header.doc .lp-updated {
+  margin-top: 24px;
+  font-size: 13px;
+  color: #8a938d;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+.lp-page-header.doc .lp-updated .lp-dot {
+  display: inline-block;
+  width: 4px; height: 4px;
+  border-radius: 999px;
+  background: #0d9488;
+  margin: 0 8px 2px;
+  vertical-align: middle;
+}
+
+.lp-commit-strip {
+  padding: 56px 0;
+  border-bottom: 1px solid #e9e7e1;
+  background: #ffffff;
+}
+.lp-commit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid #e9e7e1;
+  border-radius: 18px;
+  background: #e9e7e1;
+  overflow: hidden;
+}
+.lp-commit-grid > * + * { box-shadow: -1px 0 0 #e9e7e1; }
+@media (max-width: 880px) {
+  .lp-commit-grid { grid-template-columns: 1fr; }
+  .lp-commit-grid > * + * { box-shadow: 0 -1px 0 #e9e7e1; }
+}
+.lp-commit {
+  background: #ffffff;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lp-commit .lp-glyph {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: #f0fdfa;
+  border: 1px solid rgba(13,148,136,0.18);
+  color: #0f766e;
+  display: grid; place-items: center;
+  margin-bottom: 4px;
+}
+.lp-commit h3 {
+  margin: 0;
+  font-size: 15.5px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: #0b0f0e;
+}
+.lp-commit p {
+  margin: 0;
+  color: #5b6660;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.lp-doc-wrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 72px;
+  padding: 64px 0 96px;
+  align-items: flex-start;
+}
+@media (max-width: 920px) {
+  .lp-doc-wrap { grid-template-columns: 1fr; gap: 28px; padding: 40px 0 64px; }
+}
+
+.lp-doc-toc {
+  position: sticky;
+  top: 88px;
+  font-size: 13.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+@media (max-width: 920px) {
+  .lp-doc-toc { position: static; }
+}
+.lp-doc-toc .lp-toc-label {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #8a938d;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.lp-doc-toc a {
+  display: block;
+  padding: 7px 0 7px 14px;
+  color: #5b6660;
+  border-left: 2px solid #e9e7e1;
+  transition: color 0.15s, border-color 0.15s;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.lp-doc-toc a:hover { color: #1f2a28; }
+.lp-doc-toc a.lp-toc-active {
+  color: #0b0f0e;
+  border-left-color: #0d9488;
+  font-weight: 500;
+}
+
+.lp-doc-body {
+  max-width: 720px;
+  font-size: 16.5px;
+  line-height: 1.68;
+  color: #394540;
+}
+.lp-doc-body section { scroll-margin-top: 88px; }
+.lp-doc-body section + section { margin-top: 56px; }
+.lp-doc-body h2 {
+  margin: 0 0 18px;
+  font-size: 24px;
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  color: #0b0f0e;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.lp-doc-body h2 .lp-num {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #0f766e;
+  background: #f0fdfa;
+  border: 1px solid rgba(13,148,136,0.18);
+  padding: 3px 8px;
+  border-radius: 6px;
+  vertical-align: middle;
+  flex-shrink: 0;
+  align-self: center;
+}
+.lp-doc-body p { margin: 0 0 14px; }
+.lp-doc-body p:last-child { margin-bottom: 0; }
+.lp-doc-body code {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 13.5px;
+  background: #f4f3ee;
+  border: 1px solid #e9e7e1;
+  padding: 1.5px 7px;
+  border-radius: 5px;
+  color: #0b0f0e;
+  font-weight: 500;
+}
+.lp-doc-body a {
+  color: #0f766e;
+  text-decoration: underline;
+  text-decoration-color: rgba(13,148,136,0.32);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.lp-doc-body a:hover { text-decoration-color: #0d9488; color: #0d9488; }
+.lp-doc-body .lp-callout {
+  margin: 22px 0;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  background: #f0fdfa;
+  border: 1px solid rgba(13,148,136,0.18);
+  border-radius: 12px;
+  color: #394540;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.lp-doc-body .lp-callout .lp-glyph {
+  width: 32px; height: 32px;
+  background: #ffffff;
+  border: 1px solid rgba(13,148,136,0.18);
+  color: #0f766e;
+  border-radius: 9px;
+  display: grid; place-items: center;
+}
+.lp-doc-body .lp-callout strong { color: #0b0f0e; }
+.lp-doc-body .lp-callout p { margin: 0; }
+.lp-doc-body .lp-callout p + p { margin-top: 6px; }
+
+.lp-scope-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 14px;
+}
+.lp-scope {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fafaf7;
+  border: 1px solid #e9e7e1;
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: #394540;
+}
+.lp-scope code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 13px;
+  color: #0f766e;
+  font-weight: 500;
+}
+.lp-scope .lp-desc { color: #5b6660; font-size: 12.5px; }
+
+.lp-doc-cta {
+  margin: 40px 0 0;
+  padding: 36px;
+  background: #f4f3ee;
+  border: 1px solid #e9e7e1;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.lp-doc-cta h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  letter-spacing: -0.012em;
+  font-weight: 600;
+  color: #0b0f0e;
+}
+.lp-doc-cta p {
+  margin: 0;
+  color: #5b6660;
+  font-size: 14.5px;
+}
+.lp-doc-cta .lp-actions { display: inline-flex; gap: 10px; flex-wrap: wrap; }
+
