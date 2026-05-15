@@ -33,6 +33,6 @@ class PagesController < ApplicationController
   private
 
   def page_layout
-    action_name == "installation" ? "landing" : "application"
+    %w[installation pricing].include?(action_name) ? "landing" : "application"
   end
 end

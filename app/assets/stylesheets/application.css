@@ -2654,3 +2654,310 @@ a:hover {
 .lp-icon-sm { width: 14px; height: 14px; }
 .lp-icon-md { width: 18px; height: 18px; }
 .lp-icon-lg { width: 20px; height: 20px; }
+
+/* ========== Pricing page ========== */
+
+/* ── Page header ── */
+.lp-page-header {
+  padding: 80px 0 56px;
+  border-bottom: 1px solid #e9e7e1;
+  background: linear-gradient(to bottom, rgba(13,148,136,0.04), transparent 70%);
+  text-align: center;
+}
+.lp-page-header h1 {
+  font-size: clamp(36px, 4.8vw, 56px);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  font-weight: 600;
+  margin: 16px 0 14px;
+  color: #0b0f0e;
+  text-wrap: balance;
+}
+.lp-page-header p {
+  font-size: 18px;
+  color: #5b6660;
+  margin: 0 auto;
+  max-width: 56ch;
+  line-height: 1.55;
+}
+.lp-page-header .lp-section-eyebrow {
+  justify-content: center;
+  display: inline-flex;
+}
+
+/* ── Plans grid ── */
+.lp-plans-wrap { padding: 56px 0 0; }
+.lp-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+@media (max-width: 920px) {
+  .lp-plans-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+}
+@media (max-width: 600px) {
+  .lp-plans-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Plan card ── */
+.lp-plan {
+  background: #ffffff;
+  border: 1px solid #e9e7e1;
+  border-radius: 16px;
+  padding: 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.lp-plan:hover { border-color: #d8d6cf; }
+
+.lp-plan-featured {
+  border-color: rgba(13,148,136,0.45);
+  background: linear-gradient(to bottom, rgba(13,148,136,0.04), #ffffff 40%);
+  box-shadow: 0 0 0 1px rgba(13,148,136,0.18), 0 24px 60px -28px rgba(13,148,136,0.28);
+}
+
+.lp-plan-ribbon {
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #fff;
+  background: #0d9488;
+  padding: 4px 9px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(13,148,136,0.3), 0 4px 12px -4px rgba(13,148,136,0.5);
+}
+
+.lp-plan-name {
+  font-size: 13px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5b6660;
+}
+
+.lp-plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 38px;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  color: #0b0f0e;
+  line-height: 1;
+  font-feature-settings: "tnum", "lnum";
+}
+.lp-price-per {
+  font-size: 14px;
+  color: #5b6660;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.lp-plan-questions {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 12px 14px;
+  background: #fafaf7;
+  border: 1px solid #e9e7e1;
+  border-radius: 10px;
+}
+.lp-plan-featured .lp-plan-questions {
+  background: #f0fdfa;
+  border-color: rgba(13,148,136,0.22);
+}
+.lp-qlimit {
+  font-family: "Geist", ui-sans-serif, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #0b0f0e;
+  font-feature-settings: "tnum", "lnum";
+}
+.lp-qlabel {
+  font-size: 13px;
+  color: #5b6660;
+}
+.lp-plan-featured .lp-qlabel { color: #0f766e; }
+
+.lp-plan-desc {
+  color: #5b6660;
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  min-height: 42px;
+}
+
+.lp-plan-features {
+  list-style: none;
+  padding: 16px 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid #e9e7e1;
+}
+.lp-plan-features li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 10px;
+  align-items: center;
+  font-size: 13.5px;
+  color: #1f2a28;
+  line-height: 1.45;
+}
+.lp-plan-features li.lp-feat-muted { color: #8a938d; }
+.lp-plan-features li svg { color: #0d9488; }
+.lp-plan-features li.lp-feat-muted svg { color: #8a938d; }
+
+.lp-plan-cta { margin-top: auto; }
+.lp-plan-cta .lp-btn { width: 100%; justify-content: center; }
+
+.lp-btn-plan-primary {
+  background: #0d9488;
+  color: #fff;
+  height: 42px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
+  box-shadow:
+    0 0 0 1px rgba(13,148,136,0.4),
+    0 1px 0 rgba(255,255,255,0.18) inset,
+    0 6px 18px -6px rgba(13,148,136,0.4);
+}
+.lp-btn-plan-primary:hover { background: #0f766e; color: #fff; }
+
+/* ── Beta band ── */
+.lp-beta-band {
+  margin: 0 auto 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background: #f4f3ee;
+  border: 1px solid #e9e7e1;
+  border-radius: 999px;
+  font-size: 13.5px;
+  color: #1f2a28;
+  width: max-content;
+  max-width: 100%;
+}
+.lp-beta-pill {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  color: #0f766e;
+  background: #f0fdfa;
+  border: 1px solid rgba(13,148,136,0.22);
+  padding: 3px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 600px) {
+  .lp-beta-band { font-size: 12.5px; padding: 10px 14px; }
+}
+
+/* ── Comparison table ── */
+.lp-compare-wrap { padding: 96px 0; }
+.lp-compare-card {
+  background: #ffffff;
+  border: 1px solid #e9e7e1;
+  border-radius: 18px;
+  overflow: hidden;
+}
+.lp-compare-card table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.lp-compare-card thead th {
+  text-align: left;
+  padding: 22px 20px 18px;
+  background: #fafaf7;
+  border-bottom: 1px solid #e9e7e1;
+  vertical-align: bottom;
+  font-weight: 500;
+}
+.lp-compare-card thead th:first-child {
+  width: 30%;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5b6660;
+  font-weight: 500;
+}
+.lp-compare-card .lp-col-name {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #0b0f0e;
+  margin-bottom: 6px;
+}
+.lp-compare-card .lp-col-price {
+  font-size: 13px;
+  color: #5b6660;
+  font-feature-settings: "tnum", "lnum";
+}
+.lp-compare-card .lp-featured-pill {
+  display: inline-block;
+  margin-left: 8px;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #0d9488;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: 2px;
+}
+.lp-compare-card tbody tr { border-top: 1px solid #e9e7e1; }
+.lp-compare-card tbody tr:first-child { border-top: 0; }
+.lp-compare-card tbody tr.lp-group-row td {
+  background: #fafaf7;
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5b6660;
+  padding: 12px 20px;
+  font-weight: 500;
+}
+.lp-compare-card td {
+  padding: 16px 20px;
+  vertical-align: middle;
+}
+.lp-compare-card td:first-child {
+  color: #1f2a28;
+  font-size: 14px;
+}
+.lp-compare-card td:not(:first-child) {
+  font-size: 13.5px;
+  color: #1f2a28;
+  font-feature-settings: "tnum", "lnum";
+}
+.lp-compare-card .lp-val-yes {
+  color: #0d9488;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.lp-compare-card .lp-val-no { color: #8a938d; }
+@media (max-width: 880px) {
+  .lp-compare-card { overflow-x: auto; }
+  .lp-compare-card table { min-width: 700px; }
+}
+
+/* ── Pricing FAQ ── */
+.lp-pricing-faq { max-width: 760px; margin: 0 auto; }
+
