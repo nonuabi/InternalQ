@@ -8,7 +8,7 @@
         </p>
       <% else %>
         <h1>Upload document</h1>
-        <p class="kv-page-subtitle"><strong>What:</strong> Add a PDF or DOCX (handbook, policy, runbook) so Q&A can answer from it. <strong>How:</strong> Give it a title, pick a file, and submit. We process it in the background; when status is complete, it's searchable.</p>
+        <p class="kv-page-subtitle"><strong>What:</strong> Add a PDF, DOCX, TXT, or Markdown (handbook, policy, runbook) so Q&A can answer from it. <strong>How:</strong> Give it a title, pick a file, and submit. We process it in the background; when status is complete, it's searchable.</p>
       <% end %>
     </div>
 
@@ -43,7 +43,7 @@
       <div class="kv-field-label">File</div>
       <%= f.file_field :file, class: "kv-file-input" %>
       <div class="kv-field-hint">
-        PDF or DOCX. Max size 10 MB. Large files are chunked automatically for search.
+        PDF, DOCX, TXT, or Markdown. Max size 10 MB. Large files are chunked automatically for search.
       </div>
       <% if @document.errors[:file].any? %>
         <div class="kv-field-error">

@@ -21,11 +21,12 @@ class Document < ApplicationRecord
     end
   end
 
+  # only allow pdf, docx, txt, markdown
   def file_content_type_allowed
     return unless file.attached?
 
-    if [ "application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ].exclude?(file.blob.content_type)
-      errors.add(:file, "must be a PDF or DOCX")
+    if [ "application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "text/plain", "text/markdown" ].exclude?(file.blob.content_type)
+      errors.add(:file, "must be a PDF, DOCX, TXT, or Markdown")
     end
   end
 end

@@ -90,7 +90,7 @@
     <div class="kv-empty-state">
       <div class="kv-empty-main">
         <div class="kv-empty-title">No documents yet</div>
-        <div class="kv-empty-subtitle">Upload a PDF or DOCX (e.g. handbook, policy) to unlock Q&A. Only admins can upload.</div>
+        <div class="kv-empty-subtitle">Upload a PDF, DOCX, TXT, or Markdown (e.g. handbook, policy) to unlock Q&A. Only admins can upload.</div>
       </div>
       <% if current_user.admin? %>
         <%= link_to "Upload document", new_document_path, class: "kv-primary-button" %>

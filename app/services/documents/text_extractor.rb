@@ -17,6 +17,10 @@ module Documents
           extract_text_from_pdf(tempfile)
       when ".docx"
           extract_text_from_docx(tempfile)
+      when ".txt"
+          extract_text_from_txt(tempfile)
+      when ".md"
+          extract_text_from_md(tempfile)
       else
           raise "Unsupported file type: #{extension}"
       end
@@ -36,6 +40,14 @@ module Documents
     def self.extract_text_from_docx(tempfile)
       doc = Docx::Document.open(tempfile)
       doc.paragraphs.map(&:text).join("\n")
+    end
+
+    def self.extract_text_from_txt(tempfile)
+      File.read(tempfile)
+    end
+
+    def self.extract_text_from_md(tempfile)
+      File.read(tempfile)
     end
   end
 end
