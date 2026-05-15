@@ -126,7 +126,6 @@
       <footer class="kv-footer">
         <% if defined?(user_signed_in?) && user_signed_in? %>
           <span class="kv-footer-links">
-            <span>InternalQ · </span>
             <%= link_to dashboard_path, class: "kv-footer-link" do %>
               Dashboard<% if current_user.organization.present? %> · <%= current_user.organization.name %><% end %>
             <% end %>
@@ -135,16 +134,6 @@
             <%= link_to "Terms", terms_path %>
             <%= link_to "Support", support_path %>
           </span>
-        <% else %>
-          <span class="kv-footer-links">
-            <%= link_to "Get started free", root_path %>
-            <%= link_to "Pricing", pricing_path %>
-            <%= link_to "Privacy", privacy_path %>
-            <%= link_to "Terms", terms_path %>
-            <%= link_to "Support", support_path %>
-            <a href="mailto:support@internalq.zezlab.com">support@internalq.zezlab.com</a>
-          </span>
-          <span class="kv-footer-copy">&copy; <%= Time.current.year %> InternalQ</span>
         <% end %>
       </footer>
     </div>
