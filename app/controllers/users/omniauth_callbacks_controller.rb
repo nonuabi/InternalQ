@@ -12,10 +12,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   rescue StandardError => e
     Rails.logger.error("Google OAuth error: #{e.class} - #{e.message}")
-    redirect_to new_user_session_path, alert: "Something went wrong while signing in with Google. Please try again."
+    redirect_to root_path, alert: "Something went wrong while signing in with Google. Please try again."
   end
 
   def failure
-    redirect_to new_user_session_path, alert: "Google sign in was cancelled or failed. Please try again."
+    redirect_to root_path, alert: "Google sign in was cancelled or failed. Please try again."
   end
 end

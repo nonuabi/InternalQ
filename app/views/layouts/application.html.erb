@@ -104,10 +104,6 @@
                               data: { turbo_confirm: "Are you sure you want to log out?" } %>
               </div>
             </div>
-          <% else %>
-            <nav class="kv-nav kv-nav-public">
-              <%= link_to "Log in", new_user_session_path, class: (current_page?(new_user_session_path) ? "kv-nav-active" : "") %>
-            </nav>
           <% end %>
         </div>
       </header>

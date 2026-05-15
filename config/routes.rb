@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # --- Auth (Devise) ---
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [ :registrations ]
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", sessions: "users/sessions" }, skip: [ :registrations ]
 
   devise_scope :user do
     get "users/sign_up", to: redirect("/users/sign_in")
