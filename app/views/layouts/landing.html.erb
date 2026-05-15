@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= content_for?(:title) ? yield(:title) : "InternalQ · AI knowledge assistant for Slack teams" %></title>
+    <meta name="description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : seo_description %>">
+    <link rel="canonical" href="<%= content_for?(:canonical_url) ? yield(:canonical_url) : seo_canonical %>">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="InternalQ">
+    <meta property="og:title" content="<%= content_for?(:title) ? yield(:title) : seo_title %>">
+    <meta property="og:description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : seo_description %>">
+    <meta property="og:url" content="<%= content_for?(:canonical_url) ? yield(:canonical_url) : seo_canonical %>">
+    <meta property="og:image" content="<%= SeoHelper::DEFAULT_OG_IMAGE %>">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="<%= content_for?(:title) ? yield(:title) : seo_title %>">
+    <meta name="twitter:description" content="<%= content_for?(:meta_description) ? yield(:meta_description) : seo_description %>">
+    <meta name="twitter:image" content="<%= SeoHelper::DEFAULT_OG_IMAGE %>">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="icon" href="/icon.png" type="image/png" sizes="192x192">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="lp-body">
+    <%= yield %>
+  </body>
+</html>
