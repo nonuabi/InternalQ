@@ -1,0 +1,13 @@
+<% if user_signed_in? %><div class="lp-body"><% end %>
+
+<% unless user_signed_in? %>
+  <%= render "pages/landing_nav", active: local_assigns[:active] %>
+<% end %>
+
+<%= yield %>
+
+<% unless user_signed_in? %>
+  <%= render "pages/landing_footer", active: local_assigns[:active] %>
+<% end %>
+
+<% if user_signed_in? %></div><% end %>

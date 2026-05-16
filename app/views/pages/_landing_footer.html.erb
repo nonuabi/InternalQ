@@ -1,0 +1,65 @@
+<% active = local_assigns.fetch(:active, nil) %>
+
+<footer class="lp-footer">
+  <div class="lp-shell">
+    <div class="lp-footer-grid">
+      <div>
+        <a href="<%= root_path %>" class="lp-nav-brand">
+          <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
+          InternalQ
+        </a>
+        <p class="lp-footer-tagline">An AI knowledge assistant for Slack teams. Cited answers from your own documents — never the open web.</p>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><%= link_to "How it works", root_path(anchor: "how") %></li>
+          <li><%= link_to "Examples",     root_path(anchor: "demo") %></li>
+          <li>
+            <% if active == :pricing %>
+              <%= lp_landing_link "Pricing", pricing_path, active: true %>
+            <% else %>
+              <%= link_to "Pricing", pricing_path %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Trust</h5>
+        <ul>
+          <li><%= link_to "Security", root_path(anchor: "security") %></li>
+          <li>
+            <%= lp_landing_link "Privacy policy", privacy_path, active: active == :privacy %>
+          </li>
+          <li>
+            <% if active == :terms %>
+              <%= lp_landing_link "Terms of service", terms_path, active: true %>
+            <% else %>
+              <%= link_to "Terms of use", terms_path %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lp-footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li>
+            <%= lp_landing_link "Support", support_path, active: active == :support %>
+          </li>
+          <li><a href="mailto:support@internalq.zezlab.com">Email us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lp-footer-bottom">
+      <span>&copy; 2026 InternalQ</span>
+      <span class="lp-footer-status">
+        <span class="lp-status-dot"></span>
+        All systems operational
+      </span>
+    </div>
+  </div>
+</footer>

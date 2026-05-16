@@ -1,6 +1,9 @@
 # Public pages for Slack App Directory / marketplace requirements.
 # No authentication required — used as Installation landing, Privacy policy, and Support URLs.
 class PagesController < ApplicationController
+  LANDING_LAYOUT_ACTIONS = %w[installation pricing privacy terms support].freeze
+  APP_SHELL_ACTIONS = %w[pricing privacy terms support].freeze
+
   layout :page_layout
 
   def installation
@@ -33,6 +36,12 @@ class PagesController < ApplicationController
   private
 
   def page_layout
-    %w[installation pricing privacy terms support].include?(action_name) ? "landing" : "application"
+    if user_signed_in? && APP_SHELL_ACTIONS.include?(action_name)
+      "application"
+    elsif LANDING_LAYOUT_ACTIONS.include?(action_name)
+      "landing"
+    else
+      "application"
+    end
   end
 end

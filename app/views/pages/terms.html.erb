@@ -4,35 +4,7 @@
 
 <% mail_svg = '<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="m3.5 6 6.5 5 6.5-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>'.html_safe %>
 
-<%# ── Nav ── %>
-<header class="lp-nav" data-controller="lp-nav">
-  <div class="lp-shell lp-nav-inner">
-    <a href="<%= root_path %>" class="lp-nav-brand">
-      <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
-      InternalQ
-    </a>
-
-    <nav class="lp-nav-links" aria-label="Site navigation">
-      <%= link_to "How it works", root_path(anchor: "how") %>
-      <%= link_to "Examples",     root_path(anchor: "demo") %>
-      <%= link_to "Security",     root_path(anchor: "security") %>
-      <%= link_to "FAQ",          root_path(anchor: "faq") %>
-      <%= link_to "Pricing",      pricing_path %>
-    </nav>
-
-    <% unless user_signed_in? %>
-    <div class="lp-nav-cta">
-      <%= button_to user_google_oauth2_omniauth_authorize_path,
-                    method: :post,
-                    class: "lp-btn lp-btn-brand lp-btn-brand-sm",
-                    data: { no_loading: true },
-                    form: { data: { turbo: false }, style: "margin:0" } do %>
-        Get started free
-      <% end %>
-    </div>
-    <% end %>
-  </div>
-</header>
+<%= render layout: "pages/public_doc_shell", locals: { active: :terms } do %>
 
 <%# ── Page header ── %>
 <section class="lp-page-header doc">
@@ -144,51 +116,4 @@
   </div>
 </div>
 
-<%# ── Footer ── %>
-<footer class="lp-footer">
-  <div class="lp-shell">
-    <div class="lp-footer-grid">
-      <div>
-        <a href="<%= root_path %>" class="lp-nav-brand">
-          <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
-          InternalQ
-        </a>
-        <p class="lp-footer-tagline">An AI knowledge assistant for Slack teams. Cited answers from your own documents — never the open web.</p>
-      </div>
-
-      <div class="lp-footer-col">
-        <h5>Product</h5>
-        <ul>
-          <li><%= link_to "How it works", root_path(anchor: "how") %></li>
-          <li><%= link_to "Examples",     root_path(anchor: "demo") %></li>
-          <li><%= link_to "Pricing",      pricing_path %></li>
-        </ul>
-      </div>
-
-      <div class="lp-footer-col">
-        <h5>Trust</h5>
-        <ul>
-          <li><%= link_to "Security",       root_path(anchor: "security") %></li>
-          <li><%= link_to "Privacy policy", privacy_path %></li>
-          <li><span style="color:#0b0f0e;font-weight:500">Terms of service</span></li>
-        </ul>
-      </div>
-
-      <div class="lp-footer-col">
-        <h5>Company</h5>
-        <ul>
-          <li><%= link_to "Support",  support_path %></li>
-          <li><a href="mailto:support@internalq.zezlab.com">Email us</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="lp-footer-bottom">
-      <span>&copy; 2026 InternalQ</span>
-      <span class="lp-footer-status">
-        <span class="lp-status-dot"></span>
-        All systems operational
-      </span>
-    </div>
-  </div>
-</footer>
+<% end %>

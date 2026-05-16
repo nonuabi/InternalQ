@@ -1,0 +1,31 @@
+<% active = local_assigns.fetch(:active, nil) %>
+
+<header class="lp-nav" data-controller="lp-nav">
+  <div class="lp-shell lp-nav-inner">
+    <a href="<%= root_path %>" class="lp-nav-brand">
+      <%= image_tag "internalQ-icon.png", alt: "InternalQ", class: "lp-brand-logo" %>
+      InternalQ
+    </a>
+
+    <nav class="lp-nav-links" aria-label="Site navigation">
+      <%= lp_landing_link "How it works", root_path(anchor: "how") %>
+      <%= lp_landing_link "Examples",     root_path(anchor: "demo") %>
+      <%= lp_landing_link "Security",     root_path(anchor: "security") %>
+      <%= lp_landing_link "FAQ",          root_path(anchor: "faq") %>
+      <%= lp_landing_link "Pricing", pricing_path, active: active == :pricing %>
+      <% if active == :support %>
+        <%= lp_landing_link "Support", support_path, active: true %>
+      <% end %>
+    </nav>
+
+    <div class="lp-nav-cta">
+      <%= button_to user_google_oauth2_omniauth_authorize_path,
+                    method: :post,
+                    class: "lp-btn lp-btn-brand lp-btn-brand-sm",
+                    data: { no_loading: true },
+                    form: { data: { turbo: false }, style: "margin:0" } do %>
+        Get started free
+      <% end %>
+    </div>
+  </div>
+</header>
