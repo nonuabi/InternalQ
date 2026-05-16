@@ -50,7 +50,7 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   # Run jobs inline in development so you don't need Sidekiq/workers for testing.
-  config.active_job.queue_adapter = :inline
+  config.active_job.queue_adapter = :sidekiq
 
   # Append comments with runtime information tags to SQL queries in logs.
   config.active_record.query_log_tags_enabled = true
