@@ -15,7 +15,7 @@ gem "thruster", require: false
 gem "devise"
 gem "omniauth-google-oauth2"
 gem "sidekiq", ">= 7.3"
-gem "connection_pool", "~> 2.5", ">= 2.5.5"
+gem "connection_pool", "~> 3.0"
 gem "pgvector"
 gem "neighbor"
 gem "pdf-reader"
